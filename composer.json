@@ -1,0 +1,29 @@
+{
+	"name": "plummer/calendar",
+	"description": "Calendar generator that allows for recurring events.",
+	"keywords": [
+		"calendar",
+		"events",
+		"recurrence"
+	],
+	"homepage": "benplummer.co.uk",
+	"license": "MIT",
+	"authors" : [
+		{
+			"name": "Ben Plummer",
+			"email": "ben@benplummer.co.uk",
+			"role": "Developer"
+		}
+	],
+	"require": {
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-4": {
+			"Plummer\\Calendar\\": "src"
+		}
+	},
+	"extra": {
+	}
+}
