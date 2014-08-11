@@ -4,5 +4,5 @@ namespace Plummer\Calendar;
 
 interface RecurrenceInterface
 {
-	public function getEvents();
+	public function generate();
 }
