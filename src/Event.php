@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendar;
 
-abstract class Event
+class Event
 {
 	protected $recurrenceType;
 
