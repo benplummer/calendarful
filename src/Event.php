@@ -34,4 +34,9 @@ class Event
 	{
 		$this->recurrenceType = $recurrenceType;
 	}
+
+	public function setCalendar(Calendar $calendar)
+	{
+		$this->calendar = $calendar;
+	}
 }

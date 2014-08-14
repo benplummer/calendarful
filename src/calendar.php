@@ -31,6 +31,8 @@ class Calendar
 
 	public function addEvent(Event $event)
 	{
+		$event->setCalendar($this);
+
 		$this->events[] = $event;
 	}
 
