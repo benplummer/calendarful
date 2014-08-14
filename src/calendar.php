@@ -17,7 +17,7 @@ class Calendar
 		$this->addRecurrenceTypes($recurrenceTypes);
 	}
 
-	public static function make($name, array $events, array $recurrenceTypes)
+	public static function make($name, array $events = [], array $recurrenceTypes = [])
 	{
 		return new static($name, $events, $recurrenceTypes);
 	}
