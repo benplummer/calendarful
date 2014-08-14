@@ -25,7 +25,7 @@ class Event
 		$this->occurrenceDateStart = $occurrenceDateStart;
 	}
 
-	public static function make($name, $dateStart, $dateEnd, Calendar $calendar, $occurrenceDateStart = null)
+	public static function make($name, $dateStart, $dateEnd, Calendar $calendar = null, $occurrenceDateStart = null)
 	{
 		return new static($name, $dateStart, $dateEnd, $calendar, $occurrenceDateStart);
 	}
