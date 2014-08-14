@@ -12,22 +12,22 @@ class Event
 
 	protected $occurrenceDateStart;
 
-	protected $parent;
+	protected $calendar;
 
 	protected $recurrenceType;
 	
-	protected function __construct($name, $dateStart, $dateEnd, $parent = null, $occurrenceDateStart = null)
+	protected function __construct($name, $dateStart, $dateEnd, &$calendar, $occurrenceDateStart = null)
 	{
 		$this->name = $name;
 		$this->dateStart = $dateStart;
 		$this->dateEnd = $dateEnd;
-		$this->parent = $parent;
+		$this->calendar = $calendar;
 		$this->occurrenceDateStart = $occurrenceDateStart;
 	}
 
-	public static function make($name, $dateStart, $dateEnd, $parent = null, $occurrenceDateStart = null)
+	public static function make($name, $dateStart, $dateEnd, Calendar $calendar, $occurrenceDateStart = null)
 	{
-		return new static($name, $dateStart, $dateEnd, $parent, $occurrenceDateStart);
+		return new static($name, $dateStart, $dateEnd, $calendar, $occurrenceDateStart);
 	}
 
 	public function setRecurrenceType(RecurrenceInterface $recurrenceType)
