@@ -4,6 +4,8 @@ namespace Plummer\Calendar;
 
 class Event
 {
+	protected $uniqueId;
+
 	protected $name;
 
 	protected $dateStart;
@@ -16,18 +18,18 @@ class Event
 
 	protected $recurrenceType;
 	
-	protected function __construct($name, $dateStart, $dateEnd, &$calendar, $occurrenceDateStart = null)
+	protected function __construct($uniqueId, $name, $dateStart, $dateEnd, $occurrenceDateStart = null)
 	{
+		$this->uniqueId = $uniqueId;
 		$this->name = $name;
 		$this->dateStart = $dateStart;
 		$this->dateEnd = $dateEnd;
-		$this->calendar = $calendar;
 		$this->occurrenceDateStart = $occurrenceDateStart;
 	}
 
-	public static function make($name, $dateStart, $dateEnd, Calendar $calendar = null, $occurrenceDateStart = null)
+	public static function make($name, $dateStart, $dateEnd, $occurrenceDateStart = null)
 	{
-		return new static($name, $dateStart, $dateEnd, $calendar, $occurrenceDateStart);
+		return new static($name, $dateStart, $dateEnd, $occurrenceDateStart);
 	}
 
 	public function setRecurrenceType(RecurrenceInterface $recurrenceType)
@@ -35,7 +37,7 @@ class Event
 		$this->recurrenceType = $recurrenceType;
 	}
 
-	public function setCalendar(Calendar $calendar)
+	public function setCalendar(Calendar &$calendar)
 	{
 		$this->calendar = $calendar;
 	}
