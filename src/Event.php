@@ -15,8 +15,6 @@ class Event
 	protected $occurrenceDateStart;
 
 	protected $calendar;
-
-	protected $recurrenceType;
 	
 	protected function __construct($uniqueId, $name, $dateStart, $dateEnd, $occurrenceDateStart = null)
 	{
@@ -30,11 +28,6 @@ class Event
 	public static function make($name, $dateStart, $dateEnd, $occurrenceDateStart = null)
 	{
 		return new static($name, $dateStart, $dateEnd, $occurrenceDateStart);
-	}
-
-	public function setRecurrenceType(RecurrenceInterface $recurrenceType)
-	{
-		$this->recurrenceType = $recurrenceType;
 	}
 
 	public function setCalendar(Calendar &$calendar)
