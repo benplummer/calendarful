@@ -1,6 +1,6 @@
 <?php
 
-namespace Calendar;
+namespace Plummer\Calendar;
 
 interface EventAdaptor
 {

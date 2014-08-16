@@ -1,8 +1,8 @@
 <?php
 
-namespace Calendar;
+namespace Plummer\Calendar;
 
 interface EventInterface
 {
-	
+
 }
