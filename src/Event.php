@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendar;
 
-class Event
+class Event implements EventInterface
 {
 	protected $uniqueId;
 
