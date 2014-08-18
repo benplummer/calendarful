@@ -16,13 +16,12 @@ class Event implements EventInterface
 
 	protected $calendar;
 	
-	protected function __construct($uniqueId, $name, $dateStart, $dateEnd, $occurrenceDateStart = null)
+	protected function __construct($uniqueId, $name, $dateStart, $dateEnd)
 	{
 		$this->uniqueId = $uniqueId;
 		$this->name = $name;
 		$this->dateStart = $dateStart;
 		$this->dateEnd = $dateEnd;
-		$this->occurrenceDateStart = $occurrenceDateStart;
 	}
 
 	public static function make($name, $dateStart, $dateEnd, $occurrenceDateStart = null)
