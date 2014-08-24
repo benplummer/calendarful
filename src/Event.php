@@ -4,8 +4,6 @@ namespace Plummer\Calendar;
 
 class Event implements EventInterface
 {
-	protected $uniqueId;
-
 	protected $name;
 
 	protected $startDate;
@@ -18,9 +16,8 @@ class Event implements EventInterface
 
 	protected $parent;
 	
-	protected function __construct($uniqueId, $name, $startDate, $endDate)
+	protected function __construct($name, $startDate, $endDate)
 	{
-		$this->uniqueId = $uniqueId;
 		$this->name = $name;
 		$this->startDate = $startDate;
 		$this->endDate = $endDate;
