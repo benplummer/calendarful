@@ -9,8 +9,10 @@ class CalendarFactory
 		return static::fromIterator($registry->getIterator());
 	}
 
-	public static function fromIterator(Iterator $iterator)
+	public static function fromIterator(\Iterator $iterator)
 	{
+		$calendar = Calendar::make($iterator);
 
+		return $calendar;
 	}
 }

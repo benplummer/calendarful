@@ -4,22 +4,18 @@ namespace Plummer\Calendar;
 
 class Calendar
 {
-	protected $name;
-
 	protected $events;
 
 	protected $recurrenceTypes;
 
-	protected function __construct($name, array $events, array $recurrenceTypes)
+	protected function __construct(\Iterator $events)
 	{
-		$this->name = $name;
-		$this->addEvents($events);
-		$this->addRecurrenceTypes($recurrenceTypes);
+		$this->events = $events;
 	}
 
-	public static function make($name, array $events = [], array $recurrenceTypes = [])
+	public static function make(\Iterator $events)
 	{
-		return new static($name, $events, $recurrenceTypes);
+		return new static($events);
 	}
 
 	public function addEvents(array $events)
