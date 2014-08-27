@@ -42,6 +42,6 @@ class Calendar
 
 	public function addRecurrenceType(RecurrenceInterface $recurrenceType)
 	{
-		$this->recurrenceTypes[] = $recurrenceType;
+		$this->recurrenceTypes[$recurrenceType->getLabel()] = $recurrenceType;
 	}
 }
