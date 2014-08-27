@@ -8,14 +8,15 @@ class Calendar
 
 	protected $recurrenceTypes;
 
-	protected function __construct(\Iterator $events)
+	protected function __construct(\Iterator $events, $recurrenceTypes)
 	{
 		$this->events = $events;
+		$this->addRecurrenceTypes($recurrenceTypes);
 	}
 
-	public static function make(\Iterator $events)
+	public static function make(\Iterator $events, $recurrenceTypes = [])
 	{
-		return new static($events);
+		return new static($events, $recurrenceTypes);
 	}
 
 	public function addEvents(array $events)
