@@ -26,7 +26,7 @@ class Calendar
 		}
 	}
 
-	public function addEvent(Event $event)
+	public function addEvent(EventInterface $event)
 	{
 		$event->setCalendar($this);
 
