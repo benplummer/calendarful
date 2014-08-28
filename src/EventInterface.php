@@ -13,4 +13,6 @@ interface EventInterface
 	public function getOccurrenceDate();
 
 	public function getParent();
+
+	public function setCalendar(Calendar &$calendar);
 }
