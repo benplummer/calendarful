@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendar;
 
-abstract class Registry implements RegistryInterface
+abstract class RegistryAbstract implements RegistryInterface
 {
 	public function getIterator()
 	{
