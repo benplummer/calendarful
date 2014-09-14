@@ -1,6 +1,8 @@
 <?php
 
-namespace Plummer\Calendar;
+namespace Plummer\Calendar\Recurrence;
+
+use Plummer\Calendar\RecurrenceInterface;
 
 class Daily implements RecurrenceInterface
 {

@@ -2,6 +2,8 @@
 
 namespace Plummer\Calendar;
 
+use Plummer\Calendar\Recurrence\Daily;
+
 class CalendarFactory
 {
 	public static function fromRegistry(RegistryInterface $registry)
