@@ -2,26 +2,18 @@
 
 namespace Plummer\Calendar;
 
-use Plummer\Calendar\Recurrence\Daily;
-
 class CalendarFactory
 {
-	public static function fromRegistry(RegistryInterface $registry)
+	public static function fromRegistry(CalendarAbstract $calendar, RegistryInterface $eventsRegistry, RegistryInterface $recurrencesRegistry)
 	{
-		return static::fromIterator($registry->getIterator());
+		return static::fromIterator($calendar, $eventsRegistry->getIterator(), $recurrencesRegistry->getIterator());
 	}
 
-	public static function fromIterator(\Iterator $iterator)
+	public static function fromIterator(CalendarAbstract $calendar, \Iterator $eventsIterator, \Iterator $recurrencesIterator)
 	{
-		$calendar = Calendar::make($iterator, static::getDefaultRecurrenceTypes());
+		$calendar->addEventsIterator($eventsIterator);
+		$calendar->addRecurrencesIterator($recurrencesIterator);
 
 		return $calendar;
-	}
-
-	public static function getDefaultRecurrenceTypes()
-	{
-		return [
-			new Daily()
-		];
 	}
 }
