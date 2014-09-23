@@ -4,32 +4,38 @@ namespace Plummer\Calendar;
 
 abstract class CalendarAbstract implements CalendarInterface
 {
+	protected $name;
+
 	protected $events;
 
 	protected $recurrenceTypes;
 
-	protected function __construct(\Iterator $events, $recurrenceTypes)
+	public function __construct($name)
 	{
-		$this->events = $events;
-		$this->addRecurrenceTypes($recurrenceTypes);
+		$this->name = $name;
 	}
 
-	public static function make(\Iterator $events, $recurrenceTypes = [])
+	public function addEvents($events)
 	{
-		return new static($events, $recurrenceTypes);
-	}
-
-	public function addEvents(array $events)
-	{
-		foreach($events as $event) {
-			$this->addEvent($event);
+		if($events instanceof \Iterator) {
+			$this->events->append($events);
+		}
+		elseif(is_array($events)) {
+			foreach($events as $key => $event) {
+				$this->events[$key] = $event;
+			}
 		}
 	}
 
-	public function addRecurrenceTypes(array $recurrenceTypes)
+	public function addRecurrenceTypes($recurrenceTypes)
 	{
-		foreach($recurrenceTypes as $recurrenceType) {
-			$this->addRecurrenceType($recurrenceType);
+		if($recurrenceTypes instanceof \Iterator) {
+			$this->recurrenceTypes->append($recurrenceTypes);
+		}
+		elseif(is_array($recurrenceTypes)) {
+			foreach($recurrenceTypes as $key => $recurrenceType) {
+				$this->recurrenceTypes[$key] = $recurrenceType;
+			}
 		}
 	}
 
