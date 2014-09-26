@@ -17,24 +17,34 @@ abstract class CalendarAbstract implements CalendarInterface
 
 	public function addEvents($events)
 	{
-		if($events instanceof \Iterator) {
-			$this->events->append($events);
+		if($this->events === null) {
+			$this->events = $events;
 		}
-		elseif(is_array($events)) {
-			foreach($events as $key => $event) {
-				$this->events[$key] = $event;
+		else {
+			if($events instanceof \Iterator) {
+				$this->events->append($events);
+			}
+			elseif(is_array($events)) {
+				foreach($events as $key => $event) {
+					$this->events[$key] = $event;
+				}
 			}
 		}
 	}
 
 	public function addRecurrenceTypes($recurrenceTypes)
 	{
-		if($recurrenceTypes instanceof \Iterator) {
-			$this->recurrenceTypes->append($recurrenceTypes);
+		if($this->recurrenceTypes === null) {
+			$this->recurrenceTypes = $recurrenceTypes;
 		}
-		elseif(is_array($recurrenceTypes)) {
-			foreach($recurrenceTypes as $key => $recurrenceType) {
-				$this->recurrenceTypes[$key] = $recurrenceType;
+		else {
+			if($recurrenceTypes instanceof \Iterator) {
+				$this->recurrenceTypes->append($recurrenceTypes);
+			}
+			elseif(is_array($recurrenceTypes)) {
+				foreach($recurrenceTypes as $key => $recurrenceType) {
+					$this->recurrenceTypes[$key] = $recurrenceType;
+				}
 			}
 		}
 	}
