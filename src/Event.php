@@ -10,7 +10,7 @@ class Event implements EventInterface
 
 	protected $endDate;
 
-	protected $occurrenceDate;
+	protected $parentDate;
 
 	protected $calendar;
 
@@ -53,8 +53,8 @@ class Event implements EventInterface
 		return $this->parent;
 	}
 
-	public function getOccurrenceDate()
+	public function getParentDate()
 	{
-		return $this->occurrenceDate;
+		return $this->parentDate;
 	}
 }

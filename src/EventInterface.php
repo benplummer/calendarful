@@ -10,9 +10,9 @@ interface EventInterface
 
 	public function getEndDate();
 
-	public function getOccurrenceDate();
-
 	public function getParent();
+
+	public function getParentDate();
 
 	public function setCalendar(Calendar &$calendar);
 }
