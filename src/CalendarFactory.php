@@ -11,8 +11,8 @@ class CalendarFactory
 
 	public static function fromIterator(CalendarAbstract $calendar, \Iterator $eventsIterator, \Iterator $recurrencesIterator)
 	{
-		$calendar->addEventsIterator($eventsIterator);
-		$calendar->addRecurrencesIterator($recurrencesIterator);
+		$calendar->addEvents($eventsIterator);
+		$calendar->addRecurrenceTypes($recurrencesIterator);
 
 		return $calendar;
 	}
