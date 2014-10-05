@@ -4,6 +4,8 @@ namespace Plummer\Calendar;
 
 interface EventInterface
 {
+	public function getId();
+
 	public function getName();
 
 	public function getStartDate();
