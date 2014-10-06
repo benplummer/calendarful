@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendar;
 
-abstract class CalendarAbstract implements CalendarInterface
+abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 {
 	protected $name;
 
@@ -17,36 +17,21 @@ abstract class CalendarAbstract implements CalendarInterface
 
 	public function addEvents($events)
 	{
-		if($this->events === null) {
-			$this->events = $events;
-		}
-		else {
-			if($events instanceof \Iterator) {
-				$this->events->append($events);
-			}
-			elseif(is_array($events)) {
-				foreach($events as $key => $event) {
-					$this->events[$key] = $event;
-				}
-			}
+		foreach($events as $key => $event) {
+			$this->events[$key] = $event;
 		}
 	}
 
 	public function addRecurrenceTypes($recurrenceTypes)
 	{
-		if($this->recurrenceTypes === null) {
-			$this->recurrenceTypes = $recurrenceTypes;
+		foreach($recurrenceTypes as $key => $recurrenceType) {
+			$this->recurrenceTypes[$key] = $recurrenceType;
 		}
-		else {
-			if($recurrenceTypes instanceof \Iterator) {
-				$this->recurrenceTypes->append($recurrenceTypes);
-			}
-			elseif(is_array($recurrenceTypes)) {
-				foreach($recurrenceTypes as $key => $recurrenceType) {
-					$this->recurrenceTypes[$key] = $recurrenceType;
-				}
-			}
-		}
+	}
+
+	public function getIterator()
+	{
+		return new \ArrayIterator($this->events);
 	}
 
 	abstract public function addEvent(EventInterface $event);
