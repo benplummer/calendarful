@@ -26,4 +26,6 @@ interface RegistryInterface
 	public function get($key);
 
 	public function getAll();
+
+	public function getFiltered(Array $filters);
 }
