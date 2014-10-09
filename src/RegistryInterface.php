@@ -28,4 +28,6 @@ interface RegistryInterface
 	public function getAll();
 
 	public function getFiltered(Array $filters);
+
+	public function hasFilters();
 }

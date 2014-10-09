@@ -11,4 +11,6 @@ abstract class RegistryAbstract implements RegistryInterface
 	abstract public function getAll();
 
 	abstract public function getFiltered(Array $filters);
+
+	abstract public function hasFilters();
 }
