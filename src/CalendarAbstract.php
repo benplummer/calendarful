@@ -8,6 +8,8 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 
 	private $events;
 
+	protected $lastEventsIteratorResult;
+
 	protected $recurrenceTypes;
 
 	public function __construct($name)
@@ -31,6 +33,10 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 
 	public function getIterator()
 	{
+		if($this->lastEventsIteratorResult) {
+			return $this->lastEventsIteratorResult;
+		}
+
 		return new \ArrayIterator($this->events);
 	}
 
