@@ -6,7 +6,7 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 {
 	protected $name;
 
-	protected $events;
+	private $events;
 
 	protected $recurrenceTypes;
 
