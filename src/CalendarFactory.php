@@ -6,8 +6,16 @@ class CalendarFactory
 {
 	public static function fromRegistry(CalendarAbstract $calendar, RegistryInterface $eventsRegistry, RegistryInterface $recurrencesRegistry)
 	{
-		$calendar->addEvents($eventsRegistry->getAll());
-		$calendar->addRecurrenceTypes($recurrencesRegistry->getAll());
+		$events = $eventsRegistry->hasFilters() ?
+			$eventsRegistry->getFiltered() :
+			$eventsRegistry->getAll();
+
+		$recurrences = $recurrencesRegistry->hasFilters() ?
+			$recurrencesRegistry->getFiltered() :
+			$recurrencesRegistry->getAll();
+
+		$calendar->addEvents($events);
+		$calendar->addRecurrenceTypes($recurrences);
 
 		return $calendar;
 	}
