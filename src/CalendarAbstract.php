@@ -40,6 +40,13 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 		return new \ArrayIterator($this->events);
 	}
 
+	public function limit($limit, $offset = 0)
+	{
+		$this->lastEventsIteratorResult = new \LimitIterator($this->getIterator(), $offset, $limit);
+
+		return $this;
+	}
+
 	abstract public function addEvent(EventInterface $event);
 
 	abstract public function addRecurrenceType(RecurrenceInterface $recurrenceType);
