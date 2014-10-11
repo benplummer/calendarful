@@ -6,28 +6,23 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 {
 	protected $name;
 
-	private $events;
+	protected $events;
 
 	protected $lastEventsIteratorResult;
 
 	protected $recurrenceTypes;
 
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
-
 	public function addEvents($events)
 	{
-		foreach($events as $key => $event) {
-			$this->events[$key] = $event;
+		foreach($events as $event) {
+			$this->addEvent($event);
 		}
 	}
 
 	public function addRecurrenceTypes($recurrenceTypes)
 	{
-		foreach($recurrenceTypes as $key => $recurrenceType) {
-			$this->recurrenceTypes[$key] = $recurrenceType;
+		foreach($recurrenceTypes as $recurrenceType) {
+			$this->addRecurrenceType($recurrenceType);
 		}
 	}
 
