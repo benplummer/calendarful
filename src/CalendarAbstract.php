@@ -46,5 +46,5 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 
 	abstract public function addRecurrenceType(RecurrenceInterface $recurrenceType);
 
-	abstract public function getEvents();
+	abstract public function getEvents($fromDate, $toDate, $limit = null);
 }

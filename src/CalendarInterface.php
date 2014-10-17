@@ -8,5 +8,5 @@ interface CalendarInterface
 
 	public function addRecurrenceType(RecurrenceInterface $recurrenceType);
 
-	public function getEvents();
+	public function getEvents($fromDate, $toDate, $limit = null);
 }

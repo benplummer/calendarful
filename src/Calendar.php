@@ -21,8 +21,8 @@ class Calendar extends CalendarAbstract
 		$this->recurrenceTypes[$recurrenceType->getLabel()] = $recurrenceType;
 	}
 
-	public function getEvents()
+	public function getEvents($fromDate, $toDate, $limit = null)
 	{
-		
+        
 	}
 }
