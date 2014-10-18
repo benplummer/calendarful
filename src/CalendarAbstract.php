@@ -22,7 +22,7 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 	public function addRecurrenceTypes($recurrenceTypes)
 	{
 		foreach($recurrenceTypes as $recurrenceType) {
-			$this->addRecurrenceType($recurrenceType);
+			$this->addRecurrenceType(new $recurrenceType());
 		}
 	}
 
