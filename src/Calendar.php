@@ -13,7 +13,7 @@ class Calendar extends CalendarAbstract
 	{
 		$event->setCalendar($this);
 
-		$this->events[$event->getId()] = $event;
+		$this->events[$event->getId().'.'.$event->getStartDate()] = $event;
 	}
 
 	public function addRecurrenceType(RecurrenceInterface $recurrenceType)
@@ -23,6 +23,14 @@ class Calendar extends CalendarAbstract
 
 	public function getEvents($fromDate, $toDate, $limit = null)
 	{
-        
-	}
+        $this->events = array_filter($this->events, function($event) use($fromDate, $toDate) {
+            if($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
+                return true;
+            } 
+
+            return false;
+        });
+
+        return $this->events;
+    }
 }
