@@ -26,7 +26,12 @@ class Calendar extends CalendarAbstract
         $this->events = array_filter($this->events, function($event) use($fromDate, $toDate) {
             if($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
                 return true;
-            } 
+            }
+            else if($event->getRecurrenceType()) {
+                if($event->getRecurrenceUntil() === null || $event->getRecurrenceUntil() >= $fromDate) {
+                    return true;
+                }
+            }
 
             return false;
         });
