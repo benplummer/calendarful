@@ -15,6 +15,10 @@ interface EventInterface
 	public function getParent();
 
 	public function getParentDate();
+    
+    public function getRecurrenceType();
+
+    public function getRecurrenceUntil();
 
 	public function setCalendar(Calendar &$calendar);
 }

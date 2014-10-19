@@ -16,7 +16,11 @@ class Event implements EventInterface
 
 	protected $calendar;
 
-	protected $parent;
+    protected $parent;
+
+    protected $recurrenceType;
+
+    protected $recurrenceUntil;
 	
 	protected function __construct($id, $name, $startDate, $endDate)
 	{
@@ -64,5 +68,15 @@ class Event implements EventInterface
 	public function getParentDate()
 	{
 		return $this->parentDate;
-	}
+    }
+
+    public function getRecurrenceType()
+    {
+        return $this->recurrenceType;
+    }
+
+    public function getRecurrenceUntil()
+    {
+        return $this->recurrenceUntil;
+    }
 }
