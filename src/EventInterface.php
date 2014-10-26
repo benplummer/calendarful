@@ -8,7 +8,11 @@ interface EventInterface
 
 	public function getName();
 
+	public function getStartDateFull();
+
 	public function getStartDate();
+
+	public function getStartTime();
 
 	public function getEndDate();
 

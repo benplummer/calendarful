@@ -50,9 +50,23 @@ class Event implements EventInterface
 		return $this->name;
 	}
 
-	public function getStartDate()
+	public function getStartDateFull()
 	{
 		return $this->startDate;
+	}
+
+	public function getStartDate()
+	{
+		list($date,) = explode(' ', $this->startDate);
+
+		return $date;
+	}
+
+	public function getStartTime()
+	{
+		list(, $time) = explode(' ', $this->startDate);
+
+		return $time;
 	}
 
 	public function getEndDate()
