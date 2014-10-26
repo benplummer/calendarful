@@ -84,6 +84,16 @@ class Event implements EventInterface
 		$this->endDate = $endDate->format('Y-m-d H:i:s');
 	}
 
+	public function getDuration()
+	{
+		$start = new \DateTime($this->startDate);
+		$end = new \DateTime($this->endDate);
+
+		$interval = $start->diff($end);
+
+		return $interval;
+	}
+
 	public function getParent()
 	{
 		return $this->parent;

@@ -20,6 +20,8 @@ interface EventInterface
 
 	public function setEndDate(\DateTime $endDate);
 
+	public function getDuration();
+
 	public function getParent();
 
 	public function getParentDate();
