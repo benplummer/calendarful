@@ -55,6 +55,11 @@ class Event implements EventInterface
 		return $this->startDate;
 	}
 
+	public function setStartDateFull(\DateTime $startDateFull)
+	{
+		$this->startDate = $startDateFull->format('Y-m-d H:i:s');
+	}
+
 	public function getStartDate()
 	{
 		list($date,) = explode(' ', $this->startDate);
@@ -72,6 +77,11 @@ class Event implements EventInterface
 	public function getEndDate()
 	{
 		return $this->endDate;
+	}
+
+	public function setEndDate(\DateTime $endDate)
+	{
+		$this->endDate = $endDate->format('Y-m-d H:i:s');
 	}
 
 	public function getParent()

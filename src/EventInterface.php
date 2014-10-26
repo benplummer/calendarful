@@ -10,11 +10,15 @@ interface EventInterface
 
 	public function getStartDateFull();
 
+	public function setStartDateFull(\DateTime $startDateFull);
+
 	public function getStartDate();
 
 	public function getStartTime();
 
 	public function getEndDate();
+
+	public function setEndDate(\DateTime $endDate);
 
 	public function getParent();
 
