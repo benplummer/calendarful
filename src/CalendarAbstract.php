@@ -40,7 +40,18 @@ abstract class CalendarAbstract implements CalendarInterface, \IteratorAggregate
 		$this->lastEventsIteratorResult = new \LimitIterator($this->getIterator(), $offset, $limit);
 
 		return $this;
-	}
+    }
+
+    protected function generateOccurrences($fromDate, $toDate, $limit = null)
+    {
+        if(!$this->recurrenceTypes) {
+            return false;
+        }
+
+        foreach($this->recurrenceTypes as $name => $recurrenceType) {
+            $this->events += $recurrenceType->generateEvents($this->events, $fromDate, $toDate, $limit);
+        }
+    }
 
 	abstract public function addEvent(EventInterface $event);
 

@@ -23,8 +23,9 @@ class Calendar extends CalendarAbstract
 
 	public function getEvents($fromDate, $toDate, $limit = null)
 	{
-        $this->events = array_filter($this->events, function($event) use($fromDate, $toDate) {
-            if($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
+		// Filter events within the date range
+        $this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
+            if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
                 return true;
             }
             else if($event->getRecurrenceType()) {
@@ -35,6 +36,22 @@ class Calendar extends CalendarAbstract
 
             return false;
         });
+
+		// Generate occurrences for recurring events
+        $this->generateOccurrences($fromDate, $toDate, $limit);
+
+		// Remove recurring events that do not occur within the date range
+		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
+			if(! $event->getRecurrenceType()) {
+				return true;
+			}
+			else if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		});
 
         return $this->events;
     }
