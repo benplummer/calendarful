@@ -8,5 +8,5 @@ interface RecurrenceInterface
 
 	public function getLimit();
 
-	public function generate();
+	public function generateEvents(Array $events, $fromDate, $toDate, $limit = null);
 }
