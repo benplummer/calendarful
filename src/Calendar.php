@@ -53,6 +53,29 @@ class Calendar extends CalendarAbstract
 			}
 		});
 
+		//Restructure events under their relevant day
+		foreach($this->events as $id_and_date => $event) {
+
+			list($id, $date) = explode('.', $id_and_date);
+
+			$events[$date][] = $event;
+		}
+
+		foreach($events as $date => &$event) {
+			usort($event, function($e1, $e2) use ($date) {
+
+				if($e1->getStartDateFull() == $e2->getStartDateFull()) {
+					return 0;
+				}
+
+				return $e1->getStartDateFull() < $e2->getStartDateFull() ? -1 : 1;
+			});
+		}
+
+		ksort($events);
+
+		$this->events = $events;
+
         return $this->events;
     }
 }
