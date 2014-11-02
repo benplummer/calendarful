@@ -1,6 +1,6 @@
 <?php
 
-namespace Plummer\Calendar\Recurrence;
+namespace Plummer\Calendarful\Recurrence\Type;
 
 use Plummer\Calendar\RecurrenceInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Plummer\Calendar;
+namespace Plummer\Calendarful;
 
 class Calendar extends CalendarAbstract
 {
