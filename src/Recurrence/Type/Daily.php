@@ -20,7 +20,7 @@ class Daily implements RecurrenceInterface
 		return $this->limit;
 	}
 
-	public function generateEvents(Array $events, $fromDate, $toDate, $limit = null)
+	public function generateOccurrences(Array $events, $fromDate, $toDate, $limit = null)
 	{
         $return = [];
 
