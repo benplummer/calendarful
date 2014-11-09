@@ -29,6 +29,4 @@ interface EventInterface
     public function getRecurrenceType();
 
     public function getRecurrenceUntil();
-
-	public function setCalendar(Calendar &$calendar);
 }
