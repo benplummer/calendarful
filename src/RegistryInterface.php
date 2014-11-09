@@ -4,5 +4,5 @@ namespace Plummer\Calendarful;
 
 interface RegistryInterface
 {
-	public function get(Array $filters = []);
+	public function get();
 }
