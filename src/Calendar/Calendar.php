@@ -2,24 +2,37 @@
 
 namespace Plummer\Calendarful;
 
-class Calendar extends CalendarAbstract
+class Calendar implements \IteratorAggregate, CalendarInterface
 {
+	protected $name;
+
+	protected $events;
+
 	public function __construct($name)
 	{
 		$this->name = $name;
 	}
 
-	public function addEvent(EventInterface $event)
+	public function getName()
 	{
-		$event->setCalendar($this);
-
-		$this->events[$event->getId().'.'.$event->getStartDate()] = $event;
+		return $this->name;
 	}
 
-	public function addRecurrenceType(RecurrenceInterface $recurrenceType)
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit)
 	{
-		$this->recurrenceTypes[$recurrenceType->getLabel()] = $recurrenceType;
+
 	}
+
+	public function getIterator()
+	{
+		return $this->events;
+	}
+
+	public function limit($limit, $offset = 0)
+	{
+		$this->events = new \LimitIterator($this->getIterator(), $offset, $limit);
+	}
+
 
 	public function getEvents($fromDate, $toDate, $limit = null)
 	{
