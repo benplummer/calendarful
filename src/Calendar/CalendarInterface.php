@@ -4,9 +4,7 @@ namespace Plummer\Calendarful;
 
 interface CalendarInterface
 {
-	public function addEvent(EventInterface $event);
+	public function getName();
 
-	public function addRecurrenceType(RecurrenceInterface $recurrenceType);
-
-	public function getEvents($fromDate, $toDate, $limit = null);
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit);
 }
