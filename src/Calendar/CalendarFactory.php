@@ -2,20 +2,29 @@
 
 namespace Plummer\Calendarful;
 
-class CalendarFactory
+use Plummer\Calendarful\Calendar\CalendarFactoryInterface;
+use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
+
+class CalendarFactory implements CalendarFactoryInterface
 {
-	public static function fromRegistry(CalendarAbstract $calendar, RegistryInterface $eventsRegistry, RegistryInterface $recurrencesRegistry)
+	private $calendars;
+
+	public function addCalendars(Array $calendars)
 	{
-		$events = $eventsRegistry->hasFilters() ?
-			$eventsRegistry->getFiltered() :
-			$eventsRegistry->getAll();
+		foreach($calendars as $calendar) {
+			$this->addCalendar($calendar);
+		}
+	}
 
-		$recurrences = $recurrencesRegistry->hasFilters() ?
-			$recurrencesRegistry->getFiltered() :
-			$recurrencesRegistry->getAll();
+	public function addCalendar(CalendarInterface $calendar) {
+		$this->calendars[$calendar->getName()] = $calendar;
+	}
 
-		$calendar->addEvents($events);
-		$calendar->addRecurrenceTypes($recurrences);
+	public function createCalendar($name, RecurrenceFactoryInterface $recurrenceFactory = null)
+	{
+		$calendar = $this->calendars[$name];
+
+		$calendar->addRecurrenceTypes($recurrenceFactory);
 
 		return $calendar;
 	}
