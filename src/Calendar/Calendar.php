@@ -2,25 +2,25 @@
 
 namespace Plummer\Calendarful;
 
-class Calendar implements \IteratorAggregate, CalendarInterface
+use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
+
+class Calendar implements CalendarInterface, \IteratorAggregate
 {
 	protected $name;
 
 	protected $events;
 
-	public function __construct($name)
+	protected $recurrenceFactory;
+
+	public function __construct($name, RecurrenceFactoryInterface $recurrenceFactory)
 	{
 		$this->name = $name;
+		$this->recurrenceFactory = $recurrenceFactory;
 	}
 
 	public function getName()
 	{
 		return $this->name;
-	}
-
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit)
-	{
-
 	}
 
 	public function getIterator()
@@ -33,6 +33,10 @@ class Calendar implements \IteratorAggregate, CalendarInterface
 		$this->events = new \LimitIterator($this->getIterator(), $offset, $limit);
 	}
 
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit)
+	{
+
+	}
 
 	public function getEvents($fromDate, $toDate, $limit = null)
 	{
