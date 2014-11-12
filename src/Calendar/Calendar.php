@@ -25,6 +25,10 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 	public function getIterator()
 	{
+		if($this->events === null) {
+			throw new \Exception('This calendar needs to be populated with events.');
+		}
+
 		return $this->events;
 	}
 
@@ -35,27 +39,22 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit)
 	{
-
-	}
-
-	public function getEvents($fromDate, $toDate, $limit = null)
-	{
 		// Filter events within the date range
-        $this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
-            if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
-                return true;
-            }
-            else if($event->getRecurrenceType()) {
-                if($event->getRecurrenceUntil() === null || $event->getRecurrenceUntil() >= $fromDate) {
-                    return true;
-                }
-            }
+		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
+			if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+				return true;
+			}
+			else if($event->getRecurrenceType()) {
+				if($event->getRecurrenceUntil() === null || $event->getRecurrenceUntil() >= $fromDate) {
+					return true;
+				}
+			}
 
-            return false;
-        });
+			return false;
+		});
 
 		// Generate occurrences for recurring events
-        $this->generateOccurrences($fromDate, $toDate, $limit);
+		$this->generateOccurrences($fromDate, $toDate, $limit);
 
 		// Remove recurring events that do not occur within the date range
 		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
@@ -93,6 +92,6 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 		$this->events = $events;
 
-        return $this->events;
-    }
+		return $this->events;
+	}
 }
