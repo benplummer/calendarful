@@ -6,29 +6,29 @@ use \Plummer\Calendarful\RegistryInterface as RegistryInterface;
 
 class RecurrenceFactory implements RecurrenceFactoryInterface
 {
-	private $factories = [];
+	private $recurrenceTypes = [];
 
 	public function fromRegistry(RegistryInterface $recurrenceRegistry)
 	{
-
+		$this->recurrenceTypes = $recurrenceRegistry->get();
 	}
 
-	public function addRecurrenceFactory(RecurrenceInterface $recurrenceFactory)
+	public function addRecurrenceType(RecurrenceInterface $recurrence)
 	{
-		$this->factories[$recurrenceFactory->getLabel()] = $recurrenceFactory;
+		$this->recurrenceTypes[$recurrence->getLabel()] = $recurrence;
 	}
 
-	public function getRecurrences()
+	public function getRecurrenceTypes()
 	{
-		return $this->factories;
+		return $this->recurrenceTypes;
 	}
 
-	public function createRecurrence($type)
+	public function createRecurrenceType($type)
 	{
-		if(!isset($this->factories[$type])) {
+		if(!isset($this->recurrenceTypes[$type])) {
 			throw new \Exception('The type passed does not exist.');
 		}
 
-		return $this->factories[$type];
+		return $this->recurrenceTypes[$type];
 	}
 }

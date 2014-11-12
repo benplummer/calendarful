@@ -4,7 +4,7 @@ namespace Plummer\Calendarful\Recurrence;
 
 interface RecurrenceFactoryInterface
 {
-	public function createRecurrence($type);
+	public function createRecurrenceType($type);
 
-	public function getRecurrences();
+	public function getRecurrenceTypes();
 }
