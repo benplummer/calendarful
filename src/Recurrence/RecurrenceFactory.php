@@ -18,12 +18,12 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 		$this->factories[$recurrenceFactory->getLabel()] = $recurrenceFactory;
 	}
 
-	public function getFactories()
+	public function getRecurrences()
 	{
 		return $this->factories;
 	}
 
-	public function createFactory($type)
+	public function createRecurrence($type)
 	{
 		if(!isset($this->factories[$type])) {
 			throw new \Exception('The type passed does not exist.');
