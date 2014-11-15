@@ -1,10 +1,12 @@
 <?php
 
-namespace Plummer\Calendarful;
+namespace Plummer\Calendarful\Calendar;
+
+use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
 
 interface CalendarInterface
 {
-	public function getName();
+	public function addRecurrenceFactory(RecurrenceFactoryInterface $recurrenceFactory);
 
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit);
 }
