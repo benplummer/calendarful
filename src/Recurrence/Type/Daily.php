@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendarful\Recurrence\Type;
 
-use Plummer\Calendar\RecurrenceInterface;
+use Plummer\Calendarful\Recurrence\RecurrenceInterface;
 
 class Daily implements RecurrenceInterface
 {

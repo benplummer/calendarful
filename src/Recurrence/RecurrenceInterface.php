@@ -1,6 +1,6 @@
 <?php
 
-namespace Plummer\Calendarful;
+namespace Plummer\Calendarful\Recurrence;
 
 interface RecurrenceInterface
 {
