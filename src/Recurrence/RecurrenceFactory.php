@@ -2,20 +2,19 @@
 
 namespace Plummer\Calendarful\Recurrence;
 
-use \Plummer\Calendarful\RegistryInterface as RegistryInterface;
-
 class RecurrenceFactory implements RecurrenceFactoryInterface
 {
-	private $recurrenceTypes = [];
+	protected $recurrenceTypes = [];
 
-	public function fromRegistry(RegistryInterface $recurrenceRegistry)
+	public function addRecurrenceType($type, $recurrenceType)
 	{
-		$this->recurrenceTypes = $recurrenceRegistry->get();
-	}
+		if(!in_array('Plummer\Calendarful\Recurrence\RecurrenceInterface', class_implements($recurrenceType))) {
+			throw new \InvalidArgumentException('File or File path required.');
+		}
 
-	public function addRecurrenceType(RecurrenceInterface $recurrence)
-	{
-		$this->recurrenceTypes[$recurrence->getLabel()] = $recurrence;
+		$this->recurrenceTypes[$type] = is_string($recurrenceType) ?
+			$recurrenceType :
+			get_class($recurrenceType);
 	}
 
 	public function getRecurrenceTypes()
