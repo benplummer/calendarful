@@ -1,26 +1,18 @@
 <?php
 
-namespace Plummer\Calendarful;
+namespace Plummer\Calendarful\Calendar;
 
 use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
 
 class Calendar implements CalendarInterface, \IteratorAggregate
 {
-	protected $name;
-
 	protected $events;
 
 	protected $recurrenceFactory;
 
-	public function __construct($name, RecurrenceFactoryInterface $recurrenceFactory)
+	public function addRecurrenceFactory(RecurrenceFactoryInterface $recurrenceFactory)
 	{
-		$this->name = $name;
 		$this->recurrenceFactory = $recurrenceFactory;
-	}
-
-	public function getName()
-	{
-		return $this->name;
 	}
 
 	public function getIterator()
