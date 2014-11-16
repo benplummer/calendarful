@@ -3,6 +3,7 @@
 namespace Plummer\Calendarful\Calendar;
 
 use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
+use Plummer\Calendarful\RegistryInterface;
 
 interface CalendarInterface
 {
