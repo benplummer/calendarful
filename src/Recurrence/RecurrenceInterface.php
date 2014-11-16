@@ -8,5 +8,5 @@ interface RecurrenceInterface
 
 	public function getLimit();
 
-	public function generateOccurrences(Array $events, $fromDate, $toDate, $limit = null);
+	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null);
 }
