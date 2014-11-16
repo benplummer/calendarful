@@ -3,6 +3,7 @@
 namespace Plummer\Calendarful\Calendar;
 
 use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
+use Plummer\Calendarful\RegistryInterface;
 
 class Calendar implements CalendarInterface, \IteratorAggregate
 {
@@ -24,20 +25,20 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return $this->events;
 	}
 
-	public function limit($limit, $offset = 0)
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
-		$this->events = new \LimitIterator($this->getIterator(), $offset, $limit);
-	}
+		$filters = [
+			'fromDate' => $fromDate->format('Y-m-d'),
+			'toDate' => $toDate->format('Y-m-d')
+		];
 
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit)
-	{
 		// Filter events within the date range
-		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
-			if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+		$this->events = array_filter($eventsRegistry->get($filters), function($event) use ($fromDate, $toDate) {
+			if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate->format('Y-m-d')) {
 				return true;
 			}
 			else if($event->getRecurrenceType()) {
-				if($event->getRecurrenceUntil() === null || $event->getRecurrenceUntil() >= $fromDate) {
+				if($event->getRecurrenceUntil() === null || $event->getRecurrenceUntil() >= $fromDate->format('Y-m-d')) {
 					return true;
 				}
 			}
@@ -45,15 +46,20 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			return false;
 		});
 
-		// Generate occurrences for recurring events
-		$this->generateOccurrences($fromDate, $toDate, $limit);
+		if($this->recurrenceFactory) {
+			foreach($this->recurrenceFactory->getRecurrenceTypes() as $label => $recurrence) {
+				$recurrenceType = new $recurrence();
+
+				$this->events += $recurrenceType->generateOccurrences($this->events, $fromDate, $toDate, $limit);
+			}
+		}
 
 		// Remove recurring events that do not occur within the date range
 		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
 			if(! $event->getRecurrenceType()) {
 				return true;
 			}
-			else if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+			else if($event->getStartDateFull() <= $toDate->format('Y-m-d') && $event->getEndDate() >= $fromDate->format('Y-m-d')) {
 				return true;
 			}
 			else {
