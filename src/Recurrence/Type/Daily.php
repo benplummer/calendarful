@@ -20,7 +20,7 @@ class Daily implements RecurrenceInterface
 		return $this->limit;
 	}
 
-	public function generateOccurrences(Array $events, $fromDate, $toDate, $limit = null)
+	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
         $return = [];
 
@@ -30,14 +30,14 @@ class Daily implements RecurrenceInterface
 
         foreach ($dailyEvents as $dailyEvent) {
 
-            $startMarker = new \DateTime($fromDate) > new \DateTime($dailyEvent->getStartDateFull())
-                ? new \DateTime($fromDate)
+            $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDateFull())
+                ? $fromDate
                 : new \DateTime($dailyEvent->getStartFull());
 
             if (!$dailyEvent->getRecurrenceUntil()) {
-                $endMarker = new \DateTime($toDate);
+                $endMarker = $toDate;
             } else {
-                $endMarker = min(new \DateTime($dailyEvent->getRecurrenceUntil()), new \DateTime($toDate));
+                $endMarker = min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate);
             }
 
             while ($startMarker->format('Y-m-d') <= $endMarker->format('Y-m-d')) {
@@ -48,8 +48,9 @@ class Daily implements RecurrenceInterface
                 $newDailyEvent->setStartDateFull($newStartDate);
                 $newStartDate->add($duration);
                 $newDailyEvent->setEndDate($newStartDate);
+                $newDailyEvent->setRecurrenceType();
 
-                $return[$newDailyEvent->getId() . '.' . $startMarker->format('Y-m-d')] = $newDailyEvent;
+                $return[] = $newDailyEvent;
 
                 $startMarker->add(new \DateInterval('P1D'));
             }
