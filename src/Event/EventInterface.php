@@ -1,12 +1,10 @@
 <?php
 
-namespace Plummer\Calendarful;
+namespace Plummer\Calendarful\Event;
 
 interface EventInterface
 {
 	public function getId();
-
-	public function getName();
 
 	public function getStartDateFull();
 
@@ -27,6 +25,8 @@ interface EventInterface
 	public function getParentDate();
     
     public function getRecurrenceType();
+
+	public function setRecurrenceType($type = null);
 
     public function getRecurrenceUntil();
 }
