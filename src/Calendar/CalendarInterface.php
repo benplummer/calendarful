@@ -10,4 +10,6 @@ interface CalendarInterface
 	public function addRecurrenceFactory(RecurrenceFactoryInterface $recurrenceFactory);
 
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit);
+
+	public function sort();
 }

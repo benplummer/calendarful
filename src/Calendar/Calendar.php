@@ -44,4 +44,9 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 		$this->events = array_values($this->events);
 	}
+
+	public function sort()
+	{
+
+	}
 }
