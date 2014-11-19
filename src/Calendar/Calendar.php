@@ -60,6 +60,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 	public function sort()
 	{
-
+		usort($this->events, function($event1, $event2) {
+			if($event1->getStartDateFull() == $event2->getStartDateFull()) {
+				return 0;
+			}
+			return $event1->getStartDateFull() < $event2->getStartDateFull() ? -1 : 1;
+		});
 	}
 }
