@@ -56,6 +56,8 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		});
 
 		$this->events = array_values($this->events);
+
+		return $this;
 	}
 
 	public function sort()
@@ -66,5 +68,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			}
 			return $event1->getStartDateFull() < $event2->getStartDateFull() ? -1 : 1;
 		});
+
+		return $this;
 	}
 }
