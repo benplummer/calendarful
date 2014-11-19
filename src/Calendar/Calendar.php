@@ -42,6 +42,19 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			}
 		}
 
+		// Remove recurring events that do not occur within the date range
+		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
+			if(! $event->getRecurrenceType()) {
+				return true;
+			}
+			else if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		});
+
 		$this->events = array_values($this->events);
 	}
 
