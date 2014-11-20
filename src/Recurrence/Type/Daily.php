@@ -34,15 +34,16 @@ class Daily implements RecurrenceInterface
                 ? $fromDate
                 : new \DateTime($dailyEvent->getStartFull());
 
-            if (!$dailyEvent->getRecurrenceUntil()) {
-                $endMarker = $toDate;
-            } else {
-                $endMarker = min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate);
-            }
+            $endMarker = $dailyEvent->getRecurrenceUntil()
+                ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate)
+                : $toDate;
 
-            while ($startMarker->format('Y-m-d') <= $endMarker->format('Y-m-d')) {
+            $dateInterval = new \DateInterval('P1D');
+            $datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
+
+            foreach($datePeriod as $date) {
                 $newDailyEvent = clone($dailyEvent);
-                $newStartDate = clone($startMarker);
+                $newStartDate = $date;
                 $duration = $newDailyEvent->getDuration();
 
                 $newDailyEvent->setStartDateFull($newStartDate);
@@ -51,8 +52,6 @@ class Daily implements RecurrenceInterface
                 $newDailyEvent->setRecurrenceType();
 
                 $return[] = $newDailyEvent;
-
-                $startMarker->add(new \DateInterval('P1D'));
             }
         }
 
