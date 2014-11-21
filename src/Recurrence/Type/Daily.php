@@ -38,6 +38,9 @@ class Daily implements RecurrenceInterface
                 ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate)
                 : $toDate;
 
+            // The DatePeriod class does not actually include the end date so you have to increment it first
+            $endMarker->modify('+1 day');
+
             $dateInterval = new \DateInterval('P1D');
             $datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
