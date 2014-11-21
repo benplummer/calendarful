@@ -32,7 +32,7 @@ class Daily implements RecurrenceInterface
 
             $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDateFull())
                 ? $fromDate
-                : new \DateTime($dailyEvent->getStartFull());
+                : new \DateTime($dailyEvent->getStartDateFull());
 
             $endMarker = $dailyEvent->getRecurrenceUntil()
                 ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate)
