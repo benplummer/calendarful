@@ -6,13 +6,9 @@ interface EventInterface
 {
 	public function getId();
 
-	public function getStartDateFull();
-
-	public function setStartDateFull(\DateTime $startDateFull);
-
 	public function getStartDate();
 
-	public function getStartTime();
+	public function setStartDate(\DateTime $startDateFull);
 
 	public function getEndDate();
 

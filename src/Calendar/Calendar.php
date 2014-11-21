@@ -47,7 +47,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			if(! $event->getRecurrenceType()) {
 				return true;
 			}
-			else if($event->getStartDateFull() <= $toDate && $event->getEndDate() >= $fromDate) {
+			else if($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
 				return true;
 			}
 			else {
@@ -63,10 +63,10 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	public function sort()
 	{
 		usort($this->events, function($event1, $event2) {
-			if($event1->getStartDateFull() == $event2->getStartDateFull()) {
+			if($event1->getStartDate() == $event2->getStartDate()) {
 				return 0;
 			}
-			return $event1->getStartDateFull() < $event2->getStartDateFull() ? -1 : 1;
+			return $event1->getStartDate() < $event2->getStartDate() ? -1 : 1;
 		});
 
 		return $this;

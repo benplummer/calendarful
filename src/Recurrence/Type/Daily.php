@@ -30,9 +30,9 @@ class Daily implements RecurrenceInterface
 
         foreach ($dailyEvents as $dailyEvent) {
 
-            $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDateFull())
+            $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDate())
                 ? $fromDate
-                : new \DateTime($dailyEvent->getStartDateFull());
+                : new \DateTime($dailyEvent->getStartDate());
 
             $endMarker = $dailyEvent->getRecurrenceUntil()
                 ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate)
@@ -49,7 +49,7 @@ class Daily implements RecurrenceInterface
                 $newStartDate = $date;
                 $duration = $newDailyEvent->getDuration();
 
-                $newDailyEvent->setStartDateFull($newStartDate);
+                $newDailyEvent->setStartDate($newStartDate);
                 $newStartDate->add($duration);
                 $newDailyEvent->setEndDate($newStartDate);
                 $newDailyEvent->setRecurrenceType();
