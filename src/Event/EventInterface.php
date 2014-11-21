@@ -20,9 +20,9 @@ interface EventInterface
 
 	public function getDuration();
 
-	public function getParent();
+	public function getParentId();
 
-	public function getParentDate();
+	public function getOccurrenceDate();
     
     public function getRecurrenceType();
 
