@@ -50,12 +50,20 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			else if($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
 				return true;
 			}
-			else {
-				return false;
-			}
+
+			return false;
 		});
 
-		$this->events = array_values($this->events);
+		// Events need to be sorted by date and id (both ascending) in order for overridden occurrences not to show
+		$this->sort();
+		$events = array();
+
+		// New events array is created with the occurrence overrides replacing the relevant occurrences
+		array_walk($this->events, function($event) use (&$events) {
+			$events[($event->getOccurrenceDate() ?: $event->getStartDate()).'.'.($event->getParentId() ?: $event->getId())] = $event;
+		});
+
+		$this->events = array_values($events);
 
 		return $this;
 	}
@@ -64,7 +72,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	{
 		usort($this->events, function($event1, $event2) {
 			if($event1->getStartDate() == $event2->getStartDate()) {
-				return 0;
+				return $event1->getId() < $event2->getId() ? -1 : 1;
 			}
 			return $event1->getStartDate() < $event2->getStartDate() ? -1 : 1;
 		});
