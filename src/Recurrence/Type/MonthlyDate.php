@@ -4,7 +4,7 @@ namespace Plummer\Calendarful\Recurrence\Type;
 
 use Plummer\Calendarful\Recurrence\RecurrenceInterface;
 
-class Monthly implements RecurrenceInterface
+class MonthlyDate implements RecurrenceInterface
 {
 	protected $label = 'monthly';
 
@@ -30,9 +30,12 @@ class Monthly implements RecurrenceInterface
 
 		foreach ($monthlyEvents as $monthlyEvent) {
 
-			$startMarker = $fromDate > new \DateTime($monthlyEvent->getStartDate())
+			$start = $fromDate > new \DateTime($monthlyEvent->getStartDate())
 				? $fromDate
 				: new \DateTime($monthlyEvent->getStartDate());
+
+			$startMarker = clone($start);
+			$startMarker->modify('first day of this month');
 
 			$endMarker = $monthlyEvent->getRecurrenceUntil()
 				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), $toDate)
@@ -41,10 +44,23 @@ class Monthly implements RecurrenceInterface
 			// The DatePeriod class does not actually include the end date so you have to increment it first
 			$endMarker->modify('+1 day');
 
+			$monthlyDay = $monthlyEvent->getRecurrenceDayOfMonth();
+
 			$dateInterval = new \DateInterval('P1M');
 			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
 			foreach($datePeriod as $date) {
+
+				if($monthlyDay > $date->format('t')) {
+					continue;
+				}
+
+				$date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $date->format('t')));
+
+				if($date < $start) {
+					continue;
+				}
+
 				$newMonthlyEvent = clone($monthlyEvent);
 				$newStartDate = $date;
 				$duration = $newMonthlyEvent->getDuration();
