@@ -25,4 +25,10 @@ interface EventInterface
 	public function setRecurrenceType($type = null);
 
     public function getRecurrenceUntil();
+
+	public function getRecurrenceDayName();
+
+	public function getRecurrenceDayOfMonth();
+
+	public function getRecurrenceWeekNumber();
 }
