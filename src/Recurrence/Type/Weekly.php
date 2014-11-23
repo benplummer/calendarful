@@ -34,6 +34,10 @@ class Weekly implements RecurrenceInterface
 				? $fromDate
 				: new \DateTime($weeklyEvent->getStartDate());
 
+			while($startMarker->format('w') != $weeklyEvent->getRecurrenceWeekDayNumber()) {
+				$startMarker->modify('P1D');
+			}
+
 			$endMarker = $weeklyEvent->getRecurrenceUntil()
 				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), $toDate)
 				: $toDate;
