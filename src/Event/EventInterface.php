@@ -26,7 +26,7 @@ interface EventInterface
 
     public function getRecurrenceUntil();
 
-	public function getRecurrenceDayName();
+	public function getRecurrenceWeekDayNumber();
 
 	public function getRecurrenceDayOfMonth();
 
