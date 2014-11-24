@@ -30,6 +30,8 @@ class MonthlyDate implements RecurrenceInterface
 
 		foreach ($monthlyEvents as $monthlyEvent) {
 
+			$monthlyDate = date('d', strtotime($monthlyEvent->getStartDate()));
+
 			$start = $fromDate > new \DateTime($monthlyEvent->getStartDate())
 				? $fromDate
 				: new \DateTime($monthlyEvent->getStartDate());
@@ -44,14 +46,12 @@ class MonthlyDate implements RecurrenceInterface
 			// The DatePeriod class does not actually include the end date so you have to increment it first
 			$endMarker->modify('+1 day');
 
-			$monthlyDay = $monthlyEvent->getRecurrenceDayOfMonth();
-
 			$dateInterval = new \DateInterval('P1M');
 			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
 			foreach($datePeriod as $date) {
 
-				if($monthlyDay > $date->format('t')) {
+				if($monthlyDate > $date->format('t')) {
 					continue;
 				}
 
