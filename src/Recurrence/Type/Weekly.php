@@ -30,11 +30,14 @@ class Weekly implements RecurrenceInterface
 
 		foreach ($weeklyEvents as $weeklyEvent) {
 
+			// Retrieve the day of the week that the event takes place on
+			$day = date('w', strtotime($weeklyEvent->getStartDate()));
+
 			$startMarker = $fromDate > new \DateTime($weeklyEvent->getStartDate())
 				? $fromDate
 				: new \DateTime($weeklyEvent->getStartDate());
 
-			while($startMarker->format('w') != $weeklyEvent->getRecurrenceWeekDayNumber()) {
+			while($startMarker->format('w') != $day) {
 				$startMarker->modify('P1D');
 			}
 
