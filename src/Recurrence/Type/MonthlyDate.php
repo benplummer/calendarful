@@ -28,7 +28,7 @@ class MonthlyDate implements RecurrenceInterface
 			return $event->getRecurrenceType() === $this->getLabel();
 		});
 
-		foreach ($monthlyEvents as $monthlyEvent) {
+		foreach($monthlyEvents as $monthlyEvent) {
 
 			$monthlyDate = date('d', strtotime($monthlyEvent->getStartDate()));
 
@@ -49,7 +49,13 @@ class MonthlyDate implements RecurrenceInterface
 			$dateInterval = new \DateInterval('P1M');
 			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
+			$limitMarker = 0;
+
 			foreach($datePeriod as $date) {
+
+				if($limit and ($limit === $limitMarker)) {
+					break;
+				}
 
 				if($monthlyDate > $date->format('t')) {
 					continue;
@@ -71,6 +77,8 @@ class MonthlyDate implements RecurrenceInterface
 				$newMonthlyEvent->setRecurrenceType();
 
 				$return[] = $newMonthlyEvent;
+
+				$limit and $limitMarker++;
 			}
 		}
 

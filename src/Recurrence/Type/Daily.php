@@ -44,7 +44,14 @@ class Daily implements RecurrenceInterface
             $dateInterval = new \DateInterval('P1D');
             $datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
+            $limitMarker = 0;
+
             foreach($datePeriod as $date) {
+
+                if($limit and ($limit === $limitMarker)) {
+                    break;
+                }
+
                 $newDailyEvent = clone($dailyEvent);
                 $newStartDate = $date;
                 $duration = $newDailyEvent->getDuration();
@@ -55,6 +62,8 @@ class Daily implements RecurrenceInterface
                 $newDailyEvent->setRecurrenceType();
 
                 $return[] = $newDailyEvent;
+
+                $limit and $limitMarker++;
             }
         }
 

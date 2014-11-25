@@ -51,7 +51,14 @@ class Weekly implements RecurrenceInterface
 			$dateInterval = new \DateInterval('P1W');
 			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
+			$limitMarker = 0;
+
 			foreach($datePeriod as $date) {
+
+				if($limit and ($limit === $limitMarker)) {
+					break;
+				}
+
 				$newWeeklyEvent = clone($weeklyEvent);
 				$newStartDate = $date;
 				$duration = $newWeeklyEvent->getDuration();
@@ -62,6 +69,8 @@ class Weekly implements RecurrenceInterface
 				$newWeeklyEvent->setRecurrenceType();
 
 				$return[] = $newWeeklyEvent;
+
+				$limit and $limitMarker++;
 			}
 		}
 
