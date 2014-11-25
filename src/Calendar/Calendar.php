@@ -63,7 +63,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			$events[($event->getOccurrenceDate() ?: $event->getStartDate()).'.'.($event->getParentId() ?: $event->getId())] = $event;
 		});
 
-		$this->events = array_values($events);
+		$this->events = $limit ? array_slice(array_values($events), 0, $limit) : array_values($events);
 
 		return $this;
 	}
