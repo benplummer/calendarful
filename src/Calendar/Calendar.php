@@ -34,6 +34,29 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 		$this->events = $eventsRegistry->get($filters);
 
+		$this->processRecurringEvents($fromDate, $toDate, $limit);
+
+		$this->removeOveriddenEvents();
+
+		$this->events = $limit ? array_slice(array_values($this->events), 0, $limit) : array_values($this->events);
+
+		return $this;
+	}
+
+	public function sort()
+	{
+		usort($this->events, function($event1, $event2) {
+			if($event1->getStartDate() == $event2->getStartDate()) {
+				return $event1->getId() < $event2->getId() ? -1 : 1;
+			}
+			return $event1->getStartDate() < $event2->getStartDate() ? -1 : 1;
+		});
+
+		return $this;
+	}
+
+	protected function processRecurringEvents(\DateTime $fromDate, \DateTime $toDate, $limit = null)
+	{
 		if($this->recurrenceFactory) {
 			foreach($this->recurrenceFactory->getRecurrenceTypes() as $label => $recurrence) {
 				$recurrenceType = new $recurrence();
@@ -53,7 +76,10 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 			return false;
 		});
+	}
 
+	protected function removeOveriddenEvents()
+	{
 		// Events need to be sorted by date and id (both ascending) in order for overridden occurrences not to show
 		$this->sort();
 		$events = array();
@@ -63,20 +89,6 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			$events[($event->getOccurrenceDate() ?: $event->getStartDate()).'.'.($event->getParentId() ?: $event->getId())] = $event;
 		});
 
-		$this->events = $limit ? array_slice(array_values($events), 0, $limit) : array_values($events);
-
-		return $this;
-	}
-
-	public function sort()
-	{
-		usort($this->events, function($event1, $event2) {
-			if($event1->getStartDate() == $event2->getStartDate()) {
-				return $event1->getId() < $event2->getId() ? -1 : 1;
-			}
-			return $event1->getStartDate() < $event2->getStartDate() ? -1 : 1;
-		});
-
-		return $this;
+		$this->events = $events;
 	}
 }
