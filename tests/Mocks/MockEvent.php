@@ -20,8 +20,15 @@ class MockEvent implements EventInterface
 
 	protected $recurrenceUntil;
 
-	protected function __construct()
+	public function __construct($id, $startDate, $endDate, $parentId = null, $occurrenceDate = null, $recurrenceType = null, $recurrenceUntil = null)
 	{
+		$this->id = $id;
+		$this->startDate = $startDate;
+		$this->endDate = $endDate;
+		$this->parentId = $parentId;
+		$this->occurrenceDate = $occurrenceDate;
+		$this->recurrenceType = $recurrenceType;
+		$this->recurrenceUntil = $recurrenceUntil;
 	}
 
 	public function getId()
