@@ -1,6 +1,6 @@
 <?php
 
-namespace Plummer\Calendar;
+namespace Plummer\Calendarful\Calendar;
 
 class CalendarTest extends \PHPUnit_Framework_TestCase
 {
