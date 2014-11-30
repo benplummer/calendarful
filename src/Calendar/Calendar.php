@@ -16,6 +16,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		$this->recurrenceFactory = $recurrenceFactory;
 	}
 
+	public static function create(RecurrenceFactoryInterface $recurrenceFactory = null)
+	{
+		return new static($recurrenceFactory);
+	}
+
 	public function getIterator()
 	{
 		if($this->events === null) {
