@@ -11,7 +11,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 	protected $recurrenceFactory;
 
-	public function addRecurrenceFactory(RecurrenceFactoryInterface $recurrenceFactory)
+	public function __construct(RecurrenceFactoryInterface $recurrenceFactory = null)
 	{
 		$this->recurrenceFactory = $recurrenceFactory;
 	}
