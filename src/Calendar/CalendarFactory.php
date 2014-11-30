@@ -2,8 +2,6 @@
 
 namespace Plummer\Calendarful\Calendar;
 
-use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
-
 class CalendarFactory implements CalendarFactoryInterface
 {
 	private $calendarTypes = [];
@@ -24,14 +22,13 @@ class CalendarFactory implements CalendarFactoryInterface
 		return $this->calendarTypes;
 	}
 
-	public function createCalendar($type, RecurrenceFactoryInterface $recurrenceFactory = null)
+	public function createCalendar($type)
 	{
 		if(!isset($this->calendarTypes[$type])) {
 			throw new \Exception('The type passed does not exist.');
 		}
 
 		$calendar = new $this->calendarTypes[$type]();
-		$recurrenceFactory and $calendar->addRecurrenceFactory($recurrenceFactory);
 
 		return $calendar;
 	}
