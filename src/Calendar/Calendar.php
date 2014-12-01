@@ -43,6 +43,8 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 		$this->removeOveriddenEvents();
 
+		$this->removeOutOfRangeEvents($fromDate, $toDate);
+
 		$this->events = $limit ? array_slice(array_values($this->events), 0, $limit) : array_values($this->events);
 
 		return $this;
@@ -100,5 +102,17 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		});
 
 		$this->events = $events;
+	}
+
+	protected function removeOutOfRangeEvents(\DateTime $fromDate, \DateTime $toDate)
+	{
+		// Remove events that do not occur within the date range
+		$this->events = array_filter($this->events, function($event) use ($fromDate, $toDate) {
+			if($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && $event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
+				return true;
+			}
+
+			return false;
+		});
 	}
 }
