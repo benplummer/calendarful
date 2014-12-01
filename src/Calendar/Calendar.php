@@ -60,6 +60,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return $this;
 	}
 
+	public function count()
+	{
+		return count($this->events);
+	}
+
 	protected function processRecurringEvents(\DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		if($this->recurrenceFactory) {
