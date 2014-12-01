@@ -1,6 +1,6 @@
 <?php
 
-namespace Mocks;
+namespace Plummer\Calendarful\Mocks;
 
 use Plummer\Calendarful\Event\EventInterface;
 
