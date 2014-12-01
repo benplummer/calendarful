@@ -30,12 +30,16 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return new \ArrayIterator($this->events);
 	}
 
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null)
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array())
 	{
-		$filters = [
-			'fromDate' => $fromDate,
-			'toDate' => $toDate
-		];
+		$filters = array_merge(
+			[
+				'fromDate' => $fromDate,
+				'toDate' => $toDate,
+				'limit' => $limit
+			],
+			$extraFilters
+		);
 
 		$this->events = $eventsRegistry->get($filters);
 
