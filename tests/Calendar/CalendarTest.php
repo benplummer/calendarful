@@ -19,15 +19,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
 		$eventRegistry->shouldReceive('get')
 			->once()
-			->andReturn(
-				[
-					new MockEvent(
-						1,
-						'2014-12-02 00:00:00',
-						'2014-12-02 23:59:59'
-					)
-				]
-			);
+			->andReturn([new MockEvent(1, '2014-12-02 00:00:00', '2014-12-02 23:59:59')]);
 
 		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
 
@@ -45,15 +37,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
 		$eventRegistry->shouldReceive('get')
 			->once()
-			->andReturn(
-				[
-					new MockEvent(
-						1,
-						'2014-12-05 00:00:00',
-						'2014-12-05 23:59:59'
-					)
-				]
-			);
+			->andReturn([new MockEvent(1, '2014-12-05 00:00:00', '2014-12-05 23:59:59')]);
 
 		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
 
@@ -67,15 +51,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
 		$eventRegistry->shouldReceive('get')
 			->once()
-			->andReturn(
-				[
-					new MockEvent(
-						1,
-						'2014-12-02 00:00:00',
-						'2014-12-04 23:59:59'
-					)
-				]
-			);
+			->andReturn([new MockEvent(1, '2014-12-02 00:00:00', '2014-12-04 23:59:59')]);
 
 		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
 
@@ -93,15 +69,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
 		$eventRegistry->shouldReceive('get')
 			->once()
-			->andReturn(
-				[
-					new MockEvent(
-						1,
-						'2014-11-30 00:00:00',
-						'2014-12-02 23:59:59'
-					)
-				]
-			);
+			->andReturn([new MockEvent(1, '2014-11-30 00:00:00', '2014-12-02 23:59:59')]);
 
 		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
 
@@ -109,6 +77,101 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 
 		foreach($calendar as $event) {
 			$this->assertEquals('2014-11-30 00:00:00', $event->getStartDate());
+		}
+	}
+
+	public function testCalendarEventOverlapsDateRange()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([new MockEvent(1, '2014-11-30 00:00:00', '2014-12-03 23:59:59')]);
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
+
+		$this->assertEquals(1, $calendar->count());
+
+		foreach($calendar as $event) {
+			$this->assertEquals('2014-11-30 00:00:00', $event->getStartDate());
+		}
+	}
+
+	public function testCalendarEventLimit()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-12-02 00:00:00', '2014-12-02 23:59:59'),
+				new MockEvent(2, '2014-12-01 00:00:00', '2014-12-01 23:59:59')
+			]);
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'), 1);
+
+		$this->assertEquals(1, $calendar->count());
+	}
+
+	public function testCalendarEventSorting()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-12-02 00:00:00', '2014-12-02 23:59:59'),
+				new MockEvent(2, '2014-12-01 00:00:00', '2014-12-01 23:59:59'),
+				new MockEvent(3, '2014-12-04 00:00:00', '2014-12-04 23:59:59'),
+				new MockEvent(4, '2014-12-03 00:00:00', '2014-12-03 23:59:59')
+			]);
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-08 00:00:00'));
+
+		$previous = null;
+
+		foreach($calendar as $event) {
+			if(!$previous) {
+				$previous = $event->getStartDate();
+				continue;
+			}
+
+			$this->assertGreaterThanOrEqual($previous, $event->getStartDate());
+
+			$previous = $event->getStartDate();
+		}
+	}
+
+	public function testCalendarSameDayEventSorting()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-12-02 12:00:00', '2014-12-02 13:00:00'),
+				new MockEvent(2, '2014-12-02 06:00:00', '2014-12-02 07:00:00'),
+				new MockEvent(3, '2014-12-02 00:00:00', '2014-12-02 01:00:00'),
+				new MockEvent(4, '2014-12-02 18:00:00', '2014-12-02 19:00:00')
+			]);
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-03 00:00:00'));
+
+		$previous = null;
+
+		foreach($calendar as $event) {
+			if(!$previous) {
+				$previous = $event->getStartDate();
+				continue;
+			}
+
+			$this->assertGreaterThanOrEqual($previous, $event->getStartDate());
+
+			$previous = $event->getStartDate();
 		}
 	}
 }
