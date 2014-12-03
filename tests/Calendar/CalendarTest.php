@@ -24,7 +24,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 					new MockEvent(
 						1,
 						'2014-12-02 00:00:00',
-						'2014-12-02 00:00:00'
+						'2014-12-02 23:59:59'
 					)
 				]
 			);
@@ -50,7 +50,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 					new MockEvent(
 						1,
 						'2014-12-05 00:00:00',
-						'2014-12-05 00:00:00'
+						'2014-12-05 23:59:59'
 					)
 				]
 			);
@@ -72,7 +72,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 					new MockEvent(
 						1,
 						'2014-12-02 00:00:00',
-						'2014-12-04 00:00:00'
+						'2014-12-04 23:59:59'
 					)
 				]
 			);
@@ -98,7 +98,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 					new MockEvent(
 						1,
 						'2014-11-30 00:00:00',
-						'2014-12-02 00:00:00'
+						'2014-12-02 23:59:59'
 					)
 				]
 			);
