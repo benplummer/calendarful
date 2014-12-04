@@ -4,6 +4,7 @@ namespace Plummer\Calendarful\Calendar;
 
 use \Mockery as m;
 use Plummer\Calendarful\Mocks\MockEvent;
+use Plummer\Calendarful\Recurrence\RecurrenceFactory;
 
 class CalendarTest extends \PHPUnit_Framework_TestCase
 {
@@ -173,5 +174,24 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 
 			$previous = $event->getStartDate();
 		}
+	}
+
+	public function testCalendarOverriddenEventRemoval()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
+		$recurrenceFactory->addRecurrenceType('daily', 'Plummer\Calendarful\Recurrence\Type\Daily');
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-12-01 12:00:00', '2014-12-01 13:00:00', 'daily'),
+				new MockEvent(2, '2014-12-02 18:00:00', '2014-12-02 19:00:00', null, null, 1, '2014-12-02 18:00:00'),
+			]);
+
+		$calendar = Calendar::create($recurrenceFactory)
+			->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-05 00:00:00'));
+
+		$this->assertEquals(4, $calendar->count());
 	}
 }
