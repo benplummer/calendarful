@@ -33,15 +33,15 @@ class MonthlyDate implements RecurrenceInterface
 			$monthlyDate = date('d', strtotime($monthlyEvent->getStartDate()));
 
 			$start = $fromDate > new \DateTime($monthlyEvent->getStartDate())
-				? $fromDate
+				? clone($fromDate)
 				: new \DateTime($monthlyEvent->getStartDate());
 
 			$startMarker = clone($start);
 			$startMarker->modify('first day of this month');
 
 			$endMarker = $monthlyEvent->getRecurrenceUntil()
-				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), $toDate)
-				: $toDate;
+				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), clone($toDate))
+				: clone($toDate);
 
 			// The DatePeriod class does not actually include the end date so you have to increment it first
 			$endMarker->modify('+1 day');

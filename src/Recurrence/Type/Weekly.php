@@ -34,7 +34,7 @@ class Weekly implements RecurrenceInterface
 			$day = date('w', strtotime($weeklyEvent->getStartDate()));
 
 			$startMarker = $fromDate > new \DateTime($weeklyEvent->getStartDate())
-				? $fromDate
+				? clone($fromDate)
 				: new \DateTime($weeklyEvent->getStartDate());
 
 			while($startMarker->format('w') != $day) {
@@ -42,8 +42,8 @@ class Weekly implements RecurrenceInterface
 			}
 
 			$endMarker = $weeklyEvent->getRecurrenceUntil()
-				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), $toDate)
-				: $toDate;
+				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), clone($toDate))
+				: clone($toDate);
 
 			// The DatePeriod class does not actually include the end date so you have to increment it first
 			$endMarker->modify('+1 day');

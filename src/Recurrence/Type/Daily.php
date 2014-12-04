@@ -31,12 +31,12 @@ class Daily implements RecurrenceInterface
         foreach ($dailyEvents as $dailyEvent) {
 
             $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDate())
-                ? $fromDate
+                ? clone($fromDate)
                 : new \DateTime($dailyEvent->getStartDate());
 
             $endMarker = $dailyEvent->getRecurrenceUntil()
-                ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), $toDate)
-                : $toDate;
+                ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), clone($toDate))
+                : clone($toDate);
 
             // The DatePeriod class does not actually include the end date so you have to increment it first
             $endMarker->modify('+1 day');
