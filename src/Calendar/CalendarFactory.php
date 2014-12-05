@@ -28,7 +28,7 @@ class CalendarFactory implements CalendarFactoryInterface
 	public function createCalendar($type)
 	{
 		if(!isset($this->calendarTypes[$type])) {
-			throw new \Exception('The type passed does not exist.');
+			throw new \OutOfBoundsException("A calendar type called {$type} does not exist within the factory.");
 		}
 
 		$calendar = new $this->calendarTypes[$type]();
