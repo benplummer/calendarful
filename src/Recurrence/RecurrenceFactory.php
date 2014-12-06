@@ -31,6 +31,8 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 			throw new \OutOfBoundsException("A recurrence type called {$type} does not exist within the factory.");
 		}
 
-		return $this->recurrenceTypes[$type];
+		$recurrenceType = new $this->recurrenceTypes[$type]();
+
+		return $recurrenceType;
 	}
 }
