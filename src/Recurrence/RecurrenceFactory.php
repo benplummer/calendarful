@@ -28,7 +28,7 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 	public function createRecurrenceType($type)
 	{
 		if(!isset($this->recurrenceTypes[$type])) {
-			throw new \Exception('The type passed does not exist.');
+			throw new \OutOfBoundsException("A recurrence type called {$type} does not exist within the factory.");
 		}
 
 		return $this->recurrenceTypes[$type];
