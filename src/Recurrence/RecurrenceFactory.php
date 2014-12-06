@@ -8,7 +8,10 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 
 	public function addRecurrenceType($type, $recurrenceType)
 	{
-		if(!in_array('Plummer\Calendarful\Recurrence\RecurrenceInterface', class_implements($recurrenceType))) {
+		if(is_string($recurrenceType) and !class_exists($recurrenceType)) {
+			throw new \InvalidArgumentException("Class {$recurrenceType} des not exist.");
+		}
+		else if(!in_array('Plummer\Calendarful\Recurrence\RecurrenceInterface', class_implements($recurrenceType))) {
 			throw new \InvalidArgumentException('File or File path required.');
 		}
 
