@@ -38,6 +38,8 @@ class Daily implements RecurrenceInterface
                 ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), clone($toDate))
                 : clone($toDate);
 
+            $endBoundaryCheck = clone($endMarker);
+
             // The DatePeriod class does not actually include the end date so you have to increment it first
             $endMarker->modify('+1 day');
 
@@ -48,7 +50,7 @@ class Daily implements RecurrenceInterface
 
             foreach($datePeriod as $date) {
 
-                if($limit and ($limit === $limitMarker)) {
+                if(($limit and ($limit === $limitMarker)) or ($date > $endBoundaryCheck)) {
                     break;
                 }
 
