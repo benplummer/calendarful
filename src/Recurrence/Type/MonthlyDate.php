@@ -63,7 +63,7 @@ class MonthlyDate implements RecurrenceInterface
 					continue;
 				}
 
-				$date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $date->format('t')));
+				$date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $monthlyDate));
 
 				if($date < $start) {
 					continue;
