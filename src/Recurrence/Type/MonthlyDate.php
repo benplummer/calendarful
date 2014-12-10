@@ -39,9 +39,12 @@ class MonthlyDate implements RecurrenceInterface
 			$startMarker = clone($start);
 			$startMarker->modify('first day of this month');
 
+			$maxEndMarker = clone($startMarker);
+			$maxEndMarker->modify($this->limit);
+
 			$endMarker = $monthlyEvent->getRecurrenceUntil()
-				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), clone($toDate))
-				: clone($toDate);
+				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+				: min(clone($toDate), $maxEndMarker);
 
 			$endBoundaryCheck = clone($endMarker);
 

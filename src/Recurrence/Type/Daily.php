@@ -34,9 +34,12 @@ class Daily implements RecurrenceInterface
                 ? clone($fromDate)
                 : new \DateTime($dailyEvent->getStartDate());
 
+            $maxEndMarker = clone($startMarker);
+            $maxEndMarker->modify($this->limit);
+
             $endMarker = $dailyEvent->getRecurrenceUntil()
-                ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), clone($toDate))
-                : clone($toDate);
+                ? min(new \DateTime($dailyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+                : min(clone($toDate), $maxEndMarker);
 
             $endBoundaryCheck = clone($endMarker);
 

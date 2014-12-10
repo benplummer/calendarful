@@ -41,9 +41,12 @@ class Weekly implements RecurrenceInterface
 				$startMarker->modify('P1D');
 			}
 
+			$maxEndMarker = clone($startMarker);
+			$maxEndMarker->modify($this->limit);
+
 			$endMarker = $weeklyEvent->getRecurrenceUntil()
-				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), clone($toDate))
-				: clone($toDate);
+				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+				: min(clone($toDate), $maxEndMarker);
 
 			$endBoundaryCheck = clone($endMarker);
 
