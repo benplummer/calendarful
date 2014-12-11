@@ -48,6 +48,24 @@ class WeeklyTest extends \PHPUnit_Framework_TestCase
 		$this->assertCount(2, $generatedWeeklyOccurrences);
 	}
 
+	public function testWeeklyEventsMaxEndDate()
+	{
+		$weeklyRecurrenceType = new Weekly();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-12-01 12:00:00', '2014-12-01 13:00:00', 'weekly'),
+		);
+
+		$fromDate = new \DateTime('2014-12-01 00:00:00');
+		$toDate = new \DateTime('2020-12-01 00:00:00');
+
+		$generatedWeeklyOccurrences = $weeklyRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$lastOccurrence = end($generatedWeeklyOccurrences);
+
+		$this->assertEquals('2019-11-25 12:00:00', $lastOccurrence->getStartDate());
+	}
+
 	public function testWeeklyEventsWithUntilDate()
 	{
 		$weeklyRecurrenceType = new Weekly();

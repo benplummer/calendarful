@@ -48,6 +48,24 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$this->assertCount(2, $generatedMonthlyDateOccurrences);
 	}
 
+	public function testMonthlyDateEventsMaxEndDate()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 13:00:00', 'monthly')
+		);
+
+		$fromDate = new \DateTime('2014-06-01 00:00:00');
+		$toDate = new \DateTime('2040-06-01 00:00:00');
+
+		$generatedMonthlyDateOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$lastOccurrence = end($generatedMonthlyDateOccurrences);
+
+		$this->assertEquals('2039-06-01 12:00:00', $lastOccurrence->getStartDate());
+	}
+
 	public function testMonthlyDateWithUntilDate()
 	{
 		$monthlyDateRecurrenceType = new MonthlyDate();

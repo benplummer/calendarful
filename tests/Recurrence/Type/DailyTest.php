@@ -48,6 +48,24 @@ class DailyTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(2, count($generatedDailyOccurrences));
 	}
 
+	public function testDailyEventsMaxEndDate()
+	{
+		$dailyRecurrenceType = new Daily();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-12-01 12:00:00', '2014-12-01 13:00:00', 'daily'),
+		);
+
+		$fromDate = new \DateTime('2014-12-01 00:00:00');
+		$toDate = new \DateTime('2016-12-01 00:00:00');
+
+		$generatedDailyOccurrences = $dailyRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$lastOccurrence = end($generatedDailyOccurrences);
+
+		$this->assertEquals('2015-12-01 12:00:00', $lastOccurrence->getStartDate());
+	}
+
 	public function testDailyEventsWithUntilDate()
 	{
 		$dailyRecurrenceType = new Daily();
