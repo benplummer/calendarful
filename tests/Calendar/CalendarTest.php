@@ -215,7 +215,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		}
 	}
 
-	public function testOverriddenEventRemoval()
+	public function testOverriddenDailyEventRemoval()
 	{
 		$recurrenceFactory = new RecurrenceFactory();
 		$recurrenceFactory->addRecurrenceType('daily', 'Plummer\Calendarful\Recurrence\Type\Daily');
@@ -224,13 +224,93 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry->shouldReceive('get')
 			->once()
 			->andReturn([
-				new MockEvent(1, '2014-12-01 12:00:00', '2014-12-01 13:00:00', 'daily'),
-				new MockEvent(2, '2014-12-02 18:00:00', '2014-12-02 19:00:00', null, null, 1, '2014-12-02 18:00:00'),
+				new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'daily'),
+				new MockEvent(2, '2014-06-15 18:00:00', '2014-06-15 19:00:00', null, null, 1, '2014-06-15 00:00:00'),
 			]);
 
 		$calendar = Calendar::create($recurrenceFactory)
-			->populate($eventRegistry, new \DateTime('2014-12-01 00:00:00'), new \DateTime('2014-12-05 00:00:00'));
+			->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
+
+		$overrideExists = false;
+		$overriddenExists = false;
+
+		$this->assertEquals(29, $calendar->count());
+
+		foreach($calendar as $event) {
+			if($event->getStartDate() === '2014-06-15 18:00:00') {
+				$overrideExists = true;
+			}
+			else if($event->getStartDate() === '2014-06-15 00:00:00') {
+				$overriddenExists = true;
+			}
+		}
+
+		$this->assertTrue($overrideExists && !$overriddenExists);
+	}
+
+	public function testOverriddenWeeklyEventRemoval()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
+		$recurrenceFactory->addRecurrenceType('weekly', 'Plummer\Calendarful\Recurrence\Type\Weekly');
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'weekly'),
+				new MockEvent(2, '2014-06-22 18:00:00', '2014-06-22 19:00:00', null, null, 1, '2014-06-22 00:00:00'),
+			]);
+
+		$calendar = Calendar::create($recurrenceFactory)
+			->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
+
+		$overrideExists = false;
+		$overriddenExists = false;
 
 		$this->assertEquals(4, $calendar->count());
+
+		foreach($calendar as $event) {
+			if($event->getStartDate() === '2014-06-22 18:00:00') {
+				$overrideExists = true;
+			}
+			else if($event->getStartDate() === '2014-06-22 00:00:00') {
+				$overriddenExists = true;
+			}
+		}
+
+		$this->assertTrue($overrideExists && !$overriddenExists);
+	}
+
+	public function testOverriddenMonthlyDateEventRemoval()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
+		$recurrenceFactory->addRecurrenceType('monthly', 'Plummer\Calendarful\Recurrence\Type\MonthlyDate');
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([
+				new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', 'monthly'),
+				new MockEvent(2, '2014-08-31 18:00:00', '2014-08-31 19:00:00', null, null, 1, '2014-08-31 00:00:00'),
+			]);
+
+		$calendar = Calendar::create($recurrenceFactory)
+			->populate($eventRegistry, new \DateTime('2014-05-01 12:00:00'), new \DateTime('2014-10-31 20:00:00'));
+
+		$overrideExists = false;
+		$overriddenExists = false;
+
+		$this->assertEquals(4, $calendar->count());
+
+		foreach($calendar as $event) {
+			if($event->getStartDate() === '2014-08-31 18:00:00') {
+				$overrideExists = true;
+			}
+			else if($event->getStartDate() === '2014-08-31 00:00:00') {
+				$overriddenExists = true;
+			}
+		}
+
+		$this->assertTrue($overrideExists && !$overriddenExists);
 	}
 }
