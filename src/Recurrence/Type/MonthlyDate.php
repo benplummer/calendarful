@@ -30,6 +30,8 @@ class MonthlyDate implements RecurrenceInterface
 
 		foreach($monthlyEvents as $monthlyEvent) {
 
+			list(, $monthlyEventTime) = explode(' ', $monthlyEvent->getStartDate());
+
 			$monthlyDate = date('d', strtotime($monthlyEvent->getStartDate()));
 
 			$start = $fromDate > new \DateTime($monthlyEvent->getStartDate())
@@ -73,7 +75,7 @@ class MonthlyDate implements RecurrenceInterface
 				}
 
 				$newMonthlyEvent = clone($monthlyEvent);
-				$newStartDate = $date;
+				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$monthlyEventTime);
 				$duration = $newMonthlyEvent->getDuration();
 
 				$newMonthlyEvent->setStartDate($newStartDate);

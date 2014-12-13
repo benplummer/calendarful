@@ -30,6 +30,8 @@ class Weekly implements RecurrenceInterface
 
 		foreach ($weeklyEvents as $weeklyEvent) {
 
+			list(, $weeklyEventTime) = explode(' ', $weeklyEvent->getStartDate());
+
 			// Retrieve the day of the week that the event takes place on
 			$day = date('w', strtotime($weeklyEvent->getStartDate()));
 
@@ -65,7 +67,7 @@ class Weekly implements RecurrenceInterface
 				}
 
 				$newWeeklyEvent = clone($weeklyEvent);
-				$newStartDate = $date;
+				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$weeklyEventTime);
 				$duration = $newWeeklyEvent->getDuration();
 
 				$newWeeklyEvent->setStartDate($newStartDate);

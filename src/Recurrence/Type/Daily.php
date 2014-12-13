@@ -30,6 +30,8 @@ class Daily implements RecurrenceInterface
 
         foreach ($dailyEvents as $dailyEvent) {
 
+            list(, $dailyEventTime) = explode(' ', $dailyEvent->getStartDate());
+
             $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDate())
                 ? clone($fromDate)
                 : new \DateTime($dailyEvent->getStartDate());
@@ -58,7 +60,7 @@ class Daily implements RecurrenceInterface
                 }
 
                 $newDailyEvent = clone($dailyEvent);
-                $newStartDate = $date;
+                $newStartDate = new \DateTime($date->format('Y-m-d').' '.$dailyEventTime);
                 $duration = $newDailyEvent->getDuration();
 
                 $newDailyEvent->setStartDate($newStartDate);
