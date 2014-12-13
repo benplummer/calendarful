@@ -77,7 +77,9 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			foreach($this->recurrenceFactory->getRecurrenceTypes() as $label => $recurrence) {
 				$recurrenceType = new $recurrence();
 
-				$this->events += $recurrenceType->generateOccurrences($this->events, $fromDate, $toDate, $limit);
+				$occurrences = $recurrenceType->generateOccurrences($this->events, $fromDate, $toDate, $limit);
+
+				$this->events = array_merge($this->events, $occurrences);
 			}
 		}
 
