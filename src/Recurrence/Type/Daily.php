@@ -61,6 +61,11 @@ class Daily implements RecurrenceInterface
 
                 $newDailyEvent = clone($dailyEvent);
                 $newStartDate = new \DateTime($date->format('Y-m-d').' '.$dailyEventTime);
+
+                if($newStartDate < $startMarker) {
+                    continue;
+                }
+
                 $duration = $newDailyEvent->getDuration();
 
                 $newDailyEvent->setStartDate($newStartDate);

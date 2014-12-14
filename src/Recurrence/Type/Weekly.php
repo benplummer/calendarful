@@ -68,6 +68,11 @@ class Weekly implements RecurrenceInterface
 
 				$newWeeklyEvent = clone($weeklyEvent);
 				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$weeklyEventTime);
+
+				if($newStartDate < $startMarker) {
+					continue;
+				}
+
 				$duration = $newWeeklyEvent->getDuration();
 
 				$newWeeklyEvent->setStartDate($newStartDate);

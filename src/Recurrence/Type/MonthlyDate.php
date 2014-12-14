@@ -76,6 +76,11 @@ class MonthlyDate implements RecurrenceInterface
 
 				$newMonthlyEvent = clone($monthlyEvent);
 				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$monthlyEventTime);
+
+				if($newStartDate < $startMarker) {
+					continue;
+				}
+
 				$duration = $newMonthlyEvent->getDuration();
 
 				$newMonthlyEvent->setStartDate($newStartDate);
