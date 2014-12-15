@@ -39,7 +39,7 @@ class MonthlyDate implements RecurrenceInterface
 				: new \DateTime($monthlyEvent->getStartDate());
 
 			$startMarker = clone($start);
-			$startMarker->modify('first day of this month');
+			$startMarker->setDate($start->format('Y'), $start->format('m'), 1);
 
 			$maxEndMarker = clone($startMarker);
 			$maxEndMarker->modify($this->limit);
@@ -69,10 +69,6 @@ class MonthlyDate implements RecurrenceInterface
 				}
 
 				$date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $monthlyDate));
-
-				if($date < $start) {
-					continue;
-				}
 
 				$newMonthlyEvent = clone($monthlyEvent);
 				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$monthlyEventTime);
