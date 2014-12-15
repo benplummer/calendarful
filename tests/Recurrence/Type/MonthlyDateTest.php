@@ -17,7 +17,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 13:00:00', 'monthly'),
+			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly'),
 			new MockEvent(2, '2014-12-02 18:00:00', '2014-12-02 19:00:00')
 		);
 
@@ -32,12 +32,140 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		}
 	}
 
+	public function testOneDayMonthlyDateEventStartingWithinDateRange()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', 'monthly')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(5, $generatedMonthlyOccurrences);
+	}
+
+	public function testOneDayMonthlyDateEventStartingWithinDateRangeWithUntil()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', 'monthly', '2014-08-31 23:59:59')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(3, $generatedMonthlyOccurrences);
+	}
+
+	public function testMultipleDayMonthlyDateEventStartingWithinDateRange()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', 'monthly')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(5, $generatedMonthlyOccurrences);
+	}
+
+	public function testMultipleDayMonthlyDateEventStartingWithinDateRangeWithUntil()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', 'monthly', '2014-08-31 23:59:59')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(3, $generatedMonthlyOccurrences);
+	}
+
+	public function testOneDayMonthlyDateEventStartingBeforeDateRange()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', 'monthly')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(5, $generatedMonthlyOccurrences);
+	}
+
+	public function testMultipleDayMonthlyDateEventStartingBeforeDateRange()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', 'monthly')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(5, $generatedMonthlyOccurrences);
+	}
+
+	public function testOneDayMonthlyDateEventStartingBeforeDateRangeWithUntil()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', 'monthly', '2014-08-31 23:59:59')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(3, $generatedMonthlyOccurrences);
+	}
+
+	public function testMultipleDayMonthlyDateEventStartingBeforeDateRangeWithUntil()
+	{
+		$monthlyDateRecurrenceType = new MonthlyDate();
+
+		$mockEvents = array(
+			new MockEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', 'monthly', '2014-08-31 23:59:59')
+		);
+
+		$fromDate = new \DateTime('2014-05-01 00:00:00');
+		$toDate = new \DateTime('2014-12-31 23:59:59');
+
+		$generatedMonthlyOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
+
+		$this->assertCount(3, $generatedMonthlyOccurrences);
+	}
+
 	public function testMonthlyDateEventsLimit()
 	{
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 13:00:00', 'monthly')
+			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly')
 		);
 
 		$fromDate = new \DateTime('2014-06-01 00:00:00');
@@ -53,7 +181,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 13:00:00', 'monthly')
+			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly')
 		);
 
 		$fromDate = new \DateTime('2014-06-01 00:00:00');
@@ -63,60 +191,6 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 
 		$lastOccurrence = end($generatedMonthlyDateOccurrences);
 
-		$this->assertEquals('2039-06-01 12:00:00', $lastOccurrence->getStartDate());
-	}
-
-	public function testMonthlyDateWithUntilDate()
-	{
-		$monthlyDateRecurrenceType = new MonthlyDate();
-
-		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 13:00:00', 'monthly', '2014-09-30 23:59:59')
-		);
-
-		$fromDate = new \DateTime('2014-06-01 00:00:00');
-		$toDate = new \DateTime('2014-12-31 23:59:59');
-
-		$generatedMonthlyDateOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
-
-		$this->assertCount(4, $generatedMonthlyDateOccurrences);
-
-		foreach($generatedMonthlyDateOccurrences as $generatedMonthlyDateOccurrence) {
-			$this->assertLessThanOrEqual('2014-09-30 23:59:59', $generatedMonthlyDateOccurrence->getStartDate());
-		}
-	}
-
-	public function testMonthlyDateEventOccurrenceDates()
-	{
-		$monthlyDateRecurrenceType = new MonthlyDate();
-
-		$mockEvents = array(
-			new MockEvent(1, '2014-06-15 12:00:00', '2014-06-15 13:00:00', 'monthly')
-		);
-
-		$fromDate = new \DateTime('2014-06-01 00:00:00');
-		$toDate = new \DateTime('2014-12-31 23:59:59');
-
-		$generatedMonthlyDateOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
-
-		$previousDate = null;
-		$previousTime = null;
-
-		foreach($generatedMonthlyDateOccurrences as $generatedMonthlyDateOccurrence) {
-			if(!($previousDate || $previousTime)) {
-				list($previousDate, $previousTime) = explode(' ', $generatedMonthlyDateOccurrence->getStartDate());
-				continue;
-			}
-
-			list($currentDate, $currentTime) = explode(' ', $generatedMonthlyDateOccurrence->getStartDate());
-
-			$this->assertGreaterThan($previousDate, $currentDate);
-			$this->assertEquals($previousTime, $currentTime);
-
-			$previousDate = $currentDate;
-			$previousTime = $currentTime;
-		}
-
-		$this->assertCount(6, $generatedMonthlyDateOccurrences);
+		$this->assertEquals('2039-06-01 00:00:00', $lastOccurrence->getStartDate());
 	}
 }
