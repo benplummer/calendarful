@@ -13,6 +13,36 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		m::close();
 	}
 
+	public function testSameFromAndToDate()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+		$eventRegistry->shouldReceive('get')
+			->once()
+			->andReturn([new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')]);
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-01 12:00:00'));
+
+		$this->assertEquals(1, $calendar->count());
+
+		foreach($calendar as $event) {
+			$this->assertEquals('2014-06-01 12:00:00', $event->getStartDate());
+		}
+	}
+
+	/**
+	 * @expectedException RangeException
+	 */
+	public function testFromDateLaterThanToDate()
+	{
+		$calendar = new Calendar();
+
+		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+
+		$calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-01 11:59:59'));
+	}
+
 	public function testSameDayEventWithinDateRange()
 	{
 		$calendar = new Calendar();
