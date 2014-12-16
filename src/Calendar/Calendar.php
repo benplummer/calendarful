@@ -32,6 +32,10 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array())
 	{
+		if($fromDate > $toDate) {
+			throw new \RangeException("'From' date should be before the 'to' date.");
+		}
+
 		$filters = array_merge(
 			[
 				'fromDate' => $fromDate,
