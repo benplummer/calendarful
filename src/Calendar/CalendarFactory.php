@@ -9,7 +9,7 @@ class CalendarFactory implements CalendarFactoryInterface
 	public function addCalendarType($type, $calendarType)
 	{
 		if(is_string($calendarType) and !class_exists($calendarType)) {
-			throw new \InvalidArgumentException("Class {$calendarType} des not exist.");
+			throw new \InvalidArgumentException("Class {$calendarType} does not exist.");
 		}
 		else if(!in_array('Plummer\Calendarful\Calendar\CalendarInterface', class_implements($calendarType, false))) {
 			throw new \InvalidArgumentException('File or File path required.');
