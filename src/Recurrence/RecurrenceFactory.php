@@ -2,10 +2,31 @@
 
 namespace Plummer\Calendarful\Recurrence;
 
+/**
+ * Class RecurrenceFactory
+ *
+ * The Recurrence Factory stores different implementations of the Recurrence Interface.
+ * When requested it can create specific implementations if they have been stored or return
+ * all of them.
+ *
+ * This class would usually be used in conjunction with Calendar implementations.
+ *
+ * @package Plummer\Calendarful
+ */
 class RecurrenceFactory implements RecurrenceFactoryInterface
 {
+	/**
+	 * @var array
+	 */
 	protected $recurrenceTypes = [];
 
+	/**
+	 * Stores recurrence type class paths when provided with a key and an instance or
+	 * class path of an implementation.
+	 *
+	 * @param string 						$type
+	 * @param string|RecurrenceInterface 	$recurrenceType
+	 */
 	public function addRecurrenceType($type, $recurrenceType)
 	{
 		if(is_string($recurrenceType) and !class_exists($recurrenceType)) {
@@ -20,11 +41,22 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 			get_class($recurrenceType);
 	}
 
+	/**
+	 * Get all of the stored recurrence types.
+	 *
+	 * @return array
+	 */
 	public function getRecurrenceTypes()
 	{
 		return $this->recurrenceTypes;
 	}
 
+	/**
+	 * Creates and returns an instance of a stored recurrence type.
+	 *
+	 * @param string $type
+	 * @return RecurrenceInterface
+	 */
 	public function createRecurrenceType($type)
 	{
 		if(!isset($this->recurrenceTypes[$type])) {
