@@ -22,7 +22,7 @@ class Weekly implements RecurrenceInterface
 
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
-		$return = [];
+		$return = array();
 
 		$weeklyEvents = array_filter($events, function ($event) {
 			return $event->getRecurrenceType() === $this->getLabel();

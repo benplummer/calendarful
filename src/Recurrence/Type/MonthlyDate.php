@@ -22,7 +22,7 @@ class MonthlyDate implements RecurrenceInterface
 
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
-		$return = [];
+		$return = array();
 
 		$monthlyEvents = array_filter($events, function ($event) {
 			return $event->getRecurrenceType() === $this->getLabel();

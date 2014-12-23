@@ -16,7 +16,7 @@ class CalendarFactory implements CalendarFactoryInterface
 	/**
 	 * @var array
 	 */
-	private $calendarTypes = [];
+	private $calendarTypes = array();
 
 	/**
 	 * Stores calendar type class paths when provided with a key and an instance or

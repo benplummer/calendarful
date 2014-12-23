@@ -37,11 +37,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		}
 
 		$filters = array_merge(
-			[
+			array(
 				'fromDate' => $fromDate,
 				'toDate' => $toDate,
 				'limit' => $limit
-			],
+			),
 			$extraFilters
 		);
 

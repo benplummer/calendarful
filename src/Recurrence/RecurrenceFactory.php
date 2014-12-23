@@ -18,7 +18,7 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 	/**
 	 * @var array
 	 */
-	protected $recurrenceTypes = [];
+	protected $recurrenceTypes = array();
 
 	/**
 	 * Stores recurrence type class paths when provided with a key and an instance or
