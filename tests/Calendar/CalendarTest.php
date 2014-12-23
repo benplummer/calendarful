@@ -104,7 +104,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
 		$eventRegistry->shouldReceive('get')
 			->once()
-			->andReturn((new MockEvent(1, '2014-06-01 10:00:00', '2014-06-03 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-03 18:00:00')));
 
 		$calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:59:59'));
 
