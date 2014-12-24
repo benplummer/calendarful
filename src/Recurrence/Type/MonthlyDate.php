@@ -4,22 +4,55 @@ namespace Plummer\Calendarful\Recurrence\Type;
 
 use Plummer\Calendarful\Recurrence\RecurrenceInterface;
 
+/**
+ * Class MonthlyDate
+ *
+ * The default recurrence type for generating occurrences for events that recur monthly
+ * on a certain date.
+ *
+ * @package Plummer\Calendarful
+ */
 class MonthlyDate implements RecurrenceInterface
 {
+	/**
+	 * @var string
+	 */
 	protected $label = 'monthly';
 
+	/**
+	 * @var string
+	 */
 	protected $limit = '+25 year';
 
+	/**
+	 * Get the label of the recurrence type.
+	 *
+	 * @return string
+	 */
 	public function getLabel()
 	{
 		return $this->label;
 	}
 
+	/**
+	 * Get the limit of the recurrence type.
+	 *
+	 * @return string
+	 */
 	public function getLimit()
 	{
 		return $this->limit;
 	}
 
+	/**
+	 * Generate the occurrences for each monthly recurring event.
+	 *
+	 * @param array $events
+	 * @param \DateTime $fromDate
+	 * @param \DateTime $toDate
+	 * @param int|null $limit
+	 * @return array
+	 */
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		$return = array();

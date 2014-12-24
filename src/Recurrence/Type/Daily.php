@@ -4,22 +4,54 @@ namespace Plummer\Calendarful\Recurrence\Type;
 
 use Plummer\Calendarful\Recurrence\RecurrenceInterface;
 
+/**
+ * Class Daily
+ *
+ * The default recurrence type for generating occurrences for events that recur daily.
+ *
+ * @package Plummer\Calendarful
+ */
 class Daily implements RecurrenceInterface
 {
+    /**
+     * @var string
+     */
 	protected $label = 'daily';
 
+    /**
+     * @var string
+     */
 	protected $limit = '+1 year';
 
+    /**
+     * Get the label of the recurrence type.
+     *
+     * @return string
+     */
 	public function getLabel()
 	{
 		return $this->label;
 	}
 
+    /**
+     * Get the limit of the recurrence type.
+     *
+     * @return string
+     */
 	public function getLimit()
 	{
 		return $this->limit;
 	}
 
+    /**
+     * Generate the occurrences for each daily recurring event.
+     *
+     * @param array $events
+     * @param \DateTime $fromDate
+     * @param \DateTime $toDate
+     * @param int|null $limit
+     * @return array
+     */
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
         $return = array();
