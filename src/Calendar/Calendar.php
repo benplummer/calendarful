@@ -5,22 +5,56 @@ namespace Plummer\Calendarful\Calendar;
 use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
 use Plummer\Calendarful\RegistryInterface;
 
+/**
+ * Class Calendar
+ *
+ * This is the default calendar implementation. Once populated with events using an
+ * event registry, the calendar instance can be looped over to access the events.
+ * The events will also consist of recurring event occurrences if a recurrence factory
+ * is involved in the process.
+ *
+ * @package Plummer\Calendarful
+ */
 class Calendar implements CalendarInterface, \IteratorAggregate
 {
+	/**
+	 * @var array
+	 */
 	protected $events;
 
+	/**
+	 * @var RecurrenceFactoryInterface
+	 */
 	protected $recurrenceFactory;
 
+	/**
+	 * Create a calendar instance with an optional recurrence factory if recurring events
+	 * are desired.
+	 *
+	 * @param RecurrenceFactoryInterface $recurrenceFactory
+	 */
 	public function __construct(RecurrenceFactoryInterface $recurrenceFactory = null)
 	{
 		$this->recurrenceFactory = $recurrenceFactory;
 	}
 
+	/**
+	 * Alternative method of creating a calendar instance that allows chaining.
+	 *
+	 * @param RecurrenceFactoryInterface $recurrenceFactory
+	 * @return static
+	 */
 	public static function create(RecurrenceFactoryInterface $recurrenceFactory = null)
 	{
 		return new static($recurrenceFactory);
 	}
 
+	/**
+	 * Gets the array iterator of events if there are events otherwise an exception is thrown.
+	 *
+	 * @return \ArrayIterator
+	 * @throws \Exception
+	 */
 	public function getIterator()
 	{
 		if($this->events === null) {
@@ -30,6 +64,19 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return new \ArrayIterator($this->events);
 	}
 
+	/**
+	 * Populates the calendar with events using an event registry and filters the results based
+	 * on other parameters.
+	 *
+	 * Occurrences of recurring events are also generated at this stage.
+	 *
+	 * @param RegistryInterface $eventsRegistry
+	 * @param \DateTime $fromDate
+	 * @param \DateTime $toDate
+	 * @param null $limit
+	 * @param array $extraFilters
+	 * @return $this
+	 */
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array())
 	{
 		if($fromDate > $toDate) {
@@ -58,6 +105,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return $this;
 	}
 
+	/**
+	 * Sorts the events into ascending order based on their start dates.
+	 *
+	 * @return $this
+	 */
 	public function sort()
 	{
 		usort($this->events, function($event1, $event2) {
@@ -70,11 +122,23 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		return $this;
 	}
 
+	/**
+	 * Gets the number of events the calendar contains.
+	 *
+	 * @return int
+	 */
 	public function count()
 	{
 		return count($this->events);
 	}
 
+	/**
+	 * Generates the occurrences for recurring events if a recurrence factory is present.
+	 *
+	 * @param \DateTime $fromDate
+	 * @param \DateTime $toDate
+	 * @param null $limit
+	 */
 	protected function processRecurringEvents(\DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		if($this->recurrenceFactory) {
@@ -101,6 +165,9 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		});
 	}
 
+	/**
+	 * Removes the occurrences of recurring events that have been overridden.
+	 */
 	protected function removeOveriddenEvents()
 	{
 		// Events need to be sorted by date and id (both ascending) in order for overridden occurrences not to show
@@ -115,6 +182,13 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		$this->events = $events;
 	}
 
+	/**
+	 * Remove any events, particularly occurrences of recurring events, that are out of the date
+	 * range provided.
+	 *
+	 * @param \DateTime $fromDate
+	 * @param \DateTime $toDate
+	 */
 	protected function removeOutOfRangeEvents(\DateTime $fromDate, \DateTime $toDate)
 	{
 		// Remove events that do not occur within the date range
