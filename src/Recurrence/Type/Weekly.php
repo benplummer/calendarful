@@ -55,9 +55,10 @@ class Weekly implements RecurrenceInterface
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		$return = array();
+		$object = $this;
 
-		$weeklyEvents = array_filter($events, function ($event) {
-			return $event->getRecurrenceType() === $this->getLabel();
+		$weeklyEvents = array_filter($events, function ($event) use ($object) {
+			return $event->getRecurrenceType() === $object->getLabel();
 		});
 
 		foreach ($weeklyEvents as $weeklyEvent) {

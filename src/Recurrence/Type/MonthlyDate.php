@@ -56,9 +56,10 @@ class MonthlyDate implements RecurrenceInterface
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		$return = array();
+		$object = $this;
 
-		$monthlyEvents = array_filter($events, function ($event) {
-			return $event->getRecurrenceType() === $this->getLabel();
+		$monthlyEvents = array_filter($events, function ($event) use ($object) {
+			return $event->getRecurrenceType() === $object->getLabel();
 		});
 
 		foreach($monthlyEvents as $monthlyEvent) {
