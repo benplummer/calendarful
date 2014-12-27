@@ -10,7 +10,7 @@ Calendarful is a simple and easily extendable PHP solution that allows the gener
 This project can be installed via [Composer]:
 
 ``` bash
-$ composer require plummer/calendarful:dev-master
+$ composer require plummer/calendarful
 ```
 
 ## License ##
