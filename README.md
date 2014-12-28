@@ -26,14 +26,14 @@ This package requires that you have an `Event` model. This could be an Eloquent 
 For the model to be compatible with this package it must implement the `EventInterface`
  
 ```php
-    <?php
+<?php
+
+use Plummer\Calendarful\Event\EventInterface;
+
+class Event implements EventInterface
+{
     
-    use Plummer\Calendarful\Event\EventInterface;
-    
-    class Event implements EventInterface
-    {
-        
-    }
+}
 ```
 
 Your `Event` model must then provide an implementation for each of the methods within the `EventInterface`.
@@ -51,45 +51,45 @@ Once you have your `Event` model fully set up, you need to create a class for yo
 This is my example Event Registry using Laravel's Eloquent ORM:
 
 ```php
-    <?php
-    
-    use Plummer\Calendarful\RegistryInterface;
-    
-    class EventRegistry implements RegistryInterface
+<?php
+
+use Plummer\Calendarful\RegistryInterface;
+
+class EventRegistry implements RegistryInterface
+{
+    public function get(Array $filters = array())
     {
-        public function get(Array $filters = array())
-        {
-            $events = [];
-    
-            if(! $filters) {
-                foreach(\TestEvent::all() as $event) {
-                    $events[$event->getId()] = $event;
-                }
+        $events = [];
+
+        if(!$filters) {
+            foreach(\TestEvent::all() as $event) {
+                $events[$event->getId()] = $event;
             }
-            else {
-                $results = \TestEvent::where('startDate', '<=', $filters['toDate']->format('Y-m-d'))
-                            ->where('endDate', '>=', $filters['fromDate']->format('Y-m-d'))
-                            ->orWhere(
-                                function($query) use ($filters) {
-                                    $query->whereNotNull('type')
-                                        ->where(
-                                            function ($query) use ($filters) {
-                                                $query->whereNull('until')
-                                                    ->where('until', '>=', $filters['fromDate']->format('Y-m-d'), 'or');
-                                            }
-                                        );
-                                }
-                            )->get();
-    
-    
-                foreach($results as $event) {
-                    $events[$event->getId()] = $event;
-                }
-            }
-    
-            return $events;
         }
+        else {
+            $results = \TestEvent::where('startDate', '<=', $filters['toDate']->format('Y-m-d'))
+                        ->where('endDate', '>=', $filters['fromDate']->format('Y-m-d'))
+                        ->orWhere(
+                            function($query) use ($filters) {
+                                $query->whereNotNull('type')
+                                    ->where(
+                                        function ($query) use ($filters) {
+                                            $query->whereNull('until')
+                                                ->where('until', '>=', $filters['fromDate']->format('Y-m-d'), 'or');
+                                        }
+                                    );
+                            }
+                        )->get();
+
+
+            foreach($results as $event) {
+                $events[$event->getId()] = $event;
+            }
+        }
+
+        return $events;
     }
+}
 ```
 
 When you populate the default `Calendar` class with events, the parameters you pass will be passed to the 
