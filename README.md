@@ -101,6 +101,87 @@ If no filters are provided and all events are returned, the `Calendar` class wil
 
 **The sole reason for filters being passed to the Event Registry is to optimize performance by using relevant events earlier in the process.**
 
+# Usage
+
+With an Event model and Event Registry set up, you just need to instantiate the Event Registry and Calendar and populate the Calendar.
+ 
+```php
+
+$eventsRegistry = new EventRegistry();
+
+$calendar = Plummer\Calendarful\Calendar\Calendar::create()
+			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
+
+```
+
+The default Calendar uses an ArrayIterator so now we can access the events like so:
+
+```php
+
+foreach($calendar as $event) {
+    // Use event as necessary... 
+}
+
+```
+
+## Recurring Events
+
+To identify recurring events and generate occurrences for them, a `RecurrenceFactory` comes into the above process.
+
+```php
+
+$eventsRegistry = new EventRegistry();
+
+$recurrenceFactory = new \Plummer\Calendarful\Recurrence\RecurrenceFactory();
+$recurrenceFactory->addRecurrenceType('daily', 'Plummer\Calendarful\Recurrence\Type\Daily');
+$recurrenceFactory->addRecurrenceType('weekly', 'Plummer\Calendarful\Recurrence\Type\Weekly');
+$recurrenceFactory->addRecurrenceType('monthly', 'Plummer\Calendarful\Recurrence\Type\MonthlyDate');
+
+$calendar = Plummer\Calendarful\Calendar\Calendar::create($recurrenceFactory)
+			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
+
+```
+
+We can see that the three default package recurrence types were injected into the Recurrence Factory and passed to the Calendar.
+
+In order for occurrences to be generated, the `getRecurrenceType()` return value for a recurring event should match up to the first parameter
+value from where Recurrence Types are added to the Recurrence Factory e.g. 'daily', 'weekly' or 'monthly' above.
+
+When occurrences are generated, they will be a clone of their parent aside from updates on their dates and recurrence related properties.
+
+### Overriding Occurrences
+
+If you are using this package for its recurrence functionality, it is likely you will want to override an occurrence at some point.
+
+For instance, you may have a weekly recurring event that runs every Monday but you may want next week's occurrence to run on the Tuesday instead 
+and continue on Mondays again thereafter. This is where occurrence overrides come in.
+
+When you want to override an occurrence you need to create a new Event and save it to your storage method of choice.
+For the override to be recognised by the package you need to update the values of those properties on the Event model 
+returned by `getParentId()` and `getOccurrenceDate`.
+
+Lets say your Event model has properties called `parentId` and `occurrenceDate` in conjunction with those `EventInterface` methods mentioned.
+
+To override next Monday's occurrence to Tuesday you would need to set the `parentId` to that of the parent event that recurs every Monday
+and the `occurrenceDate` to the date that the occurrence would have been; the Monday. The `startDate` would also need to be updated to the Tuesday's date.
+Once that new event is saved, the Monday occurrence next week would be replaced by the override in the calendar.
+
+**If a parent event start date ever changes, all of the occurrence dates for the overrides of the occurrences for that event need to be altered by
+the same difference in time to ensure the overrides still work.**
+
+### Adding your own Recurrence Types
+
+To add your own Recurrence Type all you need to do is create a new class that implements the `RecurrenceInterface` and its methods.
+
+The new Recurrence Type can then be added to the `RecurrenceFactory` in the same way as shown above.
+
+```php
+
+$recurrenceFactory = new \Plummer\Calendarful\Recurrence\RecurrenceFactory();
+$recurrenceFactory->addRecurrenceType('ThisShouldMatchAnEventRecurrenceType', 'Another\RecurrenceType\ClassPath');
+
+```
+
 ## License ##
 
 **plummer/calendarful** is licensed under the MIT license.  See the `LICENSE` file for more details.
