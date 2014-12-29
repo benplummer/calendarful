@@ -3,9 +3,11 @@
 [![Build Status](https://travis-ci.org/benplummer/calendarful.svg?branch=master)](https://travis-ci.org/benplummer/calendarful)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat)](https://github.com/benplummer/calendarful/blob/master/LICENSE)
 
-Calendarful is a simple and easily extendable PHP solution that allows the generation of occurrences of recurring events, thus eliminating the need to store hundreds or maybe thousands of occurrences in a database or other methods of storage. 
+Calendarful is a simple and easily extendable PHP solution that allows the generation of occurrences of recurring events, 
+thus eliminating the need to store hundreds or maybe thousands of occurrences in a database or other methods of storage. 
 
-This package ships with default implementations of interfaces for use out of the box although it is very simple to provide your own implementations if needs be.
+This package ships with default implementations of interfaces for use out of the box although it is very simple to provide
+your own implementations if needs be.
 
 ## Installation
 
@@ -104,24 +106,23 @@ If no filters are provided and all events are returned, the `Calendar` class wil
 # Usage
 
 With an Event model and Event Registry set up, you just need to instantiate the Event Registry and Calendar and populate the Calendar.
+
+The `populate` method takes in the Event Registry, the date range that the Calendar should cover (from and to date) and a limit if there
+is a maximum limit on the amount of events you want back.
  
 ```php
-
 $eventsRegistry = new EventRegistry();
 
 $calendar = Plummer\Calendarful\Calendar\Calendar::create()
 			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
-
 ```
 
 The default Calendar uses an ArrayIterator so now we can access the events like so:
 
 ```php
-
 foreach($calendar as $event) {
     // Use event as necessary... 
 }
-
 ```
 
 ## Recurring Events
@@ -129,7 +130,6 @@ foreach($calendar as $event) {
 To identify recurring events and generate occurrences for them, a `RecurrenceFactory` comes into the above process.
 
 ```php
-
 $eventsRegistry = new EventRegistry();
 
 $recurrenceFactory = new \Plummer\Calendarful\Recurrence\RecurrenceFactory();
@@ -139,7 +139,6 @@ $recurrenceFactory->addRecurrenceType('monthly', 'Plummer\Calendarful\Recurrence
 
 $calendar = Plummer\Calendarful\Calendar\Calendar::create($recurrenceFactory)
 			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
-
 ```
 
 We can see that the three default package recurrence types were injected into the Recurrence Factory and passed to the Calendar.
@@ -176,13 +175,63 @@ To add your own Recurrence Type all you need to do is create a new class that im
 The new Recurrence Type can then be added to the `RecurrenceFactory` in the same way as shown above.
 
 ```php
-
 $recurrenceFactory = new \Plummer\Calendarful\Recurrence\RecurrenceFactory();
-$recurrenceFactory->addRecurrenceType('ThisShouldMatchAnEventRecurrenceType', 'Another\RecurrenceType\ClassPath');
-
+$recurrenceFactory->addRecurrenceType('ThisShouldMatchAnEventRecurrenceTypePropertyValue', 'Another\RecurrenceType\ClassPath');
 ```
 
-## License ##
+## Different Types of Calendars
+
+This package supports different types of calendars as long as they implement the `CalendarInterface`.
+
+You may want to use multiple calendars at once, in which case you can use the `CalendarFactory`.
+You add calendars to the factory in much the same way as the `RecurrenceFactory` works.
+ 
+```php
+$calendarFactory = new \Plummer\Calendarful\Calendar\CalendarFactory();
+$calendarFactory->addCalendarType('gregorian', 'Plummer\Calendarful\Calendar\Calendar');
+$calendarFactory->addCalendarType('anotherType', 'Another\CalendarType\ClassPath');
+```
+ 
+Next, you can either retrieve the calendar type you desire.
+
+```php
+$calendar = $calendarFactory->createCalendar('gregorian');
+```
+
+Or retrieve all calendar types to loop through etc.
+
+```php
+foreach($calendarFactory->getCalendarTypes() as $type => $calendar) {
+    // Use calendar...
+}
+```
+
+## Extending the Package
+
+There are interfaces for every component within this package therefore if the default implementations do not do
+exactly as you wish or you want them to work slightly differently it is quite simple to construct your own implementation.
+This may be for one component or for all.
+
+**If you do use your own components, I highly recommend looking at the functionality of the existing default components as
+you may wish to use parts e.g. to ensure occurrence overrides etc still function.**
+
+# Testing
+
+Unit tests can be run inside the package:
+
+``` bash
+$ ./vendor/bin/phpunit
+```
+
+# Contributing
+
+If you wish to contribute to this package, feel free to submit a PR or an issue and I will try to review it as soon as possible.
+
+Any feedback on the package, whether good, bad or if anything is missing will always be taken on board.
+
+Feel free to tweet me at @Ben_Plummer or email me at ben@benplummer.co.uk. 
+
+# License
 
 **plummer/calendarful** is licensed under the MIT license.  See the `LICENSE` file for more details.
 
