@@ -1,5 +1,6 @@
 # Calendarful
 
+[![Author](http://img.shields.io/badge/author-@Ben_Plummer-blue.svg?style=flat-square)](https://twitter.com/ben_plummer)
 [![Build Status](https://travis-ci.org/benplummer/calendarful.svg?branch=master)](https://travis-ci.org/benplummer/calendarful)
 [![Packagist](https://img.shields.io/packagist/v/plummer/calendarful.svg?style=flat)](https://packagist.org/packages/plummer/calendarful)
 [![Packagist](https://img.shields.io/packagist/l/plummer/calendarful.svg?style=flat)](https://github.com/benplummer/calendarful/blob/master/LICENSE)
