@@ -19,6 +19,8 @@ This project can be installed via [Composer]:
 $ composer require plummer/calendarful
 ```
 
+It requires **PHP >= 5.3.0**.
+
 ## Required Set Up
 
 There are a few steps to take before using this package.
