@@ -1,4 +1,5 @@
-# Calendarful
+Calendarful
+-------
 
 [![Author](http://img.shields.io/badge/author-@Ben_Plummer-blue.svg?style=flat-square)](https://twitter.com/ben_plummer)
 [![Build Status](https://travis-ci.org/benplummer/calendarful.svg?branch=master)](https://travis-ci.org/benplummer/calendarful)
@@ -11,9 +12,10 @@ thus eliminating the need to store hundreds or maybe thousands of occurrences in
 This package ships with default implementations of interfaces for use out of the box although it is very simple to provide
 your own implementations if needs be.
 
-## Installation
+Installation
+-------
 
-This project can be installed via [Composer]:
+This package can be installed via [Composer]:
 
 ``` bash
 $ composer require plummer/calendarful
@@ -21,15 +23,16 @@ $ composer require plummer/calendarful
 
 It requires **PHP >= 5.3.0**.
 
-## Required Set Up
+Required Set Up
+-------
 
-There are a few steps to take before using this package.
+Before using this package, a few steps need to be taken.
 
-### Event Model
+#### Event Model
 
 This package requires that you have an `Event` model. This could be an Eloquent model from Laravel or any ORM model or class.
 
-For the model to be compatible with this package it must implement the `EventInterface`
+For the model to be compatible with this package it **must** implement the `EventInterface`
  
 ```php
 <?php
@@ -44,15 +47,16 @@ class Event implements EventInterface
 
 Your `Event` model must then provide an implementation for each of the methods within the `EventInterface`.
 
-Ideally, there should be a property on the model that is relevant to each of the getter and setter methods of the `EventInterface` for this package to function most effectively.
-For example, there should be a start date property that `getStartDate()` and `setStartDate()` can use etc.
+Ideally, there should be properties on the `Event` model that are relevant to each getter and setter method 
+of the `EventInterface` in order for this package to function most effectively.
+For example, there should be a start date property that `getStartDate()` and `setStartDate()` apply to etc.
  
 The `MockEvent` class under the `tests` directory provides an example implementation of the methods and relevant properties to be used.
 Documentation of each `EventInterface` method inside the file also provides brief explanations of the purpose of each of the properties.
 
-### Event Registry
+#### Event Registry
 
-Once you have your `Event` model fully set up, you need to create a class for your `EventRegistry` which should implement the `RegistryInterface`.
+Once you have your `Event` model fully set up, you need to create an `EventRegistry` class which should implement the `RegistryInterface`.
 
 This is my example Event Registry using Laravel's Eloquent ORM:
 
@@ -99,7 +103,7 @@ class EventRegistry implements RegistryInterface
 ```
 
 When you populate the default `Calendar` class with events, the parameters you pass will be passed to the 
-Event Registry as the `filters` you can see being used above. These passed `filters` allow the Event Registry 
+`EventRegistry` as the `$filters` you can see being used above. These passed `$filters` allow the `EventRegistry` 
 to do a lot of the work in returning only the relevant events.
 
 The `EventRegistry` above uses the date filters to determine which events fall into the date range given.
@@ -107,11 +111,12 @@ If no filters are provided and all events are returned, the `Calendar` class wil
 
 **The sole reason for filters being passed to the Event Registry is to optimize performance by using relevant events earlier in the process.**
 
-# Usage
+Usage
+-------
 
-With an Event model and Event Registry set up, you just need to instantiate the Event Registry and Calendar and populate the Calendar.
+With `Event` and `EventRegistry` classes set up, you just need to instantiate the `EventRegistry` and `Calendar` and populate the `Calendar`.
 
-The `populate` method takes in the Event Registry, the date range that the Calendar should cover (from and to date) and a limit if there
+The `populate` method takes in the `EventRegistry`, the date range that the `Calendar` should cover (a 'from' and 'to' date) and a limit if there
 is a maximum limit on the amount of events you want back.
  
 ```php
@@ -121,7 +126,7 @@ $calendar = Plummer\Calendarful\Calendar\Calendar::create()
 			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
 ```
 
-The default Calendar uses an ArrayIterator so now we can access the events like so:
+The default `Calendar` uses an ArrayIterator so now we can access the events like so:
 
 ```php
 foreach($calendar as $event) {
@@ -129,7 +134,7 @@ foreach($calendar as $event) {
 }
 ```
 
-## Recurring Events
+### Recurring Events
 
 To identify recurring events and generate occurrences for them, a `RecurrenceFactory` comes into the above process.
 
@@ -145,14 +150,14 @@ $calendar = Plummer\Calendarful\Calendar\Calendar::create($recurrenceFactory)
 			    ->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
 ```
 
-We can see that the three default package recurrence types were injected into the Recurrence Factory and passed to the Calendar.
+We can see that the three default package recurrence types were injected into the `RecurrenceFactory` and passed to the `Calendar`.
 
 In order for occurrences to be generated, the `getRecurrenceType()` return value for a recurring event should match up to the first parameter
-value from where Recurrence Types are added to the Recurrence Factory e.g. 'daily', 'weekly' or 'monthly' above.
+value from where Recurrence Types are added to the `RecurrenceFactory` e.g. 'daily', 'weekly' or 'monthly' above.
 
-When occurrences are generated, they will be a clone of their parent aside from updates on their dates and recurrence related properties.
+When occurrences are generated, they will be a clone of their parent aside from updates to their date and recurrence related properties.
 
-### Overriding Occurrences
+#### Overriding Occurrences
 
 If you are using this package for its recurrence functionality, it is likely you will want to override an occurrence at some point.
 
@@ -163,11 +168,11 @@ When you want to override an occurrence you need to create a new Event and save 
 For the override to be recognised by the package you need to update the values of those properties on the Event model 
 returned by `getParentId()` and `getOccurrenceDate`.
 
-Lets say your Event model has properties called `parentId` and `occurrenceDate` in conjunction with those `EventInterface` methods mentioned.
+Lets say your `Event` model has properties called `parentId` and `occurrenceDate` in conjunction with those `EventInterface` methods mentioned.
 
-To override next Monday's occurrence to Tuesday you would need to set the `parentId` to that of the parent event that recurs every Monday
+To override next Monday's occurrence to Tuesday you would need to set the `parentId` to the `Id` value of the parent event that recurs every Monday,
 and the `occurrenceDate` to the date that the occurrence would have been; the Monday. The `startDate` would also need to be updated to the Tuesday's date.
-Once that new event is saved, the Monday occurrence next week would be replaced by the override in the calendar.
+Once that new event is saved, the Monday occurrence next week would be replaced by the override in the `Calendar`.
 
 **If a parent event start date ever changes, all of the occurrence dates for the overrides of the occurrences for that event need to be altered by
 the same difference in time to ensure the overrides still work.**
@@ -183,7 +188,7 @@ $recurrenceFactory = new \Plummer\Calendarful\Recurrence\RecurrenceFactory();
 $recurrenceFactory->addRecurrenceType('ThisShouldMatchAnEventRecurrenceTypePropertyValue', 'Another\RecurrenceType\ClassPath');
 ```
 
-## Different Types of Calendars
+### Different Types of Calendars
 
 This package supports different types of calendars as long as they implement the `CalendarInterface`.
 
@@ -210,7 +215,7 @@ foreach($calendarFactory->getCalendarTypes() as $type => $calendar) {
 }
 ```
 
-## Extending the Package
+### Extending the Package
 
 There are interfaces for every component within this package therefore if the default implementations do not do
 exactly as you wish or you want them to work slightly differently it is quite simple to construct your own implementation.
@@ -219,7 +224,8 @@ This may be for one component or for all.
 **If you do use your own components, I highly recommend looking at the functionality of the existing default components as
 you may wish to use parts e.g. to ensure occurrence overrides etc still function.**
 
-# Testing
+Testing
+-------
 
 Unit tests can be run inside the package:
 
@@ -227,15 +233,13 @@ Unit tests can be run inside the package:
 $ ./vendor/bin/phpunit
 ```
 
-# Contributing
+Contributing
+-------
 
-If you wish to contribute to this package, feel free to submit a PR or an issue and I will try to review it as soon as possible.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-Any feedback on the package, whether good, bad or if anything is missing will always be taken on board.
-
-Feel free to tweet me at @Ben_Plummer or email me at ben@benplummer.co.uk. 
-
-# License
+License
+-------
 
 **plummer/calendarful** is licensed under the MIT license.  See the `LICENSE` file for more details.
 
