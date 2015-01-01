@@ -12,6 +12,10 @@ thus eliminating the need to store hundreds or maybe thousands of occurrences in
 This package ships with default implementations of interfaces for use out of the box although it is very simple to provide
 your own implementations if needs be.
 
+It is compliant with [PSR-2].
+
+[PSR-2]: http://www.php-fig.org/psr/psr-2/
+
 Installation
 -------
 

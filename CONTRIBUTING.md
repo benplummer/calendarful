@@ -9,3 +9,7 @@ Feel free to contact me on [Twitter](https://twitter.com/ben_plummer) or email m
 ## Pull Requests
 
 Please ensure any Pull Requests **include tests** and consist of **documentation additions** to the README if necessary.
+
+Contributions **must** also be compliant with [PSR-2].
+
+[PSR-2]: http://www.php-fig.org/psr/psr-2/
