@@ -14,23 +14,23 @@ use Plummer\Calendarful\RegistryInterface;
  */
 interface CalendarInterface
 {
-	/**
-	 * Populate the calendar with events persisted from the event registry.
-	 *
-	 * @param RegistryInterface 	$eventsRegistry
-	 * @param \DateTime 			$fromDate
-	 * @param \DateTime 			$toDate
-	 * @param integer|null 			$limit
-	 * @param array 				$extraFilters
-	 * @return mixed
-	 * @abstract
-	 */
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array());
+    /**
+     * Populate the calendar with events persisted from the event registry.
+     *
+     * @param  RegistryInterface $eventsRegistry
+     * @param  \DateTime         $fromDate
+     * @param  \DateTime         $toDate
+     * @param  integer|null      $limit
+     * @param  array             $extraFilters
+     * @return mixed
+     * @abstract
+     */
+    public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array());
 
-	/**
-	 * Sort the events that the calendar contains.
-	 *
-	 * @return mixed
-	 */
-	public function sort();
+    /**
+     * Sort the events that the calendar contains.
+     *
+     * @return mixed
+     */
+    public function sort();
 }

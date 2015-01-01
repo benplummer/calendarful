@@ -16,44 +16,44 @@ class Daily implements RecurrenceInterface
     /**
      * @var string
      */
-	protected $label = 'daily';
+    protected $label = 'daily';
 
     /**
      * @var string
      */
-	protected $limit = '+1 year';
+    protected $limit = '+1 year';
 
     /**
      * Get the label of the recurrence type.
      *
      * @return string
      */
-	public function getLabel()
-	{
-		return $this->label;
-	}
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
     /**
      * Get the limit of the recurrence type.
      *
      * @return string
      */
-	public function getLimit()
-	{
-		return $this->limit;
-	}
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 
     /**
      * Generate the occurrences for each daily recurring event.
      *
-     * @param array $events
-     * @param \DateTime $fromDate
-     * @param \DateTime $toDate
-     * @param int|null $limit
+     * @param  array     $events
+     * @param  \DateTime $fromDate
+     * @param  \DateTime $toDate
+     * @param  int|null  $limit
      * @return array
      */
-	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
-	{
+    public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
+    {
         $return = array();
         $object = $this;
 
@@ -62,7 +62,6 @@ class Daily implements RecurrenceInterface
         });
 
         foreach ($dailyEvents as $dailyEvent) {
-
             list(, $dailyEventTime) = explode(' ', $dailyEvent->getStartDate());
 
             $startMarker = $fromDate > new \DateTime($dailyEvent->getStartDate())
@@ -86,16 +85,15 @@ class Daily implements RecurrenceInterface
 
             $limitMarker = 0;
 
-            foreach($datePeriod as $date) {
-
-                if(($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
+            foreach ($datePeriod as $date) {
+                if (($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
                     break;
                 }
 
                 $newDailyEvent = clone($dailyEvent);
                 $newStartDate = new \DateTime($date->format('Y-m-d').' '.$dailyEventTime);
 
-                if($newStartDate < $startMarker) {
+                if ($newStartDate < $startMarker) {
                     continue;
                 }
 

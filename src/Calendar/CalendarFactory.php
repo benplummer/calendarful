@@ -13,56 +13,55 @@ namespace Plummer\Calendarful\Calendar;
  */
 class CalendarFactory implements CalendarFactoryInterface
 {
-	/**
-	 * @var array
-	 */
-	private $calendarTypes = array();
+    /**
+     * @var array
+     */
+    private $calendarTypes = array();
 
-	/**
-	 * Stores calendar type class paths when provided with a key and an instance or
-	 * class path of an implementation.
-	 *
-	 * @param string 					$type
-	 * @param string|CalendarInterface 	$calendarType
-	 */
-	public function addCalendarType($type, $calendarType)
-	{
-		if(is_string($calendarType) and !class_exists($calendarType)) {
-			throw new \InvalidArgumentException("Class {$calendarType} does not exist.");
-		}
-		else if(!in_array('Plummer\Calendarful\Calendar\CalendarInterface', class_implements($calendarType, false))) {
-			throw new \InvalidArgumentException('File or File path required.');
-		}
+    /**
+     * Stores calendar type class paths when provided with a key and an instance or
+     * class path of an implementation.
+     *
+     * @param string                   $type
+     * @param string|CalendarInterface $calendarType
+     */
+    public function addCalendarType($type, $calendarType)
+    {
+        if (is_string($calendarType) and !class_exists($calendarType)) {
+            throw new \InvalidArgumentException("Class {$calendarType} does not exist.");
+        } elseif (!in_array('Plummer\Calendarful\Calendar\CalendarInterface', class_implements($calendarType, false))) {
+            throw new \InvalidArgumentException('File or File path required.');
+        }
 
-		$this->calendarTypes[$type] = is_string($calendarType) ?
-			$calendarType :
-			get_class($calendarType);
-	}
+        $this->calendarTypes[$type] = is_string($calendarType) ?
+            $calendarType :
+            get_class($calendarType);
+    }
 
-	/**
-	 * Get all of the stored calendar types.
-	 *
-	 * @return array
-	 */
-	public function getCalendarTypes()
-	{
-		return $this->calendarTypes;
-	}
+    /**
+     * Get all of the stored calendar types.
+     *
+     * @return array
+     */
+    public function getCalendarTypes()
+    {
+        return $this->calendarTypes;
+    }
 
-	/**
-	 * Creates and returns an instance of a stored calendar type.
-	 *
-	 * @param string $type
-	 * @return CalendarInterface
-	 */
-	public function createCalendar($type)
-	{
-		if(!isset($this->calendarTypes[$type])) {
-			throw new \OutOfBoundsException("A calendar type called {$type} does not exist within the factory.");
-		}
+    /**
+     * Creates and returns an instance of a stored calendar type.
+     *
+     * @param  string            $type
+     * @return CalendarInterface
+     */
+    public function createCalendar($type)
+    {
+        if (!isset($this->calendarTypes[$type])) {
+            throw new \OutOfBoundsException("A calendar type called {$type} does not exist within the factory.");
+        }
 
-		$calendar = new $this->calendarTypes[$type]();
+        $calendar = new $this->calendarTypes[$type]();
 
-		return $calendar;
-	}
+        return $calendar;
+    }
 }

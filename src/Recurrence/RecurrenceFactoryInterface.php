@@ -13,20 +13,20 @@ namespace Plummer\Calendarful\Recurrence;
  */
 interface RecurrenceFactoryInterface
 {
-	/**
-	 * Instantiates a recurrence type and returns it.
-	 *
-	 * @param $type
-	 * @return mixed
-	 * @abstract
-	 */
-	public function createRecurrenceType($type);
+    /**
+     * Instantiates a recurrence type and returns it.
+     *
+     * @param $type
+     * @return mixed
+     * @abstract
+     */
+    public function createRecurrenceType($type);
 
-	/**
-	 * Get all of the recurrence types from the factory.
-	 *
-	 * @return mixed
-	 * @abstract
-	 */
-	public function getRecurrenceTypes();
+    /**
+     * Get all of the recurrence types from the factory.
+     *
+     * @return mixed
+     * @abstract
+     */
+    public function getRecurrenceTypes();
 }
