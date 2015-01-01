@@ -195,7 +195,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
         $this->events = array_filter($this->events, function ($event) use ($fromDate, $toDate) {
             if ($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && $event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
                 return true;
-			}
+            }
 
             return false;
         });
