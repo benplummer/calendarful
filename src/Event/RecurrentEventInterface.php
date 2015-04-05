@@ -35,7 +35,7 @@ interface RecurrentEventInterface extends EventInterface
 	 * place. When the start date of the parent recurring event is updated, the occurrence
 	 * date of the overriding event should also be updated.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getOccurrenceDate();
@@ -53,8 +53,7 @@ interface RecurrentEventInterface extends EventInterface
 	/**
 	 * Set the recurrence type of the event.
 	 *
-	 * @param  null  $type
-	 * @return mixed
+	 * @param  string	$type
 	 * @abstract
 	 */
 	public function setRecurrenceType($type = null);
@@ -62,7 +61,7 @@ interface RecurrentEventInterface extends EventInterface
 	/**
 	 * Get the until date of the event.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getRecurrenceUntil();
