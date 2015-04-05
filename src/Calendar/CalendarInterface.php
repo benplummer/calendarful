@@ -17,12 +17,12 @@ interface CalendarInterface
 	/**
 	 * Populate the calendar with events persisted from the event registry.
 	 *
-	 * @param  RegistryInterface $eventsRegistry
-	 * @param  \DateTime         $fromDate
-	 * @param  \DateTime         $toDate
-	 * @param  integer|null      $limit
-	 * @param  array             $extraFilters
-	 * @return mixed
+	 * @param  RegistryInterface	$eventsRegistry
+	 * @param  \DateTime			$fromDate
+	 * @param  \DateTime			$toDate
+	 * @param  int					$limit
+	 * @param  array				$extraFilters
+	 * @return static
 	 * @abstract
 	 */
 	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array());
@@ -30,7 +30,7 @@ interface CalendarInterface
 	/**
 	 * Sort the events that the calendar contains.
 	 *
-	 * @return mixed
+	 * @return static
 	 */
 	public function sort();
 }

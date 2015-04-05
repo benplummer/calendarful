@@ -16,16 +16,16 @@ interface CalendarFactoryInterface
 	/**
 	 * Instantiates a calendar and returns it.
 	 *
-	 * @param $type
-	 * @return mixed
+	 * @param string				$type
+	 * @return CalendarInterface
 	 * @abstract
 	 */
 	public function createCalendar($type);
 
 	/**
-	 * Get all of the calendar types from the factory.
+	 * Get all of the calendar type class names from the factory.
 	 *
-	 * @return mixed
+	 * @return string[]
 	 * @abstract
 	 */
 	public function getCalendarTypes();

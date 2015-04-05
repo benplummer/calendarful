@@ -17,7 +17,7 @@ interface RecurrenceInterface
 	 *
 	 * This usually matches up with the recurrence type property of events.
 	 *
-	 * @return mixed
+	 * @return string
 	 * @abstract
 	 */
 	public function getLabel();
@@ -25,7 +25,7 @@ interface RecurrenceInterface
 	/**
 	 * Get the maximum limit of event occurrences that the recurrence type should return.
 	 *
-	 * @return mixed
+	 * @return string
 	 * @abstract
 	 */
 	public function getLimit();
@@ -33,11 +33,11 @@ interface RecurrenceInterface
 	/**
 	 * Generate the occurrences for recurring events of the relevant type.
 	 *
-	 * @param  array        $events
-	 * @param  \DateTime    $fromDate
-	 * @param  \DateTime    $toDate
-	 * @param  integer|null $limit
-	 * @return mixed
+	 * @param  EventInterface[]	$events
+	 * @param  \DateTime		$fromDate
+	 * @param  \DateTime		$toDate
+	 * @param  int|null			$limit
+	 * @return EventInterface[]
 	 * @abstract
 	 */
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null);

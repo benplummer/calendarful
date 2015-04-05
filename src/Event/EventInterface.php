@@ -28,7 +28,7 @@ interface EventInterface
 	/**
 	 * Get the start date of the event.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getStartDate();
@@ -37,7 +37,6 @@ interface EventInterface
 	 * Set the start date of the event.
 	 *
 	 * @param  \DateTime $startDate
-	 * @return mixed
 	 * @abstract
 	 */
 	public function setStartDate(\DateTime $startDate);
@@ -45,7 +44,7 @@ interface EventInterface
 	/**
 	 * Get the end date of the event.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getEndDate();
@@ -54,7 +53,6 @@ interface EventInterface
 	 * Set the end date of the event.
 	 *
 	 * @param  \DateTime $endDate
-	 * @return mixed
 	 * @abstract
 	 */
 	public function setEndDate(\DateTime $endDate);
@@ -62,7 +60,7 @@ interface EventInterface
 	/**
 	 * Get the duration between the event start date and end date.
 	 *
-	 * @return mixed
+	 * @return \DateInterval
 	 * @abstract
 	 */
 	public function getDuration();
@@ -93,7 +91,7 @@ interface EventInterface
 	 * place. When the start date of the parent recurring event is updated, the occurrence
 	 * date of the overriding event should also be updated.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getOccurrenceDate();
@@ -103,7 +101,7 @@ interface EventInterface
 	 *
 	 * This is usually a string that matches up to the label of a recurrence type.
 	 *
-	 * @return mixed
+	 * @return string
 	 * @abstract
 	 */
 	public function getRecurrenceType();
@@ -111,8 +109,7 @@ interface EventInterface
 	/**
 	 * Set the recurrence type of the event.
 	 *
-	 * @param  null  $type
-	 * @return mixed
+	 * @param  string $type
 	 * @abstract
 	 */
 	public function setRecurrenceType($type = null);
@@ -120,7 +117,7 @@ interface EventInterface
 	/**
 	 * Get the until date of the event.
 	 *
-	 * @return mixed
+	 * @return \DateTime
 	 * @abstract
 	 */
 	public function getRecurrenceUntil();

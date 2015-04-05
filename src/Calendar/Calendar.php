@@ -18,7 +18,7 @@ use Plummer\Calendarful\RegistryInterface;
 class Calendar implements CalendarInterface, \IteratorAggregate
 {
 	/**
-	 * @var array
+	 * @var EventInterface[]
 	 */
 	protected $events;
 
@@ -70,14 +70,14 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 *
 	 * Occurrences of recurring events are also generated at this stage.
 	 *
-	 * @param  RegistryInterface $eventsRegistry
-	 * @param  \DateTime         $fromDate
-	 * @param  \DateTime         $toDate
-	 * @param  null              $limit
-	 * @param  array             $extraFilters
-	 * @return $this
+	 * @param  RegistryInterface	$eventsRegistry
+	 * @param  \DateTime			$fromDate
+	 * @param  \DateTime			$toDate
+	 * @param  int					$limit
+	 * @param  mixed[]				$extraFilters
+	 * @return static
 	 */
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array())
+	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, array $extraFilters = array())
 	{
 		if ($fromDate > $toDate) {
 			throw new \RangeException("'From' date should be before the 'to' date.");
@@ -108,7 +108,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	/**
 	 * Sorts the events into ascending order based on their start dates.
 	 *
-	 * @return $this
+	 * @return static
 	 */
 	public function sort()
 	{
@@ -136,9 +136,9 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	/**
 	 * Generates the occurrences for recurring events if a recurrence factory is present.
 	 *
-	 * @param \DateTime $fromDate
-	 * @param \DateTime $toDate
-	 * @param null      $limit
+	 * @param \DateTime	$fromDate
+	 * @param \DateTime	$toDate
+	 * @param int		$limit
 	 */
 	protected function processRecurringEvents(\DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
@@ -166,8 +166,8 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	}
 
 	/**
-		* Removes the occurrences of recurring events that have been overridden.
-		*/
+	 * Removes the occurrences of recurring events that have been overridden.
+	 */
 	protected function removeOveriddenEvents()
 	{
 		// Events need to be sorted by date and id (both ascending) in order for overridden occurrences not to show

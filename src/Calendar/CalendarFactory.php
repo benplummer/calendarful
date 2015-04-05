@@ -14,7 +14,7 @@ namespace Plummer\Calendarful\Calendar;
 class CalendarFactory implements CalendarFactoryInterface
 {
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $calendarTypes = array();
 
@@ -22,8 +22,8 @@ class CalendarFactory implements CalendarFactoryInterface
 	 * Stores calendar type class paths when provided with a key and an instance or
 	 * class path of an implementation.
 	 *
-	 * @param string                   $type
-	 * @param string|CalendarInterface $calendarType
+	 * @param string					$type
+	 * @param string|CalendarInterface	$calendarType
 	 */
 	public function addCalendarType($type, $calendarType)
 	{
@@ -41,7 +41,7 @@ class CalendarFactory implements CalendarFactoryInterface
 	/**
 	 * Get all of the stored calendar types.
 	 *
-	 * @return array
+	 * @return string[]|null
 	 */
 	public function getCalendarTypes()
 	{
@@ -51,8 +51,9 @@ class CalendarFactory implements CalendarFactoryInterface
 	/**
 	 * Creates and returns an instance of a stored calendar type.
 	 *
-	 * @param  string            $type
+	 * @param  string				$type
 	 * @return CalendarInterface
+	 * @throws OutOfBoundsException
 	 */
 	public function createCalendar($type)
 	{

@@ -16,8 +16,8 @@ interface RegistryInterface
 	/**
 	 * Gets data and allows the passing of filters if desired.
 	 *
-	 * @param  array $filters
-	 * @return mixed
+	 * @param  mixed[] $filters
+	 * @return mixed[]
 	 */
 	public function get(Array $filters = array());
 }

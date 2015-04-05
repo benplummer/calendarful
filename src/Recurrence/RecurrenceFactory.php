@@ -16,7 +16,7 @@ namespace Plummer\Calendarful\Recurrence;
 class RecurrenceFactory implements RecurrenceFactoryInterface
 {
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	protected $recurrenceTypes = array();
 
@@ -24,8 +24,8 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 	 * Stores recurrence type class paths when provided with a key and an instance or
 	 * class path of an implementation.
 	 *
-	 * @param string                     $type
-	 * @param string|RecurrenceInterface $recurrenceType
+	 * @param string						$type
+	 * @param string|RecurrenceInterface	$recurrenceType
 	 */
 	public function addRecurrenceType($type, $recurrenceType)
 	{
@@ -43,7 +43,7 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 	/**
 	 * Get all of the stored recurrence types.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function getRecurrenceTypes()
 	{
@@ -53,8 +53,9 @@ class RecurrenceFactory implements RecurrenceFactoryInterface
 	/**
 	 * Creates and returns an instance of a stored recurrence type.
 	 *
-	 * @param  string              $type
+	 * @param  string				$type
 	 * @return RecurrenceInterface
+	 * @throws OutOfBoundsException
 	 */
 	public function createRecurrenceType($type)
 	{

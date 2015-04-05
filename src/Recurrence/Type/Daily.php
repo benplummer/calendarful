@@ -46,11 +46,11 @@ class Daily implements RecurrenceInterface
 	/**
 	 * Generate the occurrences for each daily recurring event.
 	 *
-	 * @param  array     $events
-	 * @param  \DateTime $fromDate
-	 * @param  \DateTime $toDate
-	 * @param  int|null  $limit
-	 * @return array
+	 * @param  EventInterface[]		$events
+	 * @param  \DateTime			$fromDate
+	 * @param  \DateTime			$toDate
+	 * @param  int|null				$limit
+	 * @return EventInterface[]
 	 */
 	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
