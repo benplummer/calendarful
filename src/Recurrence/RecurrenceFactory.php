@@ -15,55 +15,55 @@ namespace Plummer\Calendarful\Recurrence;
  */
 class RecurrenceFactory implements RecurrenceFactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $recurrenceTypes = array();
+	/**
+	 * @var array
+	 */
+	protected $recurrenceTypes = array();
 
-    /**
-     * Stores recurrence type class paths when provided with a key and an instance or
-     * class path of an implementation.
-     *
-     * @param string                     $type
-     * @param string|RecurrenceInterface $recurrenceType
-     */
-    public function addRecurrenceType($type, $recurrenceType)
-    {
-        if (is_string($recurrenceType) and !class_exists($recurrenceType)) {
-            throw new \InvalidArgumentException("Class {$recurrenceType} does not exist.");
-        } elseif (!in_array('Plummer\Calendarful\Recurrence\RecurrenceInterface', class_implements($recurrenceType))) {
-            throw new \InvalidArgumentException('File or File path required.');
-        }
+	/**
+	 * Stores recurrence type class paths when provided with a key and an instance or
+	 * class path of an implementation.
+	 *
+	 * @param string                     $type
+	 * @param string|RecurrenceInterface $recurrenceType
+	 */
+	public function addRecurrenceType($type, $recurrenceType)
+	{
+		if (is_string($recurrenceType) and !class_exists($recurrenceType)) {
+			throw new \InvalidArgumentException("Class {$recurrenceType} does not exist.");
+		} elseif (!in_array('Plummer\Calendarful\Recurrence\RecurrenceInterface', class_implements($recurrenceType))) {
+			throw new \InvalidArgumentException('File or File path required.');
+		}
 
-        $this->recurrenceTypes[$type] = is_string($recurrenceType) ?
-            $recurrenceType :
-            get_class($recurrenceType);
-    }
+		$this->recurrenceTypes[$type] = is_string($recurrenceType) ?
+			$recurrenceType :
+			get_class($recurrenceType);
+	}
 
-    /**
-     * Get all of the stored recurrence types.
-     *
-     * @return array
-     */
-    public function getRecurrenceTypes()
-    {
-        return $this->recurrenceTypes;
-    }
+	/**
+	 * Get all of the stored recurrence types.
+	 *
+	 * @return array
+	 */
+	public function getRecurrenceTypes()
+	{
+		return $this->recurrenceTypes;
+	}
 
-    /**
-     * Creates and returns an instance of a stored recurrence type.
-     *
-     * @param  string              $type
-     * @return RecurrenceInterface
-     */
-    public function createRecurrenceType($type)
-    {
-        if (!isset($this->recurrenceTypes[$type])) {
-            throw new \OutOfBoundsException("A recurrence type called {$type} does not exist within the factory.");
-        }
+	/**
+	 * Creates and returns an instance of a stored recurrence type.
+	 *
+	 * @param  string              $type
+	 * @return RecurrenceInterface
+	 */
+	public function createRecurrenceType($type)
+	{
+		if (!isset($this->recurrenceTypes[$type])) {
+			throw new \OutOfBoundsException("A recurrence type called {$type} does not exist within the factory.");
+		}
 
-        $recurrenceType = new $this->recurrenceTypes[$type]();
+		$recurrenceType = new $this->recurrenceTypes[$type]();
 
-        return $recurrenceType;
-    }
+		return $recurrenceType;
+	}
 }

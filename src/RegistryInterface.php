@@ -13,11 +13,11 @@ namespace Plummer\Calendarful;
  */
 interface RegistryInterface
 {
-    /**
-     * Gets data and allows the passing of filters if desired.
-     *
-     * @param  array $filters
-     * @return mixed
-     */
-    public function get(Array $filters = array());
+	/**
+	 * Gets data and allows the passing of filters if desired.
+	 *
+	 * @param  array $filters
+	 * @return mixed
+	 */
+	public function get(Array $filters = array());
 }

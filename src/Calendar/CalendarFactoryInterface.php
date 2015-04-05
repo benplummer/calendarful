@@ -13,20 +13,20 @@ namespace Plummer\Calendarful\Calendar;
  */
 interface CalendarFactoryInterface
 {
-    /**
-     * Instantiates a calendar and returns it.
-     *
-     * @param $type
-     * @return mixed
-     * @abstract
-     */
-    public function createCalendar($type);
+	/**
+	 * Instantiates a calendar and returns it.
+	 *
+	 * @param $type
+	 * @return mixed
+	 * @abstract
+	 */
+	public function createCalendar($type);
 
-    /**
-     * Get all of the calendar types from the factory.
-     *
-     * @return mixed
-     * @abstract
-     */
-    public function getCalendarTypes();
+	/**
+	 * Get all of the calendar types from the factory.
+	 *
+	 * @return mixed
+	 * @abstract
+	 */
+	public function getCalendarTypes();
 }
