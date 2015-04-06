@@ -3,7 +3,7 @@
 namespace Plummer\Calendarful\Calendar;
 
 use Plummer\Calendarful\Recurrence\RecurrenceFactoryInterface;
-use Plummer\Calendarful\RegistryInterface;
+use Plummer\Calendarful\Event\EventRegistryInterface;
 
 /**
  * Class Calendar
@@ -70,14 +70,14 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 *
 	 * Occurrences of recurring events are also generated at this stage.
 	 *
-	 * @param  RegistryInterface	$eventsRegistry
-	 * @param  \DateTime			$fromDate
-	 * @param  \DateTime			$toDate
-	 * @param  int					$limit
-	 * @param  mixed[]				$extraFilters
+	 * @param  EventRegistryInterface	$eventsRegistry
+	 * @param  \DateTime				$fromDate
+	 * @param  \DateTime				$toDate
+	 * @param  int						$limit
+	 * @param  mixed[]					$extraFilters
 	 * @return static
 	 */
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, array $extraFilters = array())
+	public function populate(EventRegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, array $extraFilters = array())
 	{
 		if ($fromDate > $toDate) {
 			throw new \RangeException("'From' date should be before the 'to' date.");

@@ -17,8 +17,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
 
@@ -38,7 +38,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-01 11:59:59'));
     }
@@ -47,8 +47,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
 
@@ -65,8 +65,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-03 18:00:00')));
 
@@ -83,8 +83,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-01 18:00:00')));
 
@@ -101,8 +101,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-03 18:00:00')));
 
@@ -119,8 +119,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-06-30 21:00:00')));
 
@@ -137,8 +137,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-07-02 21:00:00')));
 
@@ -155,8 +155,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-01 00:00:00', '2014-06-30 23:59:59')));
 
@@ -173,8 +173,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-05-31 22:00:00', '2014-06-01 03:00:00')));
 
@@ -187,8 +187,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(new MockEvent(1, '2014-06-30 21:00:00', '2014-07-01 03:00:00')));
 
@@ -201,8 +201,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(
                 new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00'),
@@ -218,8 +218,8 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
     {
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(
                 new MockEvent(1, '2014-06-02 10:00:00', '2014-06-02 14:00:00'),
@@ -250,12 +250,17 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $recurrenceFactory = new RecurrenceFactory();
         $recurrenceFactory->addRecurrenceType('daily', 'Plummer\Calendarful\Recurrence\Type\Daily');
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(
-                new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'daily'),
-                new MockEvent(2, '2014-06-15 18:00:00', '2014-06-15 19:00:00', null, null, 1, '2014-06-15 00:00:00'),
+                new MockEvent(2, '2014-06-15 18:00:00', '2014-06-15 19:00:00', null, null, 1, '2014-06-15 00:00:00')
+			));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array(
+                new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'daily')
             ));
 
         $calendar = Calendar::create($recurrenceFactory)
@@ -282,12 +287,17 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $recurrenceFactory = new RecurrenceFactory();
         $recurrenceFactory->addRecurrenceType('weekly', 'Plummer\Calendarful\Recurrence\Type\Weekly');
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(
-                new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'weekly'),
-                new MockEvent(2, '2014-06-22 18:00:00', '2014-06-22 19:00:00', null, null, 1, '2014-06-22 00:00:00'),
+                new MockEvent(2, '2014-06-22 18:00:00', '2014-06-22 19:00:00', null, null, 1, '2014-06-22 00:00:00')
+			));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array(
+                new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'weekly')
             ));
 
         $calendar = Calendar::create($recurrenceFactory)
@@ -314,13 +324,19 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $recurrenceFactory = new RecurrenceFactory();
         $recurrenceFactory->addRecurrenceType('monthly', 'Plummer\Calendarful\Recurrence\Type\MonthlyDate');
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\RegistryInterface');
-        $eventRegistry->shouldReceive('get')
+        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+        $eventRegistry->shouldReceive('getEvents')
             ->once()
             ->andReturn(array(
-                new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', 'monthly'),
-                new MockEvent(2, '2014-08-31 18:00:00', '2014-08-31 19:00:00', null, null, 1, '2014-08-31 00:00:00'),
+                new MockEvent(2, '2014-08-31 18:00:00', '2014-08-31 19:00:00', null, null, 1, '2014-08-31 00:00:00')
+			));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array(
+                new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', 'monthly')
             ));
+
 
         $calendar = Calendar::create($recurrenceFactory)
             ->populate($eventRegistry, new \DateTime('2014-05-01 12:00:00'), new \DateTime('2014-10-31 20:00:00'));

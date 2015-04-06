@@ -2,7 +2,7 @@
 
 namespace Plummer\Calendarful\Calendar;
 
-use Plummer\Calendarful\RegistryInterface;
+use Plummer\Calendarful\Event\EventRegistryInterface;
 
 /**
  * Interface CalendarInterface
@@ -17,15 +17,15 @@ interface CalendarInterface
 	/**
 	 * Populate the calendar with events persisted from the event registry.
 	 *
-	 * @param  RegistryInterface	$eventsRegistry
-	 * @param  \DateTime			$fromDate
-	 * @param  \DateTime			$toDate
-	 * @param  int					$limit
-	 * @param  array				$extraFilters
+	 * @param  EventRegistryInterface	$eventsRegistry
+	 * @param  \DateTime				$fromDate
+	 * @param  \DateTime				$toDate
+	 * @param  int						$limit
+	 * @param  array					$extraFilters
 	 * @return static
 	 * @abstract
 	 */
-	public function populate(RegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, Array $extraFilters = array());
+	public function populate(EventRegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, array $extraFilters = array());
 
 	/**
 	 * Sort the events that the calendar contains.
