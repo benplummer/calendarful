@@ -23,6 +23,16 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	protected $events;
 
 	/**
+	 * @var EventInterface[]
+	 */
+	protected $recurrentEvents;
+
+	/**
+	 * @var EventInterface[]
+	 */
+	protected $allEvents;
+
+	/**
 	 * @var RecurrenceFactoryInterface
 	 */
 	protected $recurrenceFactory;
@@ -57,11 +67,11 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 */
 	public function getIterator()
 	{
-		if ($this->events === null) {
+		if ($this->allEvents === null) {
 			throw new \Exception('This calendar needs to be populated with events.');
 		}
 
-		return new \ArrayIterator($this->events);
+		return new \ArrayIterator($this->allEvents);
 	}
 
 	/**
@@ -76,6 +86,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 * @param  int						$limit
 	 * @param  mixed[]					$extraFilters
 	 * @return static
+	 * @throws \RangeException
 	 */
 	public function populate(EventRegistryInterface $eventsRegistry, \DateTime $fromDate, \DateTime $toDate, $limit = null, array $extraFilters = array())
 	{
@@ -92,15 +103,16 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			$extraFilters
 		);
 
-		$this->events = $eventsRegistry->get($filters);
+		$this->allEvents = $this->events = $eventsRegistry->getEvents($filters);
 
-		$this->processRecurringEvents($fromDate, $toDate, $limit);
-
-		$this->removeOveriddenEvents();
+		if ($this->recurrentEvents = $eventsRegistry->getRecurrentEvents($filters)) {
+			$this->processRecurringEvents($fromDate, $toDate, $limit);
+			$this->removeOveriddenEvents();
+		}
 
 		$this->removeOutOfRangeEvents($fromDate, $toDate);
 
-		$this->events = $limit ? array_slice(array_values($this->events), 0, $limit) : array_values($this->events);
+		$this->allEvents = $limit ? array_slice(array_values($this->allEvents), 0, $limit) : array_values($this->allEvents);
 
 		return $this;
 	}
@@ -112,7 +124,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 */
 	public function sort()
 	{
-		usort($this->events, function ($event1, $event2) {
+		usort($this->allEvents, function ($event1, $event2) {
 			if ($event1->getStartDate() == $event2->getStartDate()) {
 				return $event1->getId() < $event2->getId() ? -1 : 1;
 			}
@@ -130,7 +142,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	 */
 	public function count()
 	{
-		return count($this->events);
+		return count($this->allEvents);
 	}
 
 	/**
@@ -146,14 +158,14 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 			foreach ($this->recurrenceFactory->getRecurrenceTypes() as $label => $recurrence) {
 				$recurrenceType = new $recurrence();
 
-				$occurrences = $recurrenceType->generateOccurrences($this->events, $fromDate, $toDate, $limit);
+				$occurrences = $recurrenceType->generateOccurrences($this->recurrentEvents, $fromDate, $toDate, $limit);
 
-				$this->events = array_merge($this->events, $occurrences);
+				$this->recurrentEvents = array_merge($this->recurrentEvents, $occurrences);
 			}
 		}
 
 		// Remove recurring events that do not occur within the date range
-		$this->events = array_filter($this->events, function ($event) use ($fromDate, $toDate) {
+		$this->recurrentEvents = array_filter($this->recurrentEvents, function ($event) use ($fromDate, $toDate) {
 
 			if (! $event->getRecurrenceType()) {
 				return true;
@@ -163,6 +175,8 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 			return false;
 		});
+
+		$this->allEvents = array_merge($this->allEvents, $this->recurrentEvents);
 	}
 
 	/**
@@ -172,14 +186,15 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	{
 		// Events need to be sorted by date and id (both ascending) in order for overridden occurrences not to show
 		$this->sort();
+
 		$events = array();
 
 		// New events array is created with the occurrence overrides replacing the relevant occurrences
-		array_walk($this->events, function ($event) use (&$events) {
+		array_walk($this->allEvents, function ($event) use (&$events) {
 			$events[($event->getOccurrenceDate() ?: $event->getStartDate()).'.'.($event->getParentId() ?: $event->getId())] = $event;
 		});
 
-		$this->events = $events;
+		$this->allEvents = $events;
 	}
 
 	/**
@@ -192,8 +207,10 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 	protected function removeOutOfRangeEvents(\DateTime $fromDate, \DateTime $toDate)
 	{
 		// Remove events that do not occur within the date range
-		$this->events = array_filter($this->events, function ($event) use ($fromDate, $toDate) {
-			if ($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && $event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
+		$this->allEvents = array_filter($this->allEvents, function ($event) use ($fromDate, $toDate) {
+
+			if ($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && 
+				$event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
 				return true;
 			}
 

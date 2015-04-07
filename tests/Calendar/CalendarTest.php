@@ -20,7 +20,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
+
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-01 12:00:00'));
 
@@ -29,19 +33,19 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         foreach ($calendar as $event) {
             $this->assertEquals('2014-06-01 12:00:00', $event->getStartDate());
         }
-    }
+	}
 
-    /**
-     * @expectedException RangeException
-     */
+	/**
+	 * @expectedException RangeException
+	 */
     public function testFromDateLaterThanToDate()
-    {
+	{
         $calendar = new Calendar();
 
-        $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
+		$eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-01 11:59:59'));
-    }
+	}
 
     public function testSameDayEventWithinDateRange()
     {
@@ -50,7 +54,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:59:59'));
 
@@ -68,7 +76,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-03 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 12:00:00', '2014-06-03 18:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:59:59'));
 
@@ -86,7 +98,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-01 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-01 18:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:59:59'));
 
@@ -104,7 +120,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-03 18:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 10:00:00', '2014-06-03 18:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:59:59'));
 
@@ -122,7 +142,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-06-30 21:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-06-30 21:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
 
@@ -140,7 +164,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-07-02 21:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-30 19:00:00', '2014-07-02 21:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
 
@@ -158,7 +186,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-01 00:00:00', '2014-06-30 23:59:59')));
+			->andReturn(array(new MockEvent(1, '2014-06-01 00:00:00', '2014-06-30 23:59:59')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 23:00:00'));
 
@@ -167,7 +199,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         foreach ($calendar as $event) {
             $this->assertEquals('2014-06-01 00:00:00', $event->getStartDate());
         }
-    }
+	}
 
     public function testEventBeforeDateRange()
     {
@@ -176,7 +208,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-05-31 22:00:00', '2014-06-01 03:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-05-31 22:00:00', '2014-06-01 03:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
 
@@ -190,7 +226,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         $eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
         $eventRegistry->shouldReceive('getEvents')
             ->once()
-            ->andReturn(array(new MockEvent(1, '2014-06-30 21:00:00', '2014-07-01 03:00:00')));
+			->andReturn(array(new MockEvent(1, '2014-06-30 21:00:00', '2014-07-01 03:00:00')));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'));
 
@@ -207,7 +247,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
             ->andReturn(array(
                 new MockEvent(1, '2014-06-01 12:00:00', '2014-06-01 18:00:00'),
                 new MockEvent(2, '2014-06-01 12:00:00', '2014-06-01 18:00:00'),
-            ));
+			));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'), 1);
 
@@ -227,7 +271,11 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
                 new MockEvent(3, '2014-06-01 23:00:00', '2014-06-02 03:30:00'),
                 new MockEvent(4, '2014-06-01 12:00:00', '2014-06-01 18:00:00'),
                 new MockEvent(5, '2014-06-02 10:00:00', '2014-06-02 13:30:00'),
-            ));
+			));
+		
+		$eventRegistry->shouldReceive('getRecurrentEvents')
+            ->once()
+            ->andReturn(array());
 
         $calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'), 1);
 
@@ -355,5 +403,5 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertTrue($overrideExists && !$overriddenExists);
-    }
+	}
 }
