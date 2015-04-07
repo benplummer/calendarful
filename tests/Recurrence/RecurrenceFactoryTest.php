@@ -7,75 +7,75 @@ use Plummer\Calendarful\Recurrence\Type\Daily;
 
 class RecurrenceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
+	public function tearDown()
+	{
+		m::close();
+	}
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testRecurrenceTypeClassDoesNotExist()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testRecurrenceTypeClassDoesNotExist()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('test', 'ThisIsNotAValidFileOrFilePath');
-    }
+		$recurrenceFactory->addRecurrenceType('test', 'ThisIsNotAValidFileOrFilePath');
+	}
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testRecurrenceTypeClassPathNotRecurrenceInterfaceImplementation()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testRecurrenceTypeClassPathNotRecurrenceInterfaceImplementation()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('test', 'Plummer\Calendarful\Mocks\MockEvent');
-    }
+		$recurrenceFactory->addRecurrenceType('test', 'Plummer\Calendarful\Mocks\MockEvent');
+	}
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testRecurrenceTypeClassNotRecurrenceInterfaceImplementation()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testRecurrenceTypeClassNotRecurrenceInterfaceImplementation()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('test', new \stdClass());
-    }
+		$recurrenceFactory->addRecurrenceType('test', new \stdClass());
+	}
 
-    public function testValidRecurrenceTypeClassPath()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	public function testValidRecurrenceTypeClassPath()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('test', 'Plummer\Calendarful\Recurrence\Type\Daily');
+		$recurrenceFactory->addRecurrenceType('test', 'Plummer\Calendarful\Recurrence\Type\Daily');
 
-        $this->assertEquals(1, count($recurrenceFactory->getRecurrenceTypes()));
-    }
+		$this->assertEquals(1, count($recurrenceFactory->getRecurrenceTypes()));
+	}
 
-    public function testValidRecurrenceTypeClass()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	public function testValidRecurrenceTypeClass()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('test', new Daily());
+		$recurrenceFactory->addRecurrenceType('test', new Daily());
 
-        $this->assertEquals(1, count($recurrenceFactory->getRecurrenceTypes()));
-    }
+		$this->assertEquals(1, count($recurrenceFactory->getRecurrenceTypes()));
+	}
 
-    /**
-     * @expectedException OutOfBoundsException
-     */
-    public function testNonExistentRecurrenceTypeClassRetrieval()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	/**
+	 * @expectedException OutOfBoundsException
+	 */
+	public function testNonExistentRecurrenceTypeClassRetrieval()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrence = $recurrenceFactory->createRecurrenceType('test');
-    }
+		$recurrence = $recurrenceFactory->createRecurrenceType('test');
+	}
 
-    public function testValidRecurrenceTypeClassRetrieval()
-    {
-        $recurrenceFactory = new RecurrenceFactory();
+	public function testValidRecurrenceTypeClassRetrieval()
+	{
+		$recurrenceFactory = new RecurrenceFactory();
 
-        $recurrenceFactory->addRecurrenceType('daily', new Daily());
+		$recurrenceFactory->addRecurrenceType('daily', new Daily());
 
-        $this->assertInstanceOf('Plummer\Calendarful\Recurrence\RecurrenceInterface', $recurrenceFactory->createRecurrenceType('daily'));
-    }
+		$this->assertInstanceOf('Plummer\Calendarful\Recurrence\RecurrenceInterface', $recurrenceFactory->createRecurrenceType('daily'));
+	}
 }
