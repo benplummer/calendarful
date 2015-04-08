@@ -191,6 +191,6 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 
 		$lastOccurrence = end($generatedMonthlyDateOccurrences);
 
-		$this->assertEquals('2039-06-01 00:00:00', $lastOccurrence->getStartDate());
+		$this->assertEquals(new \DateTime('2039-06-01 00:00:00'), $lastOccurrence->getStartDate());
 	}
 }

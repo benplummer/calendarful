@@ -62,17 +62,17 @@ class Daily implements RecurrenceInterface
 		});
 
 		foreach ($dailyEvents as $dailyEvent) {
-			list(, $dailyEventTime) = explode(' ', $dailyEvent->getStartDate());
-
-			$startMarker = $fromDate > new \DateTime($dailyEvent->getStartDate())
+			$dailyEventTime = $dailyEvent->getStartDate()->format('H:i:s');
+			
+			$startMarker = $fromDate > $dailyEvent->getStartDate()
 				? clone($fromDate)
-				: new \DateTime($dailyEvent->getStartDate());
+				: clone($dailyEvent->getStartDate());
 
 			$maxEndMarker = clone($startMarker);
 			$maxEndMarker->modify($this->limit);
 
 			$endMarker = $dailyEvent->getRecurrenceUntil()
-				? min(new \DateTime($dailyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+				? min($dailyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
 				: min(clone($toDate), $maxEndMarker);
 
 			$actualEndMarker = clone($endMarker);
@@ -100,8 +100,11 @@ class Daily implements RecurrenceInterface
 				$duration = $newDailyEvent->getDuration();
 
 				$newDailyEvent->setStartDate($newStartDate);
-				$newStartDate->add($duration);
-				$newDailyEvent->setEndDate($newStartDate);
+
+				$newEndDate = clone($newStartDate);
+				$newEndDate->add($duration);
+				
+				$newDailyEvent->setEndDate($newEndDate);
 				$newDailyEvent->setRecurrenceType();
 
 				$return[] = $newDailyEvent;

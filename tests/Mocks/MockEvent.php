@@ -23,12 +23,12 @@ class MockEvent implements EventInterface
 	public function __construct($id, $startDate, $endDate, $recurrenceType = null, $recurrenceUntil = null, $parentId = null, $occurrenceDate = null)
 	{
 		$this->id = $id;
-		$this->startDate = $startDate;
-		$this->endDate = $endDate;
+		$this->startDate = new \DateTime($startDate);
+		$this->endDate = new \DateTime($endDate);
 		$this->recurrenceType = $recurrenceType;
-		$this->recurrenceUntil = $recurrenceUntil;
+		$this->recurrenceUntil = $recurrenceUntil ? new \DateTime($recurrenceUntil) : null;
 		$this->parentId = $parentId;
-		$this->occurrenceDate = $occurrenceDate;
+		$this->occurrenceDate = $occurrenceDate ? new \DateTime($occurrenceDate) : null;
 	}
 
 	public function getId()
@@ -48,7 +48,7 @@ class MockEvent implements EventInterface
 
 	public function setStartDate(\DateTime $startDate)
 	{
-		$this->startDate = $startDate->format('Y-m-d H:i:s');
+		$this->startDate = $startDate;
 	}
 
 	public function getEndDate()
@@ -58,17 +58,12 @@ class MockEvent implements EventInterface
 
 	public function setEndDate(\DateTime $endDate)
 	{
-		$this->endDate = $endDate->format('Y-m-d H:i:s');
+		$this->endDate = $endDate;
 	}
 
 	public function getDuration()
 	{
-		$start = new \DateTime($this->startDate);
-		$end = new \DateTime($this->endDate);
-
-		$interval = $start->diff($end);
-
-		return $interval;
+		return $this->startDate->diff($this->endDate);
 	}
 
 	public function getParentId()

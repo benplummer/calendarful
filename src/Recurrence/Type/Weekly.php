@@ -62,14 +62,14 @@ class Weekly implements RecurrenceInterface
 		});
 
 		foreach ($weeklyEvents as $weeklyEvent) {
-			list(, $weeklyEventTime) = explode(' ', $weeklyEvent->getStartDate());
+			$weeklyEventTime = $weeklyEvent->getStartDate()->format('H:i:s');
 
 			// Retrieve the day of the week that the event takes place on
-			$day = date('w', strtotime($weeklyEvent->getStartDate()));
+			$day = $weeklyEvent->getStartDate()->format('w');
 
-			$startMarker = $fromDate > new \DateTime($weeklyEvent->getStartDate())
+			$startMarker = $fromDate > $weeklyEvent->getStartDate()
 				? clone($fromDate)
-				: new \DateTime($weeklyEvent->getStartDate());
+				: clone($weeklyEvent->getStartDate());
 
 			while ($startMarker->format('w') != $day) {
 				$startMarker->modify('P1D');
@@ -79,7 +79,7 @@ class Weekly implements RecurrenceInterface
 			$maxEndMarker->modify($this->limit);
 
 			$endMarker = $weeklyEvent->getRecurrenceUntil()
-				? min(new \DateTime($weeklyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+				? min($weeklyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
 				: min(clone($toDate), $maxEndMarker);
 
 			$actualEndMarker = clone($endMarker);
@@ -107,8 +107,11 @@ class Weekly implements RecurrenceInterface
 				$duration = $newWeeklyEvent->getDuration();
 
 				$newWeeklyEvent->setStartDate($newStartDate);
-				$newStartDate->add($duration);
-				$newWeeklyEvent->setEndDate($newStartDate);
+				
+				$newEndDate = clone($newStartDate);
+				$newEndDate->add($duration);
+
+				$newWeeklyEvent->setEndDate($newEndDate);
 				$newWeeklyEvent->setRecurrenceType();
 
 				$return[] = $newWeeklyEvent;

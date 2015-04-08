@@ -169,7 +169,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 			if (! $event->getRecurrenceType()) {
 				return true;
-			} elseif ($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && $event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
+			} elseif ($event->getStartDate() <= $toDate  && $event->getEndDate() >= $fromDate) {
 				return true;
 			}
 
@@ -191,7 +191,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 
 		// New events array is created with the occurrence overrides replacing the relevant occurrences
 		array_walk($this->allEvents, function ($event) use (&$events) {
-			$events[($event->getOccurrenceDate() ?: $event->getStartDate()).'.'.($event->getParentId() ?: $event->getId())] = $event;
+			$events[($event->getOccurrenceDate() ? $event->getOccurrenceDate()->format('Y-m-d H:i:s') : $event->getStartDate()->format('Y-m-d H:i:s')).'.'.($event->getParentId() ?: $event->getId())] = $event;
 		});
 
 		$this->allEvents = $events;
@@ -209,8 +209,7 @@ class Calendar implements CalendarInterface, \IteratorAggregate
 		// Remove events that do not occur within the date range
 		$this->allEvents = array_filter($this->allEvents, function ($event) use ($fromDate, $toDate) {
 
-			if ($event->getStartDate() <= $toDate->format('Y-m-d H:i:s') && 
-				$event->getEndDate() >= $fromDate->format('Y-m-d H:i:s')) {
+			if ($event->getStartDate() <= $toDate && $event->getEndDate() >= $fromDate) {
 				return true;
 			}
 

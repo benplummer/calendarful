@@ -63,13 +63,13 @@ class MonthlyDate implements RecurrenceInterface
 		});
 
 		foreach ($monthlyEvents as $monthlyEvent) {
-			list(, $monthlyEventTime) = explode(' ', $monthlyEvent->getStartDate());
+			$monthlyEventTime = $monthlyEvent->getStartDate()->format('H:i:s');
 
-			$monthlyDate = date('d', strtotime($monthlyEvent->getStartDate()));
+			$monthlyDate = $monthlyEvent->getStartDate()->format('d');
 
-			$start = $fromDate > new \DateTime($monthlyEvent->getStartDate())
+			$start = $fromDate > $monthlyEvent->getStartDate()
 				? clone($fromDate)
-				: new \DateTime($monthlyEvent->getStartDate());
+				: clone($monthlyEvent->getStartDate());
 
 			$startMarker = clone($start);
 			$startMarker->setDate($start->format('Y'), $start->format('m'), 1);
@@ -78,7 +78,7 @@ class MonthlyDate implements RecurrenceInterface
 			$maxEndMarker->modify($this->limit);
 
 			$endMarker = $monthlyEvent->getRecurrenceUntil()
-				? min(new \DateTime($monthlyEvent->getRecurrenceUntil()), clone($toDate), $maxEndMarker)
+				? min($monthlyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
 				: min(clone($toDate), $maxEndMarker);
 
 			$actualEndMarker = clone($endMarker);
@@ -112,8 +112,11 @@ class MonthlyDate implements RecurrenceInterface
 				$duration = $newMonthlyEvent->getDuration();
 
 				$newMonthlyEvent->setStartDate($newStartDate);
-				$newStartDate->add($duration);
-				$newMonthlyEvent->setEndDate($newStartDate);
+
+				$newEndDate = clone($newStartDate);
+				$newEndDate->add($duration);
+				
+				$newMonthlyEvent->setEndDate($newEndDate);
 				$newMonthlyEvent->setRecurrenceType();
 
 				$return[] = $newMonthlyEvent;

@@ -31,7 +31,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 12:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 12:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -65,7 +65,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 12:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 12:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -87,7 +87,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 12:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 12:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -109,7 +109,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 10:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 10:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -131,7 +131,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 10:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 10:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -153,7 +153,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-30 19:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-30 19:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -175,7 +175,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-30 19:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-30 19:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -197,7 +197,7 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $calendar->count());
 
 		foreach ($calendar as $event) {
-			$this->assertEquals('2014-06-01 00:00:00', $event->getStartDate());
+			$this->assertEquals(new \DateTime('2014-06-01 00:00:00'), $event->getStartDate());
 		}
 	}
 
@@ -320,9 +320,9 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(29, $calendar->count());
 
 		foreach ($calendar as $event) {
-			if ($event->getStartDate() === '2014-06-15 18:00:00') {
+			if ($event->getStartDate() == new \DateTime('2014-06-15 18:00:00')) {
 				$overrideExists = true;
-			} elseif ($event->getStartDate() === '2014-06-15 00:00:00') {
+			} elseif ($event->getStartDate() == new \DateTime('2014-06-15 00:00:00')) {
 				$overriddenExists = true;
 			}
 		}
@@ -357,9 +357,9 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(4, $calendar->count());
 
 		foreach ($calendar as $event) {
-			if ($event->getStartDate() === '2014-06-22 18:00:00') {
+			if ($event->getStartDate() == new \DateTime('2014-06-22 18:00:00')) {
 				$overrideExists = true;
-			} elseif ($event->getStartDate() === '2014-06-22 00:00:00') {
+			} elseif ($event->getStartDate() == new \DateTime('2014-06-22 00:00:00')) {
 				$overriddenExists = true;
 			}
 		}
@@ -385,7 +385,6 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 				new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', 'monthly')
 			));
 
-
 		$calendar = Calendar::create($recurrenceFactory)
 			->populate($eventRegistry, new \DateTime('2014-05-01 12:00:00'), new \DateTime('2014-10-31 20:00:00'));
 
@@ -395,9 +394,9 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(4, $calendar->count());
 
 		foreach ($calendar as $event) {
-			if ($event->getStartDate() === '2014-08-31 18:00:00') {
+			if ($event->getStartDate() == new \DateTime('2014-08-31 18:00:00')) {
 				$overrideExists = true;
-			} elseif ($event->getStartDate() === '2014-08-31 00:00:00') {
+			} elseif ($event->getStartDate() == new \DateTime('2014-08-31 00:00:00')) {
 				$overriddenExists = true;
 			}
 		}

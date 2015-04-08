@@ -191,6 +191,6 @@ class WeeklyTest extends \PHPUnit_Framework_TestCase
 
 		$lastOccurrence = end($generatedWeeklyOccurrences);
 
-		$this->assertEquals('2019-05-26 00:00:00', $lastOccurrence->getStartDate());
+		$this->assertEquals(new \DateTime('2019-05-26 00:00:00'), $lastOccurrence->getStartDate());
 	}
 }

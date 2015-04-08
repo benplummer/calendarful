@@ -191,6 +191,6 @@ class DailyTest extends \PHPUnit_Framework_TestCase
 
 		$lastOccurrence = end($generatedDailyOccurrences);
 
-		$this->assertEquals('2015-06-01 00:00:00', $lastOccurrence->getStartDate());
+		$this->assertEquals(new \DateTime('2015-06-01 00:00:00'), $lastOccurrence->getStartDate());
 	}
 }
