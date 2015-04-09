@@ -155,7 +155,7 @@ class Calendar implements CalendarInterface
 	protected function processRecurringEvents(\DateTime $fromDate, \DateTime $toDate, $limit = null)
 	{
 		if ($this->recurrenceFactory) {
-			foreach ($this->recurrenceFactory->getRecurrenceTypes() as $label => $recurrence) {
+			foreach ($this->recurrenceFactory->getRecurrenceTypes() as $recurrence) {
 				$recurrenceType = new $recurrence();
 
 				$occurrences = $recurrenceType->generateOccurrences($this->recurrentEvents, $fromDate, $toDate, $limit);
