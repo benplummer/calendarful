@@ -12,7 +12,7 @@ use Plummer\Calendarful\Event\EventRegistryInterface;
  * @package Plummer\Calendarful
  * @abstract
  */
-interface CalendarInterface
+interface CalendarInterface extends \Countable
 {
 	/**
 	 * Populate the calendar with events persisted from the event registry.
