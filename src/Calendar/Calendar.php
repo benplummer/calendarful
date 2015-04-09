@@ -15,7 +15,7 @@ use Plummer\Calendarful\Event\EventRegistryInterface;
  *
  * @package Plummer\Calendarful
  */
-class Calendar implements CalendarInterface, \IteratorAggregate
+class Calendar implements CalendarInterface
 {
 	/**
 	 * @var EventInterface[]
