@@ -54,7 +54,7 @@ The `RecurrentEvent` model represents recurrent events and follows the `Recurren
 ```php
 <?php
 
-use Plummer\Calendarful\Event\EventInterface;
+use Plummer\Calendarful\Event\RecurrentEventInterface;
 
 class RecurrentEvent implements RecurrentEventInterface
 {
