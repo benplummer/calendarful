@@ -65,4 +65,27 @@ interface EventInterface
 	 */
 	public function getDuration();
 
+	/**
+	 * Get the id of the parent of the event.
+	 *
+	 * An event will tend to have a parent when it has overridden an occurrence of
+	 * the parent event that does recur.
+	 *
+	 * @return mixed
+	 * @abstract
+	 */
+	public function getParentId();
+
+	/**
+	 * Get the occurrence date of the event.
+	 *
+	 * When an occurrence of a recurring event is overridden, the date of that occurrence
+	 * should be the occurrence date property value of the new event that is created in its
+	 * place. When the start date of the parent recurring event is updated, the occurrence
+	 * date of the overriding event should also be updated.
+	 *
+	 * @return \DateTime
+	 * @abstract
+	 */
+	public function getOccurrenceDate();
 }

@@ -4,6 +4,7 @@ namespace Plummer\Calendarful\Calendar;
 
 use Mockery as m;
 use Plummer\Calendarful\Mocks\MockEvent;
+use Plummer\Calendarful\Mocks\MockRecurrentEvent;
 use Plummer\Calendarful\Recurrence\RecurrenceFactory;
 
 class CalendarTest extends \PHPUnit_Framework_TestCase
@@ -302,13 +303,13 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry->shouldReceive('getEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(2, '2014-06-15 18:00:00', '2014-06-15 19:00:00', null, null, 1, '2014-06-15 00:00:00')
+				new MockEvent(2, '2014-06-15 18:00:00', '2014-06-15 19:00:00', 1, '2014-06-15 00:00:00')
 			));
 		
 		$eventRegistry->shouldReceive('getRecurrentEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'daily')
+				new MockRecurrentEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', null, null, 'daily')
 			));
 
 		$calendar = Calendar::create($recurrenceFactory)
@@ -339,13 +340,13 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry->shouldReceive('getEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(2, '2014-06-22 18:00:00', '2014-06-22 19:00:00', null, null, 1, '2014-06-22 00:00:00')
+				new MockEvent(2, '2014-06-22 18:00:00', '2014-06-22 19:00:00', 1, '2014-06-22 00:00:00')
 			));
 		
 		$eventRegistry->shouldReceive('getRecurrentEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'weekly')
+				new MockRecurrentEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', null, null, 'weekly')
 			));
 
 		$calendar = Calendar::create($recurrenceFactory)
@@ -376,13 +377,13 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		$eventRegistry->shouldReceive('getEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(2, '2014-08-31 18:00:00', '2014-08-31 19:00:00', null, null, 1, '2014-08-31 00:00:00')
+				new MockEvent(2, '2014-08-31 18:00:00', '2014-08-31 19:00:00', 1, '2014-08-31 00:00:00')
 			));
 		
 		$eventRegistry->shouldReceive('getRecurrentEvents')
 			->once()
 			->andReturn(array(
-				new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', 'monthly')
+				new MockRecurrentEvent(1, '2014-05-31 00:00:00', '2014-05-31 01:00:00', null, null, 'monthly')
 			));
 
 		$calendar = Calendar::create($recurrenceFactory)

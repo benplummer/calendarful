@@ -4,6 +4,7 @@ namespace Plummer\Calendarful\Recurrence\Type;
 
 use Mockery as m;
 use Plummer\Calendarful\Mocks\MockEvent;
+use Plummer\Calendarful\Mocks\MockRecurrentEvent;
 
 class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,32 +13,12 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		m::close();
 	}
 
-	public function testOnlyMonthlyDateEventsUsed()
-	{
-		$monthlyDateRecurrenceType = new MonthlyDate();
-
-		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly'),
-			new MockEvent(2, '2014-12-02 18:00:00', '2014-12-02 19:00:00'),
-		);
-
-		$fromDate = new \DateTime('2014-06-01 00:00:00');
-		$toDate = new \DateTime('2014-12-31 23:59:59');
-
-		$generatedMonthlyDateOccurrences = $monthlyDateRecurrenceType->generateOccurrences($mockEvents, $fromDate, $toDate);
-
-		foreach ($generatedMonthlyDateOccurrences as $generatedMonthlyDateOccurrence) {
-			$this->assertEquals(1, $generatedMonthlyDateOccurrence->getId());
-			$this->assertNotEquals(2, $generatedMonthlyDateOccurrence->getId());
-		}
-	}
-
 	public function testOneDayMonthlyDateEventStartingWithinDateRange()
 	{
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -53,7 +34,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', 'monthly', '2014-08-31 23:59:59'),
+			new MockRecurrentEvent(1, '2014-05-31 00:00:00', '2014-05-31 02:00:00', null, null, 'monthly', '2014-08-31 23:59:59'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -69,7 +50,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -85,7 +66,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', 'monthly', '2014-08-31 23:59:59'),
+			new MockRecurrentEvent(1, '2014-05-31 00:00:00', '2014-06-01 02:00:00', null, null, 'monthly', '2014-08-31 23:59:59'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -101,7 +82,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -117,7 +98,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -133,7 +114,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', 'monthly', '2014-08-31 23:59:59'),
+			new MockRecurrentEvent(1, '2014-03-31 00:00:00', '2014-03-31 02:00:00', null, null, 'monthly', '2014-08-31 23:59:59'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -149,7 +130,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', 'monthly', '2014-08-31 23:59:59'),
+			new MockRecurrentEvent(1, '2014-03-31 00:00:00', '2014-04-01 02:00:00', null, null, 'monthly', '2014-08-31 23:59:59'),
 		);
 
 		$fromDate = new \DateTime('2014-05-01 00:00:00');
@@ -165,7 +146,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-06-01 00:00:00');
@@ -181,7 +162,7 @@ class MonthlyDateTest extends \PHPUnit_Framework_TestCase
 		$monthlyDateRecurrenceType = new MonthlyDate();
 
 		$mockEvents = array(
-			new MockEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', 'monthly'),
+			new MockRecurrentEvent(1, '2014-06-01 00:00:00', '2014-06-01 01:00:00', null, null, 'monthly'),
 		);
 
 		$fromDate = new \DateTime('2014-06-01 00:00:00');
