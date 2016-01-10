@@ -72,7 +72,7 @@ class Weekly implements RecurrenceInterface
 				: clone($weeklyEvent->getStartDate());
 
 			while ($startMarker->format('w') != $day) {
-				$startMarker->modify('P1D');
+				$startMarker->modify('+1 day');
 			}
 
 			$maxEndMarker = clone($startMarker);
