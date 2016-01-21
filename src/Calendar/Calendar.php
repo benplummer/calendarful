@@ -191,7 +191,11 @@ class Calendar implements CalendarInterface
 
 		// New events array is created with the occurrence overrides replacing the relevant occurrences
 		array_walk($this->allEvents, function ($event) use (&$events) {
-			$events[($event->getOccurrenceDate() ? $event->getOccurrenceDate()->format('Y-m-d H:i:s') : $event->getStartDate()->format('Y-m-d H:i:s')).'.'.($event->getParentId() ?: $event->getId())] = $event;
+			if ($event->getOccurrenceDate()) {
+			    $events[$event->getOccurrenceDate()->format('Y-m-d H:i:s').'.'.($event->getParentId() ?: $event->getId())] = $event;
+			} elseif (!isset($events[$event->getStartDate()->format('Y-m-d H:i:s').'.'.($event->getParentId() ?: $event->getId())])) {
+			    $events[$event->getStartDate()->format('Y-m-d H:i:s').'.'.($event->getParentId() ?: $event->getId())] = $event;
+			}
 		});
 
 		$this->allEvents = $events;
