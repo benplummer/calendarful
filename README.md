@@ -34,7 +34,7 @@ Before using this package, a few steps need to be taken.
 
 #### Event Models
 
-This package requires that you have `Event` and `RecurrentEvent` models.For the models to be compatible with this package they **must** implement the relevant package interfaces.
+This package requires that you have `Event` and `RecurrentEvent` models. For the models to be compatible with this package they **must** implement the relevant package interfaces.
 
 The `Event` model represents standard non-recurrent events and follows the `EventInterface`:
  
@@ -98,7 +98,7 @@ class EventRegistry implements EventRegistryInterface
 					->where('endDate', '>=', $filters['fromDate']->format('Y-m-d'))
 					->whereNull('type')->get();
 
-		foreach($results as $event) {
+		foreach ($results as $event) {
 			$events[$event->getId()] = $event;
 		}
 
@@ -116,7 +116,7 @@ class EventRegistry implements EventRegistryInterface
 							->where('until', '>=', $filters['fromDate']->format('Y-m-d'), 'or');
 					})->get();
 
-		foreach($results as $event) {
+		foreach ($results as $event) {
 			$recurrentEvents[$event->getId()] = $event;
 		}
 
@@ -148,11 +148,11 @@ $calendar = Plummer\Calendarful\Calendar\Calendar::create()
 			->populate($eventsRegistry, new \DateTime('2014-04-01'), new \DateTime('2014-04-30'));
 ```
 
-As calendars implement the `CalendarInterface` which in turn extends IteratorAggregate, they are traversable.
-The default `Calendar` uses an ArrayIterator which means we can access the events like so:
+As calendars implement the `CalendarInterface` which in turn extends `IteratorAggregate`, they are traversable.
+The default `Calendar` uses an `ArrayIterator` which means we can access the events like so:
 
 ```php
-foreach($calendar as $event) {
+foreach ($calendar as $event) {
     // Use event as necessary... 
 }
 ```
@@ -228,7 +228,7 @@ $calendar = $calendarFactory->createCalendar('gregorian');
 Or retrieve all calendar types to loop through etc.
 
 ```php
-foreach($calendarFactory->getCalendarTypes() as $type => $calendar) {
+foreach ($calendarFactory->getCalendarTypes() as $type => $calendar) {
     // Use calendar...
 }
 ```
