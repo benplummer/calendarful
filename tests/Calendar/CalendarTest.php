@@ -278,7 +278,9 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 			->once()
 			->andReturn(array());
 
-		$calendar->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'), 1);
+        $calendar
+            ->populate($eventRegistry, new \DateTime('2014-06-01 12:00:00'), new \DateTime('2014-06-30 20:00:00'))
+            ->sort();
 
 		$previous = null;
 
