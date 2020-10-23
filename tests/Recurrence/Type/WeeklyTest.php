@@ -6,9 +6,9 @@ use Mockery as m;
 use Plummer\Calendarful\Mocks\MockEvent;
 use Plummer\Calendarful\Mocks\MockRecurrentEvent;
 
-class WeeklyTest extends \PHPUnit_Framework_TestCase
+class WeeklyTest extends \PHPUnit\Framework\TestCase
 {
-	public function tearDown()
+	public function tearDown(): void
 	{
 		m::close();
 	}

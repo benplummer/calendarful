@@ -2,40 +2,39 @@
 
 namespace Plummer\Calendarful\Calendar;
 
+use InvalidArgumentException;
 use Mockery as m;
+use OutOfBoundsException;
 
-class CalendarFactoryTest extends \PHPUnit_Framework_TestCase
+class CalendarFactoryTest extends \PHPUnit\Framework\TestCase
 {
-	public function tearDown()
+	public function tearDown(): void
 	{
 		m::close();
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testCalendarTypeClassDoesNotExist()
 	{
+        $this->expectException(InvalidArgumentException::class);
+
 		$calendarFactory = new CalendarFactory();
 
 		$calendarFactory->addCalendarType('test', 'ThisIsNotAValidFileOrFilePath');
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testCalendarTypeClassPathNotCalendarInterfaceImplementation()
-	{
+    {
+        $this->expectException(InvalidArgumentException::class);
+
 		$calendarFactory = new CalendarFactory();
 
 		$calendarFactory->addCalendarType('test', 'Plummer\Calendarful\Mocks\MockEvent');
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testCalendarTypeClassNotCalendarInterfaceImplementation()
 	{
+        $this->expectException(InvalidArgumentException::class);
+
 		$calendarFactory = new CalendarFactory();
 
 		$calendarFactory->addCalendarType('test', new \stdClass());
@@ -59,11 +58,10 @@ class CalendarFactoryTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, count($calendarFactory->getCalendarTypes()));
 	}
 
-	/**
-	 * @expectedException OutOfBoundsException
-	 */
 	public function testNonExistentCalendarTypeClassRetrieval()
 	{
+        $this->expectException(OutOfBoundsException::class);
+
 		$calendarFactory = new CalendarFactory();
 
 		$calendar = $calendarFactory->createCalendar('test');

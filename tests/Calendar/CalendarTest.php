@@ -6,10 +6,11 @@ use Mockery as m;
 use Plummer\Calendarful\Mocks\MockEvent;
 use Plummer\Calendarful\Mocks\MockRecurrentEvent;
 use Plummer\Calendarful\Recurrence\RecurrenceFactory;
+use RangeException;
 
-class CalendarTest extends \PHPUnit_Framework_TestCase
+class CalendarTest extends \PHPUnit\Framework\TestCase
 {
-	public function tearDown()
+	public function tearDown(): void
 	{
 		m::close();
 	}
@@ -36,11 +37,10 @@ class CalendarTest extends \PHPUnit_Framework_TestCase
 		}
 	}
 
-	/**
-	 * @expectedException RangeException
-	 */
 	public function testFromDateLaterThanToDate()
 	{
+        $this->expectException(RangeException::class);
+
 		$calendar = new Calendar();
 
 		$eventRegistry = m::mock('\Plummer\Calendarful\Event\EventRegistryInterface');
