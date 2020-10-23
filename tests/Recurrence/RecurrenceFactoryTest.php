@@ -2,41 +2,40 @@
 
 namespace Plummer\Calendarful\Recurrence;
 
+use InvalidArgumentException;
 use Mockery as m;
+use OutOfBoundsException;
 use Plummer\Calendarful\Recurrence\Type\Daily;
 
-class RecurrenceFactoryTest extends \PHPUnit_Framework_TestCase
+class RecurrenceFactoryTest extends \PHPUnit\Framework\TestCase
 {
-	public function tearDown()
+	public function tearDown(): void
 	{
 		m::close();
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testRecurrenceTypeClassDoesNotExist()
 	{
+        $this->expectException(InvalidArgumentException::class);
+
 		$recurrenceFactory = new RecurrenceFactory();
 
 		$recurrenceFactory->addRecurrenceType('test', 'ThisIsNotAValidFileOrFilePath');
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testRecurrenceTypeClassPathNotRecurrenceInterfaceImplementation()
 	{
+        $this->expectException(InvalidArgumentException::class);
+
 		$recurrenceFactory = new RecurrenceFactory();
 
 		$recurrenceFactory->addRecurrenceType('test', 'Plummer\Calendarful\Mocks\MockEvent');
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testRecurrenceTypeClassNotRecurrenceInterfaceImplementation()
 	{
+        $this->expectException(InvalidArgumentException::class);
+
 		$recurrenceFactory = new RecurrenceFactory();
 
 		$recurrenceFactory->addRecurrenceType('test', new \stdClass());
@@ -60,11 +59,10 @@ class RecurrenceFactoryTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, count($recurrenceFactory->getRecurrenceTypes()));
 	}
 
-	/**
-	 * @expectedException OutOfBoundsException
-	 */
 	public function testNonExistentRecurrenceTypeClassRetrieval()
 	{
+        $this->expectException(OutOfBoundsException::class);
+
 		$recurrenceFactory = new RecurrenceFactory();
 
 		$recurrence = $recurrenceFactory->createRecurrenceType('test');
