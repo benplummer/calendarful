@@ -3,6 +3,7 @@ language: php
 jobs:
   include:
     - php: 7.4
+      dist: bionic
 
 notifications:
   email:
