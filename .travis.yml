@@ -1,5 +1,7 @@
 language: php
 
+dist: bionic
+
 jobs:
   include:
     - php: 7.4
@@ -12,12 +14,7 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
-script: phpunit
-
-matrix:
-  allow_failures:
-    - php: hhvm
-  fast_finish: true
+script: vendor/bin/phpunit
 
 notifications:
     on_success: always
