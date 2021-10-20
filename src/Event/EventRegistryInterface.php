@@ -13,19 +13,19 @@ namespace Plummer\Calendarful\Event;
  */
 interface EventRegistryInterface
 {
-	/**
-	 * Gets data and allows the passing of filters if desired.
-	 *
-	 * @param	array $filters
-	 * @return	EventInterface[]
-	 */
-	public function getEvents(array $filters = array());
+    /**
+     * Gets data and allows the passing of filters if desired.
+     *
+     * @param   array $filters
+     * @return  EventInterface[]
+     */
+    public function getEvents(array $filters = array());
 
-	/**
-	 * Gets data and allows the passing of filters if desired.
-	 *
-	 * @param	array $filters
-	 * @return	EventInterface[]
-	 */
-	public function getRecurrentEvents(array $filters = array());
+    /**
+     * Gets data and allows the passing of filters if desired.
+     *
+     * @param   array $filters
+     * @return  EventInterface[]
+     */
+    public function getRecurrentEvents(array $filters = array());
 }

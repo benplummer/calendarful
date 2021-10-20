@@ -14,117 +14,117 @@ use Plummer\Calendarful\Recurrence\RecurrenceInterface;
  */
 class MonthlyDate implements RecurrenceInterface
 {
-	/**
-	 * @var string
-	 */
-	protected $label = 'monthly';
+    /**
+     * @var string
+     */
+    protected $label = 'monthly';
 
-	/**
-	 * @var string
-	 */
-	protected $limit = '+25 year';
+    /**
+     * @var string
+     */
+    protected $limit = '+25 year';
 
-	/**
-	 * Get the label of the recurrence type.
-	 *
-	 * @return string
-	 */
-	public function getLabel()
-	{
-		return $this->label;
-	}
+    /**
+     * Get the label of the recurrence type.
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
-	/**
-	 * Get the limit of the recurrence type.
-	 *
-	 * @return string
-	 */
-	public function getLimit()
-	{
-		return $this->limit;
-	}
+    /**
+     * Get the limit of the recurrence type.
+     *
+     * @return string
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 
-	/**
-	 * Generate the occurrences for each monthly recurring event.
-	 *
-	 * @param  EventInterface[]		$events
-	 * @param  \DateTime			$fromDate
-	 * @param  \DateTime			$toDate
-	 * @param  int|null				$limit
-	 * @return EventInterface[]
-	 */
-	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
-	{
-		$return = array();
-		$object = $this;
+    /**
+     * Generate the occurrences for each monthly recurring event.
+     *
+     * @param  EventInterface[]     $events
+     * @param  \DateTime            $fromDate
+     * @param  \DateTime            $toDate
+     * @param  int|null             $limit
+     * @return EventInterface[]
+     */
+    public function generateOccurrences(array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
+    {
+        $return = array();
+        $object = $this;
 
-		$monthlyEvents = array_filter($events, function ($event) use ($object) {
-			return $event->getRecurrenceType() === $object->getLabel();
-		});
+        $monthlyEvents = array_filter($events, function ($event) use ($object) {
+            return $event->getRecurrenceType() === $object->getLabel();
+        });
 
-		foreach ($monthlyEvents as $monthlyEvent) {
-			$monthlyEventTime = $monthlyEvent->getStartDate()->format('H:i:s');
+        foreach ($monthlyEvents as $monthlyEvent) {
+            $monthlyEventTime = $monthlyEvent->getStartDate()->format('H:i:s');
 
-			$monthlyDate = $monthlyEvent->getStartDate()->format('d');
+            $monthlyDate = $monthlyEvent->getStartDate()->format('d');
 
-			$start = $fromDate > $monthlyEvent->getStartDate()
-				? clone($fromDate)
-				: clone($monthlyEvent->getStartDate());
+            $start = $fromDate > $monthlyEvent->getStartDate()
+                ? clone($fromDate)
+                : clone($monthlyEvent->getStartDate());
 
-			$startMarker = clone($start);
-			$startMarker->setDate($start->format('Y'), $start->format('m'), 1);
+            $startMarker = clone($start);
+            $startMarker->setDate($start->format('Y'), $start->format('m'), 1);
 
-			$maxEndMarker = clone($startMarker);
-			$maxEndMarker->modify($this->limit);
+            $maxEndMarker = clone($startMarker);
+            $maxEndMarker->modify($this->limit);
 
-			$endMarker = $monthlyEvent->getRecurrenceUntil()
-				? min($monthlyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
-				: min(clone($toDate), $maxEndMarker);
+            $endMarker = $monthlyEvent->getRecurrenceUntil()
+                ? min($monthlyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
+                : min(clone($toDate), $maxEndMarker);
 
-			$actualEndMarker = clone($endMarker);
+            $actualEndMarker = clone($endMarker);
 
-			// The DatePeriod class does not actually include the end date so you have to increment it first
-			$endMarker->modify('+1 day');
+            // The DatePeriod class does not actually include the end date so you have to increment it first
+            $endMarker->modify('+1 day');
 
-			$dateInterval = new \DateInterval('P1M');
-			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
+            $dateInterval = new \DateInterval('P1M');
+            $datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
-			$limitMarker = 0;
+            $limitMarker = 0;
 
-			foreach ($datePeriod as $date) {
-				if (($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
-					break;
-				}
+            foreach ($datePeriod as $date) {
+                if (($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
+                    break;
+                }
 
-				if ($monthlyDate > $date->format('t')) {
-					continue;
-				}
+                if ($monthlyDate > $date->format('t')) {
+                    continue;
+                }
 
-				$date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $monthlyDate));
+                $date->setDate($date->format('Y'), $date->format('m'), sprintf('%2d', $monthlyDate));
 
-				$newMonthlyEvent = clone($monthlyEvent);
-				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$monthlyEventTime);
+                $newMonthlyEvent = clone($monthlyEvent);
+                $newStartDate = new \DateTime($date->format('Y-m-d') . ' ' . $monthlyEventTime);
 
-				if ($newStartDate < $startMarker) {
-					continue;
-				}
+                if ($newStartDate < $startMarker) {
+                    continue;
+                }
 
-				$duration = $newMonthlyEvent->getDuration();
+                $duration = $newMonthlyEvent->getDuration();
 
-				$newMonthlyEvent->setStartDate($newStartDate);
+                $newMonthlyEvent->setStartDate($newStartDate);
 
-				$newEndDate = clone($newStartDate);
-				$newEndDate->add($duration);
-				
-				$newMonthlyEvent->setEndDate($newEndDate);
-				$newMonthlyEvent->setRecurrenceType();
+                $newEndDate = clone($newStartDate);
+                $newEndDate->add($duration);
 
-				$return[] = $newMonthlyEvent;
+                $newMonthlyEvent->setEndDate($newEndDate);
+                $newMonthlyEvent->setRecurrenceType();
 
-				$limit and $limitMarker++;
-			}
-		}
+                $return[] = $newMonthlyEvent;
 
-		return $return;
-	}
+                $limit and $limitMarker++;
+            }
+        }
+
+        return $return;
+    }
 }

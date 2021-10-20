@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<ruleset name="PHP_CodeSniffer">
+
+<description>PHPCS Configuration File.</description>
+
+<file>src</file>
+
+<arg value="np"/>
+
+<rule ref="PSR12"/>
+
+</ruleset>
