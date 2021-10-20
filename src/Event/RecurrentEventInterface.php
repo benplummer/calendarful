@@ -16,29 +16,29 @@ namespace Plummer\Calendarful\Event;
  */
 interface RecurrentEventInterface extends EventInterface
 {
-	/**
-	 * Get the recurrence type of the event.
-	 *
-	 * This is usually a string that matches up to the label of a recurrence type.
-	 *
-	 * @return mixed
-	 * @abstract
-	 */
-	public function getRecurrenceType();
+    /**
+     * Get the recurrence type of the event.
+     *
+     * This is usually a string that matches up to the label of a recurrence type.
+     *
+     * @return mixed
+     * @abstract
+     */
+    public function getRecurrenceType();
 
-	/**
-	 * Set the recurrence type of the event.
-	 *
-	 * @param  string	$type
-	 * @abstract
-	 */
-	public function setRecurrenceType($type = null);
+    /**
+     * Set the recurrence type of the event.
+     *
+     * @param  string   $type
+     * @abstract
+     */
+    public function setRecurrenceType($type = null);
 
-	/**
-	 * Get the until date of the event.
-	 *
-	 * @return \DateTime
-	 * @abstract
-	 */
-	public function getRecurrenceUntil();
+    /**
+     * Get the until date of the event.
+     *
+     * @return \DateTime
+     * @abstract
+     */
+    public function getRecurrenceUntil();
 }

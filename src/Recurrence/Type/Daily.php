@@ -13,106 +13,106 @@ use Plummer\Calendarful\Recurrence\RecurrenceInterface;
  */
 class Daily implements RecurrenceInterface
 {
-	/**
-	 * @var string
-	 */
-	protected $label = 'daily';
+    /**
+     * @var string
+     */
+    protected $label = 'daily';
 
-	/**
-	 * @var string
-	 */
-	protected $limit = '+1 year';
+    /**
+     * @var string
+     */
+    protected $limit = '+1 year';
 
-	/**
-	 * Get the label of the recurrence type.
-	 *
-	 * @return string
-	 */
-	public function getLabel()
-	{
-		return $this->label;
-	}
+    /**
+     * Get the label of the recurrence type.
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
-	/**
-	 * Get the limit of the recurrence type.
-	 *
-	 * @return string
-	 */
-	public function getLimit()
-	{
-		return $this->limit;
-	}
+    /**
+     * Get the limit of the recurrence type.
+     *
+     * @return string
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 
-	/**
-	 * Generate the occurrences for each daily recurring event.
-	 *
-	 * @param  EventInterface[]		$events
-	 * @param  \DateTime			$fromDate
-	 * @param  \DateTime			$toDate
-	 * @param  int|null				$limit
-	 * @return EventInterface[]
-	 */
-	public function generateOccurrences(Array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
-	{
-		$return = array();
-		$object = $this;
+    /**
+     * Generate the occurrences for each daily recurring event.
+     *
+     * @param  EventInterface[]     $events
+     * @param  \DateTime            $fromDate
+     * @param  \DateTime            $toDate
+     * @param  int|null             $limit
+     * @return EventInterface[]
+     */
+    public function generateOccurrences(array $events, \DateTime $fromDate, \DateTime $toDate, $limit = null)
+    {
+        $return = array();
+        $object = $this;
 
-		$dailyEvents = array_filter($events, function ($event) use ($object) {
-			return $event->getRecurrenceType() === $object->getLabel();
-		});
+        $dailyEvents = array_filter($events, function ($event) use ($object) {
+            return $event->getRecurrenceType() === $object->getLabel();
+        });
 
-		foreach ($dailyEvents as $dailyEvent) {
-			$dailyEventTime = $dailyEvent->getStartDate()->format('H:i:s');
-			
-			$startMarker = $fromDate > $dailyEvent->getStartDate()
-				? clone($fromDate)
-				: clone($dailyEvent->getStartDate());
+        foreach ($dailyEvents as $dailyEvent) {
+            $dailyEventTime = $dailyEvent->getStartDate()->format('H:i:s');
 
-			$maxEndMarker = clone($startMarker);
-			$maxEndMarker->modify($this->limit);
+            $startMarker = $fromDate > $dailyEvent->getStartDate()
+                ? clone($fromDate)
+                : clone($dailyEvent->getStartDate());
 
-			$endMarker = $dailyEvent->getRecurrenceUntil()
-				? min($dailyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
-				: min(clone($toDate), $maxEndMarker);
+            $maxEndMarker = clone($startMarker);
+            $maxEndMarker->modify($this->limit);
 
-			$actualEndMarker = clone($endMarker);
+            $endMarker = $dailyEvent->getRecurrenceUntil()
+                ? min($dailyEvent->getRecurrenceUntil(), clone($toDate), $maxEndMarker)
+                : min(clone($toDate), $maxEndMarker);
 
-			// The DatePeriod class does not actually include the end date so you have to increment it first
-			$endMarker->modify('+1 day');
+            $actualEndMarker = clone($endMarker);
 
-			$dateInterval = new \DateInterval('P1D');
-			$datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
+            // The DatePeriod class does not actually include the end date so you have to increment it first
+            $endMarker->modify('+1 day');
 
-			$limitMarker = 0;
+            $dateInterval = new \DateInterval('P1D');
+            $datePeriod = new \DatePeriod($startMarker, $dateInterval, $endMarker);
 
-			foreach ($datePeriod as $date) {
-				if (($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
-					break;
-				}
+            $limitMarker = 0;
 
-				$newDailyEvent = clone($dailyEvent);
-				$newStartDate = new \DateTime($date->format('Y-m-d').' '.$dailyEventTime);
+            foreach ($datePeriod as $date) {
+                if (($limit and ($limit === $limitMarker)) or ($date > $actualEndMarker)) {
+                    break;
+                }
 
-				if ($newStartDate < $startMarker) {
-					continue;
-				}
+                $newDailyEvent = clone($dailyEvent);
+                $newStartDate = new \DateTime($date->format('Y-m-d') . ' ' . $dailyEventTime);
 
-				$duration = $newDailyEvent->getDuration();
+                if ($newStartDate < $startMarker) {
+                    continue;
+                }
 
-				$newDailyEvent->setStartDate($newStartDate);
+                $duration = $newDailyEvent->getDuration();
 
-				$newEndDate = clone($newStartDate);
-				$newEndDate->add($duration);
-				
-				$newDailyEvent->setEndDate($newEndDate);
-				$newDailyEvent->setRecurrenceType();
+                $newDailyEvent->setStartDate($newStartDate);
 
-				$return[] = $newDailyEvent;
+                $newEndDate = clone($newStartDate);
+                $newEndDate->add($duration);
 
-				$limit and $limitMarker++;
-			}
-		}
+                $newDailyEvent->setEndDate($newEndDate);
+                $newDailyEvent->setRecurrenceType();
 
-		return $return;
-	}
+                $return[] = $newDailyEvent;
+
+                $limit and $limitMarker++;
+            }
+        }
+
+        return $return;
+    }
 }
