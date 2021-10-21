@@ -1,34 +1,34 @@
 {
-	"name": "plummer/calendarful",
-	"description": "Calendar generator that allows for recurring events.",
-	"keywords": [
-		"calendar",
-		"events",
-		"recurrence"
-	],
-	"homepage": "http://benplummer.co.uk",
-	"license": "MIT",
-	"authors" : [
-		{
-			"name": "Ben Plummer",
-			"email": "ben@benplummer.co.uk",
-			"role": "Developer"
-		}
-	],
-	"require": {
-		"php": ">=8.0.0"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "^9.5",
-		"mockery/mockery": "^1.4",
-		"squizlabs/php_codesniffer": "^3.6",
-		"phpstan/phpstan": "^0.12.99"
-	},
-	"autoload": {
-		"psr-4": {
-			"Plummer\\Calendarful\\": ["src", "tests"]
-		}
-	},
-	"extra": {
-	}
+    "name": "plummer/calendarful",
+    "description": "Calendar generator that allows for recurring events.",
+    "keywords": [
+        "calendar",
+        "events",
+        "recurrence"
+    ],
+    "homepage": "https://benplummer.uk",
+    "license": "MIT",
+    "authors" : [
+        {
+            "name": "Ben Plummer",
+            "email": "me@benplummer.uk",
+            "role": "Software Engineer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.4",
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpstan/phpstan": "^0.12.99"
+    },
+    "autoload": {
+        "psr-4": {
+            "Plummer\\Calendarful\\": ["src", "tests"]
+        }
+    },
+    "extra": {
+    }
 }
