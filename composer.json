@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Plummer\\Calendarful\\": ["src", "tests"]
+            "Plummer\\Calendarful\\": "src"
         }
     },
     "extra": {
