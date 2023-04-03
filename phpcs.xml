@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 
-<ruleset name="PHP_CodeSniffer">
+<ruleset name="Plummer/Calendarful Coding Standard">
+  <arg value="p"/>
+  <arg value="s"/>
+  <arg name="colors"/>
 
-<description>PHPCS Configuration File.</description>
+  <file>src</file>
 
-<file>src</file>
-
-<arg value="np"/>
-
-<rule ref="PSR12"/>
-
+  <rule ref="PSR12">
+    <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps" />
+  </rule>
 </ruleset>
