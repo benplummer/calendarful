@@ -28,6 +28,6 @@ interface RecurrenceTypeInterface
     public function occurrencesFor(
         RecurringEventCollection $recurringEvents,
         DateTimeImmutable $fromDate,
-        DateTimeImmutable $toDate
+        DateTimeImmutable $toDate,
     ): EventOccurrenceCollection;
 }
