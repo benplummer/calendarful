@@ -18,9 +18,9 @@ class EventCollection implements Countable, IteratorAggregate
      * @param array<int, EventInterface> $events
      */
     private function __construct(
-        private readonly array $events
+        private readonly array $events,
     ) {
-        if (! $this->areAllInstancesOfEvents($events)) {
+        if (! $this->areAllInstancesOfEvent($events)) {
             throw new InvalidArgumentException('All array items must be an instance of EventInterface.');
         }
     }
@@ -51,7 +51,7 @@ class EventCollection implements Countable, IteratorAggregate
     /**
      * @param array<array-key, mixed> $items
      */
-    private function areAllInstancesOfEvents(array $items): bool
+    private function areAllInstancesOfEvent(array $items): bool
     {
         $nonEventItems = array_filter($items, function (mixed $item) {
             return ! $item instanceof EventInterface;

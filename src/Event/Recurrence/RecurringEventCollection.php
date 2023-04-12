@@ -20,7 +20,7 @@ class RecurringEventCollection implements Countable, IteratorAggregate
     private function __construct(
         private readonly array $recurringEvents,
     ) {
-        if (! $this->areAllInstancesOfRecurringEvents($recurringEvents)) {
+        if (! $this->areAllInstancesOfRecurringEvent($recurringEvents)) {
             throw new InvalidArgumentException(
                 'All array items must be an instance of RecurringEventInterface.',
             );
@@ -74,7 +74,7 @@ class RecurringEventCollection implements Countable, IteratorAggregate
     /**
      * @param array<array-key, mixed> $items
      */
-    private function areAllInstancesOfRecurringEvents(array $items): bool
+    private function areAllInstancesOfRecurringEvent(array $items): bool
     {
         $nonRecurringEventItems = array_filter($items, function (mixed $item) {
             return ! $item instanceof RecurringEventInterface;
