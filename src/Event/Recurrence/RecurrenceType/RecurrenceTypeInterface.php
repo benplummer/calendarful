@@ -6,8 +6,8 @@ namespace Plummer\Calendarful\Event\Recurrence\RecurrenceType;
 
 use DateInterval;
 use DateTimeImmutable;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrenceCollection;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventCollection;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceCollection;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
 
 interface RecurrenceTypeInterface
 {

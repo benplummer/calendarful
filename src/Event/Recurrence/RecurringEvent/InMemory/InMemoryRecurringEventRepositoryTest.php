@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Plummer\Calendarful\Event\Recurrence\InMemory;
+namespace Plummer\Calendarful\Event\Recurrence\RecurringEvent\InMemory;
 
-use Plummer\Calendarful\Event\Recurrence\RecurringEventRepositoryInterface;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventRepositoryTestCase;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventRepositoryInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventRepositoryTestCase;
 
 class InMemoryRecurringEventRepositoryTest extends RecurringEventRepositoryTestCase
 {

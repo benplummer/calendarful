@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Plummer\Calendarful\Event\Recurrence;
 
 use DateTimeImmutable;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceCollection;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeRepositoryInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
 
 class GenerateEventOccurrencesService
 {

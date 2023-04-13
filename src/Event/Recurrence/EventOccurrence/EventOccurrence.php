@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plummer\Calendarful\Event\Recurrence;
+namespace Plummer\Calendarful\Event\Recurrence\EventOccurrence;
 
 use DateInterval;
 use DateTimeImmutable;

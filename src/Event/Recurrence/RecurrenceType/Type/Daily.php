@@ -7,12 +7,12 @@ namespace Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type;
 use DateInterval;
 use DatePeriod;
 use DateTimeImmutable;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrence;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrenceCollection;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrence;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceCollection;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeInterface;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeId;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventCollection;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
 
 class Daily implements RecurrenceTypeInterface
 {
@@ -46,7 +46,7 @@ class Daily implements RecurrenceTypeInterface
         $dailyRecurringEvents = $recurringEvents->filter(
             function (RecurringEventInterface $recurringEvent) {
                 return $recurringEvent->recurrenceTypeId()->equals($this->id());
-            }
+            },
         );
 
         foreach ($dailyRecurringEvents as $dailyRecurringEvent) {

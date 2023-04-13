@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Plummer\Calendarful\Event\Recurrence;
+namespace Plummer\Calendarful\Event\Recurrence\RecurringEvent;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeId;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventRepositoryInterface;
 use Plummer\Calendarful\TestUtilities\EventIdFake;
 use Plummer\Calendarful\TestUtilities\RecurringEventFake;
 

@@ -6,10 +6,12 @@ namespace Plummer\Calendarful\Event\Recurrence;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceInterface;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\InMemory\InMemoryRecurrenceTypeRepository;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type\Daily;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type\MonthlyDate;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type\Weekly;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
 use Plummer\Calendarful\TestUtilities\EventIdFake;
 use Plummer\Calendarful\TestUtilities\RecurringEventFake;
 

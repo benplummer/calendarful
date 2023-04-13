@@ -6,9 +6,9 @@ namespace Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrence;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrenceInterface;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventCollection;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrence;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
 use Plummer\Calendarful\TestUtilities\EventIdFake;
 use Plummer\Calendarful\TestUtilities\RecurringEventFake;
 

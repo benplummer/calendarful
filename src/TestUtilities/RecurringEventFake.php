@@ -8,7 +8,7 @@ use DateInterval;
 use DateTimeImmutable;
 use Plummer\Calendarful\Event\EventIdInterface;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeId;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
 
 class RecurringEventFake implements RecurringEventInterface
 {

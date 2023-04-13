@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plummer\Calendarful\Event\Recurrence;
+namespace Plummer\Calendarful\Event\Recurrence\EventOccurrence;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -26,9 +26,20 @@ class EventOccurrenceTest extends TestCase
             $endDate,
         );
 
-        $this->assertEquals($eventId, $eventOccurrence->id());
-        $this->assertEquals($startDate, $eventOccurrence->startDate());
-        $this->assertEquals($endDate, $eventOccurrence->endDate());
+        $this->assertEquals(
+            $eventId,
+            $eventOccurrence->id(),
+        );
+
+        $this->assertEquals(
+            $startDate,
+            $eventOccurrence->startDate(),
+        );
+
+        $this->assertEquals(
+            $endDate,
+            $eventOccurrence->endDate(),
+        );
     }
 
     /**
@@ -44,8 +55,19 @@ class EventOccurrenceTest extends TestCase
 
         $duration = DateInterval::createFromDateString('2 hours + 30 minutes');
 
-        $this->assertEquals($duration->format('d'), $eventOccurrence->duration()->format('d'));
-        $this->assertEquals($duration->format('H'), $eventOccurrence->duration()->format('H'));
-        $this->assertEquals($duration->format('i'), $eventOccurrence->duration()->format('i'));
+        $this->assertEquals(
+            $duration->format('d'),
+            $eventOccurrence->duration()->format('d'),
+        );
+
+        $this->assertEquals(
+            $duration->format('H'),
+            $eventOccurrence->duration()->format('H'),
+        );
+
+        $this->assertEquals(
+            $duration->format('i'),
+            $eventOccurrence->duration()->format('i'),
+        );
     }
 }

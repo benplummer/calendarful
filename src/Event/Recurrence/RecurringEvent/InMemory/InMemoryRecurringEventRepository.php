@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Plummer\Calendarful\Event\Recurrence\InMemory;
+namespace Plummer\Calendarful\Event\Recurrence\RecurringEvent\InMemory;
 
 use DateTimeImmutable;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventCollection;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventInterface;
-use Plummer\Calendarful\Event\Recurrence\RecurringEventRepositoryInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
+use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventRepositoryInterface;
 
 class InMemoryRecurringEventRepository implements RecurringEventRepositoryInterface
 {
