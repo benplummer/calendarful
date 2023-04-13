@@ -18,8 +18,9 @@ class EventIdFake implements EventIdInterface
         return $this->id;
     }
 
-    public function equals(EventIdInterface $otherEventId): bool
-    {
+    public function equals(
+        EventIdInterface $otherEventId,
+    ): bool {
         return $this->id() === $otherEventId->id();
     }
 }
