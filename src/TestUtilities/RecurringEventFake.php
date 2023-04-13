@@ -13,17 +13,12 @@ use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
 class RecurringEventFake implements RecurringEventInterface
 {
     public function __construct(
-        protected EventIdInterface $id,
-        protected DateTimeImmutable $startDate,
-        protected DateTimeImmutable $endDate,
-        protected RecurrenceTypeId $recurrenceTypeId,
-        protected ?DateTimeImmutable $recursUntil = null,
+        private EventIdInterface $id,
+        private DateTimeImmutable $startDate,
+        private DateTimeImmutable $endDate,
+        private RecurrenceTypeId $recurrenceTypeId,
+        private ?DateTimeImmutable $recursUntil = null,
     ) {
-        $this->id = $id;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-        $this->recurrenceTypeId = $recurrenceTypeId;
-        $this->recursUntil = $recursUntil;
     }
 
     public function id(): EventIdInterface
