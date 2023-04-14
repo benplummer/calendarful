@@ -45,7 +45,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-01 02:00:00'),
@@ -54,7 +54,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-29 00:00:00'),
                 new DateTimeImmutable('2023-06-29 02:00:00'),
@@ -96,7 +96,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-01 02:00:00'),
@@ -105,7 +105,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-15 02:00:00'),
@@ -146,7 +146,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-03 02:00:00'),
@@ -155,7 +155,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-29 00:00:00'),
                 new DateTimeImmutable('2023-07-01 02:00:00'),
@@ -197,7 +197,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-03 02:00:00'),
@@ -206,7 +206,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-17 02:00:00'),
@@ -246,7 +246,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-08 00:00:00'),
                 new DateTimeImmutable('2023-06-08 02:00:00'),
@@ -255,7 +255,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-29 00:00:00'),
                 new DateTimeImmutable('2023-06-29 02:00:00'),
@@ -297,7 +297,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-08 00:00:00'),
                 new DateTimeImmutable('2023-06-08 02:00:00'),
@@ -306,7 +306,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-15 02:00:00'),
@@ -347,7 +347,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-08 00:00:00'),
                 new DateTimeImmutable('2023-06-10 02:00:00'),
@@ -356,7 +356,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-29 00:00:00'),
                 new DateTimeImmutable('2023-07-01 02:00:00'),
@@ -398,7 +398,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-08 00:00:00'),
                 new DateTimeImmutable('2023-06-10 02:00:00'),
@@ -407,7 +407,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-17 02:00:00'),
@@ -447,7 +447,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 15:00:00'),
                 new DateTimeImmutable('2023-06-01 17:00:00'),
@@ -456,7 +456,7 @@ class WeeklyTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-29 15:00:00'),
                 new DateTimeImmutable('2023-06-29 17:00:00'),

@@ -22,7 +22,7 @@ class EventOccurrenceFactoryTest extends TestCase
         $eventOccurrenceFactory = new EventOccurrenceFactory();
 
         $this->assertEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 $eventId,
                 $startDate,
                 $endDate,

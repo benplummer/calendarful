@@ -20,7 +20,7 @@ class EventOccurrenceTest extends TestCase
         $startDate = new DateTimeImmutable('2023-01-01 09:00:00');
         $endDate = new DateTimeImmutable('2023-01-01 11:30:00');
 
-        $eventOccurrence = EventOccurrence::create(
+        $eventOccurrence = new EventOccurrence(
             $eventId,
             $startDate,
             $endDate,
@@ -47,7 +47,7 @@ class EventOccurrenceTest extends TestCase
      */
     public function it_should_calculate_the_duration_correctly(): void
     {
-        $eventOccurrence = EventOccurrence::create(
+        $eventOccurrence = new EventOccurrence(
             new EventIdFake('1'),
             new DateTimeImmutable('2023-01-01 09:00:00'),
             new DateTimeImmutable('2023-01-01 11:30:00'),

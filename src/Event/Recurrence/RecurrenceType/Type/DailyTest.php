@@ -46,7 +46,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-01 02:00:00'),
@@ -55,7 +55,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-30 00:00:00'),
                 new DateTimeImmutable('2023-06-30 02:00:00'),
@@ -97,7 +97,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-01 02:00:00'),
@@ -106,7 +106,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-15 02:00:00'),
@@ -147,7 +147,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-03 02:00:00'),
@@ -156,7 +156,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-30 00:00:00'),
                 new DateTimeImmutable('2023-07-02 02:00:00'),
@@ -198,7 +198,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 00:00:00'),
                 new DateTimeImmutable('2023-06-03 02:00:00'),
@@ -207,7 +207,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 00:00:00'),
                 new DateTimeImmutable('2023-06-17 02:00:00'),
@@ -247,7 +247,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-10 00:00:00'),
                 new DateTimeImmutable('2023-06-10 02:00:00'),
@@ -256,7 +256,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-30 00:00:00'),
                 new DateTimeImmutable('2023-06-30 02:00:00'),
@@ -298,7 +298,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-10 00:00:00'),
                 new DateTimeImmutable('2023-06-10 02:00:00'),
@@ -307,7 +307,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-20 00:00:00'),
                 new DateTimeImmutable('2023-06-20 02:00:00'),
@@ -348,7 +348,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-10 00:00:00'),
                 new DateTimeImmutable('2023-06-12 02:00:00'),
@@ -357,7 +357,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-30 00:00:00'),
                 new DateTimeImmutable('2023-07-02 02:00:00'),
@@ -399,7 +399,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-10 00:00:00'),
                 new DateTimeImmutable('2023-06-12 02:00:00'),
@@ -408,7 +408,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-20 00:00:00'),
                 new DateTimeImmutable('2023-06-22 02:00:00'),
@@ -448,7 +448,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-01 15:00:00'),
                 new DateTimeImmutable('2023-06-01 17:00:00'),
@@ -457,7 +457,7 @@ class DailyTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-30 15:00:00'),
                 new DateTimeImmutable('2023-06-30 17:00:00'),

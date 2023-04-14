@@ -16,19 +16,19 @@ class EventOccurrenceCollectionTest extends TestCase
      */
     public function it_should_allow_creation_from_an_array_of_event_occurrences(): void
     {
-        $eventOccurrence1 = EventOccurrence::create(
+        $eventOccurrence1 = new EventOccurrence(
             new EventIdFake('1'),
             new DateTimeImmutable('2023-06-15 10:00:00'),
             new DateTimeImmutable('2022-06-15 12:00:00'),
         );
 
-        $eventOccurrence2 = EventOccurrence::create(
+        $eventOccurrence2 = new EventOccurrence(
             new EventIdFake('2'),
             new DateTimeImmutable('2023-06-20 13:00:00'),
             new DateTimeImmutable('2023-06-20 17:00:00'),
         );
 
-        $eventOccurrence3 = EventOccurrence::create(
+        $eventOccurrence3 = new EventOccurrence(
             new EventIdFake('3'),
             new DateTimeImmutable('2023-07-01 07:00:00'),
             new DateTimeImmutable('2023-07-01 08:30:00'),
@@ -94,7 +94,7 @@ class EventOccurrenceCollectionTest extends TestCase
          * @phpstan-ignore-next-line
          */
         EventOccurrenceCollection::fromArray([
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 10:00:00'),
                 new DateTimeImmutable('2022-06-15 12:00:00'),
@@ -110,17 +110,17 @@ class EventOccurrenceCollectionTest extends TestCase
     public function it_should_return_a_count_of_the_contained_events(): void
     {
         $eventOccurrenceCollection = EventOccurrenceCollection::fromArray([
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 10:00:00'),
                 new DateTimeImmutable('2022-06-15 12:00:00'),
             ),
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('2'),
                 new DateTimeImmutable('2023-06-20 13:00:00'),
                 new DateTimeImmutable('2023-06-20 17:00:00'),
             ),
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('3'),
                 new DateTimeImmutable('2023-07-01 07:00:00'),
                 new DateTimeImmutable('2023-07-01 08:30:00'),
@@ -139,17 +139,17 @@ class EventOccurrenceCollectionTest extends TestCase
     public function it_should_be_iterable(): void
     {
         $eventOccurrences = [
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-06-15 10:00:00'),
                 new DateTimeImmutable('2022-06-15 12:00:00'),
             ),
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('2'),
                 new DateTimeImmutable('2023-06-20 13:00:00'),
                 new DateTimeImmutable('2023-06-20 17:00:00'),
             ),
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('3'),
                 new DateTimeImmutable('2023-07-01 07:00:00'),
                 new DateTimeImmutable('2023-07-01 08:30:00'),
@@ -173,19 +173,19 @@ class EventOccurrenceCollectionTest extends TestCase
      */
     public function it_should_be_filterable(): void
     {
-        $eventOccurrence1 = EventOccurrence::create(
+        $eventOccurrence1 = new EventOccurrence(
             new EventIdFake('1'),
             new DateTimeImmutable('2023-06-15 10:00:00'),
             new DateTimeImmutable('2022-06-15 12:00:00'),
         );
 
-        $eventOccurrence2 = EventOccurrence::create(
+        $eventOccurrence2 = new EventOccurrence(
             new EventIdFake('2'),
             new DateTimeImmutable('2023-06-20 13:00:00'),
             new DateTimeImmutable('2023-06-20 17:00:00'),
         );
 
-        $eventOccurrence3 = EventOccurrence::create(
+        $eventOccurrence3 = new EventOccurrence(
             new EventIdFake('3'),
             new DateTimeImmutable('2023-07-01 07:00:00'),
             new DateTimeImmutable('2023-07-01 08:30:00'),
@@ -232,19 +232,19 @@ class EventOccurrenceCollectionTest extends TestCase
      */
     public function it_should_be_able_to_be_merged_with_another_event_occurrences_collection(): void
     {
-        $eventOccurrence1 = EventOccurrence::create(
+        $eventOccurrence1 = new EventOccurrence(
             new EventIdFake('1'),
             new DateTimeImmutable('2023-06-15 10:00:00'),
             new DateTimeImmutable('2022-06-15 12:00:00'),
         );
 
-        $eventOccurrence2 = EventOccurrence::create(
+        $eventOccurrence2 = new EventOccurrence(
             new EventIdFake('2'),
             new DateTimeImmutable('2023-06-20 13:00:00'),
             new DateTimeImmutable('2023-06-20 17:00:00'),
         );
 
-        $eventOccurrence3 = EventOccurrence::create(
+        $eventOccurrence3 = new EventOccurrence(
             new EventIdFake('3'),
             new DateTimeImmutable('2023-07-01 07:00:00'),
             new DateTimeImmutable('2023-07-01 08:30:00'),

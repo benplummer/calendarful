@@ -46,7 +46,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-01-31 02:00:00'),
@@ -55,7 +55,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-12-31 00:00:00'),
                 new DateTimeImmutable('2023-12-31 02:00:00'),
@@ -97,7 +97,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-01-31 02:00:00'),
@@ -106,7 +106,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-08-31 00:00:00'),
                 new DateTimeImmutable('2023-08-31 02:00:00'),
@@ -147,7 +147,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-02-02 02:00:00'),
@@ -156,7 +156,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-12-31 00:00:00'),
                 new DateTimeImmutable('2024-01-02 02:00:00'),
@@ -198,7 +198,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-02-02 02:00:00'),
@@ -207,7 +207,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-08-31 00:00:00'),
                 new DateTimeImmutable('2023-09-02 02:00:00'),
@@ -248,7 +248,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-01-31 02:00:00'),
@@ -257,7 +257,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-12-31 00:00:00'),
                 new DateTimeImmutable('2023-12-31 02:00:00'),
@@ -299,7 +299,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-01-31 02:00:00'),
@@ -308,7 +308,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-08-31 00:00:00'),
                 new DateTimeImmutable('2023-08-31 02:00:00'),
@@ -349,7 +349,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-02-02 02:00:00'),
@@ -358,7 +358,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-12-31 00:00:00'),
                 new DateTimeImmutable('2024-01-02 02:00:00'),
@@ -400,7 +400,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-31 00:00:00'),
                 new DateTimeImmutable('2023-02-02 02:00:00'),
@@ -409,7 +409,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-08-31 00:00:00'),
                 new DateTimeImmutable('2023-09-02 02:00:00'),
@@ -450,7 +450,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-01-01 15:00:00'),
                 new DateTimeImmutable('2023-01-01 17:00:00'),
@@ -459,7 +459,7 @@ class MonthlyDateTest extends TestCase
         );
 
         $this->assertNotContainsEquals(
-            EventOccurrence::create(
+            new EventOccurrence(
                 new EventIdFake('1'),
                 new DateTimeImmutable('2023-12-01 15:00:00'),
                 new DateTimeImmutable('2023-12-01 17:00:00'),
