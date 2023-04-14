@@ -17,8 +17,10 @@ use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
 
 class MonthlyDate implements RecurrenceTypeInterface
 {
+    protected EventOccurrenceFactoryInterface $eventOccurrenceFactory;
+
     public function __construct(
-        protected ?EventOccurrenceFactoryInterface $eventOccurrenceFactory = null,
+        ?EventOccurrenceFactoryInterface $eventOccurrenceFactory = null,
     ) {
         $this->eventOccurrenceFactory = $eventOccurrenceFactory ?? new EventOccurrenceFactory();
     }
