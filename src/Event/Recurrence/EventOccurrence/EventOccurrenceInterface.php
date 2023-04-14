@@ -10,9 +10,4 @@ use Plummer\Calendarful\Event\EventInterface;
 
 interface EventOccurrenceInterface extends EventInterface
 {
-    public static function create(
-        EventIdInterface $id,
-        DateTimeImmutable $startDate,
-        DateTimeImmutable $endDate,
-    ): self;
 }

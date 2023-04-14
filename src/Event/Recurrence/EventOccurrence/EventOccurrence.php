@@ -10,23 +10,11 @@ use Plummer\Calendarful\Event\EventIdInterface;
 
 class EventOccurrence implements EventOccurrenceInterface
 {
-    private function __construct(
+    public function __construct(
         private readonly EventIdInterface $id,
         private readonly DateTimeImmutable $startDate,
         private readonly DateTimeImmutable $endDate,
     ) {
-    }
-
-    public static function create(
-        EventIdInterface $id,
-        DateTimeImmutable $startDate,
-        DateTimeImmutable $endDate,
-    ): EventOccurrenceInterface {
-        return new self(
-            $id,
-            $startDate,
-            $endDate,
-        );
     }
 
     public function id(): EventIdInterface

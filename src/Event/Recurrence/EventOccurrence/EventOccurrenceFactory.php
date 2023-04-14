@@ -14,7 +14,7 @@ class EventOccurrenceFactory implements EventOccurrenceFactoryInterface
         DateTimeImmutable $startDate,
         DateTimeImmutable $endDate,
     ): EventOccurrenceInterface {
-        return EventOccurrence::create(
+        return new EventOccurrence(
             $eventId,
             $startDate,
             $endDate,
