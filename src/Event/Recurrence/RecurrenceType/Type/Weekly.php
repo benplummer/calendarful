@@ -7,8 +7,9 @@ namespace Plummer\Calendarful\Event\Recurrence\RecurrenceType\Type;
 use DateInterval;
 use DatePeriod;
 use DateTimeImmutable;
-use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrence;
 use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceCollection;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceFactory;
+use Plummer\Calendarful\Event\Recurrence\EventOccurrence\EventOccurrenceFactoryInterface;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeInterface;
 use Plummer\Calendarful\Event\Recurrence\RecurrenceType\RecurrenceTypeId;
 use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventCollection;
@@ -16,6 +17,12 @@ use Plummer\Calendarful\Event\Recurrence\RecurringEvent\RecurringEventInterface;
 
 class Weekly implements RecurrenceTypeInterface
 {
+    public function __construct(
+        protected ?EventOccurrenceFactoryInterface $eventOccurrenceFactory = null,
+    ) {
+        $this->eventOccurrenceFactory = $eventOccurrenceFactory ?? new EventOccurrenceFactory();
+    }
+
     /**
      * Get the unique ID that will be referenced by relevant recurring events.
      */
@@ -80,7 +87,7 @@ class Weekly implements RecurrenceTypeInterface
                     continue;
                 }
 
-                $occurrences[] = EventOccurrence::create(
+                $occurrences[] = $this->eventOccurrenceFactory->createEventOccurrence(
                     $weeklyRecurringEvent->id(),
                     $occurrenceStartDate,
                     $occurrenceStartDate->add($weeklyRecurringEvent->duration()),
