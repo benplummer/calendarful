@@ -77,4 +77,41 @@ abstract class EventOverrideRepositoryTestCase extends TestCase
             $eventOverrides,
         );
     }
+    
+    /**
+     * @test
+     */
+    public function it_should_fetch_the_next_identity_to_be_used(): void
+    {
+        $eventOverrideRepository = $this->createEventOverrideRepository();
+        $eventOverrideRepository->add(
+            new EventOverrideFake(
+                new EventIdFake("1"),
+                new DateTimeImmutable('2023-05-13 11:00:00'),
+                new DateTimeImmutable('2023-05-13 14:00:00'),
+                new EventIdFake("2"),
+                new DateTimeImmutable('2023-05-13 11:30:00'),
+            ),
+            new EventOverrideFake(
+                new EventIdFake("2"),
+                new DateTimeImmutable('2023-05-31 09:00:00'),
+                new DateTimeImmutable('2023-06-02 18:00:00'),
+                new EventIdFake("1"),
+                new DateTimeImmutable('2023-05-31 10:00:00'),
+            ),
+            new EventOverrideFake(
+                new EventIdFake("3"),
+                new DateTimeImmutable('2023-05-31 13:30:00'),
+                new DateTimeImmutable('2023-05-31 17:00:00'),
+                new EventIdFake("6"),
+                new DateTimeImmutable('2023-05-31 23:00:00'),
+            ),
+        );
+
+        $this->assertTrue(
+            (new EventIdFake('4'))->equals(
+                $eventOverrideRepository->nextIdentity(),
+            ),
+        );
+    }
 }
