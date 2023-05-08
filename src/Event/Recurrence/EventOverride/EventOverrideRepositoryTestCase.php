@@ -77,7 +77,7 @@ abstract class EventOverrideRepositoryTestCase extends TestCase
             $eventOverrides,
         );
     }
-    
+
     /**
      * @test
      */

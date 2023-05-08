@@ -31,14 +31,14 @@ class InMemoryEventOverrideRepository implements EventOverrideRepositoryInterfac
 
     public function nextIdentity(): EventIdInterface
     {
-        if(! $this->eventOverrides) {
+        if (! $this->eventOverrides) {
             return new EventIdFake('1');
         }
 
         $lastId = max(
             array_map(
-                function(EventOverrideInterface $eventOverride) {
-                    return $eventOverride->id()->id();
+                function (EventOverrideInterface $eventOverride) {
+                    return (int) $eventOverride->id()->id();
                 },
                 $this->eventOverrides,
             ),
