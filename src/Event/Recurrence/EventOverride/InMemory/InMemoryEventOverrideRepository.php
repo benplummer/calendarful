@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Plummer\Calendarful\Event\Recurrence\EventOverride\InMemory;
 
 use DateTimeImmutable;
+use Plummer\Calendarful\Event\EventIdInterface;
 use Plummer\Calendarful\Event\Recurrence\EventOverride\EventOverrideCollection;
 use Plummer\Calendarful\Event\Recurrence\EventOverride\EventOverrideInterface;
 use Plummer\Calendarful\Event\Recurrence\EventOverride\EventOverrideRepositoryInterface;
+use Plummer\Calendarful\TestUtilities\EventIdFake;
 
 class InMemoryEventOverrideRepository implements EventOverrideRepositoryInterface
 {
@@ -25,6 +27,26 @@ class InMemoryEventOverrideRepository implements EventOverrideRepositoryInterfac
                 $eventOverrides,
             ),
         ];
+    }
+
+    public function nextIdentity(): EventIdInterface
+    {
+        if(! $this->eventOverrides) {
+            return new EventIdFake('1');
+        }
+
+        $lastId = max(
+            array_map(
+                function(EventOverrideInterface $eventOverride) {
+                    return $eventOverride->id()->id();
+                },
+                $this->eventOverrides,
+            ),
+        );
+
+        return new EventIdFake(
+            strval(++$lastId),
+        );
     }
 
     public function withinDateRange(
